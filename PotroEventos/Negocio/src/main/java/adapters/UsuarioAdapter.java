@@ -5,6 +5,7 @@
 package adapters;
 
 import Entitys.Usuario;
+import dtos.UsuarioDTO;
 
 /**
  *
@@ -16,7 +17,7 @@ public class UsuarioAdapter {
             return null;
         }
         UsuarioDTO dto = new UsuarioDTO();
-        dto.setidUsuario(usuario.getIdUsuario());
+        dto.setIdUsuario(usuario.getIdUsuario());
         dto.setNombre(usuario.getNombre());
         dto.setApellidoPaterno(usuario.getApellidoPaterno());
         dto.setApellidoMaterno(usuario.getApellidoMaterno());

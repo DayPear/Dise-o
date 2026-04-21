@@ -35,6 +35,4 @@ public interface IControlOperaciones {
 
     void agregarAsientoEvento(AsientoEvento asientoEvento);
     
-    //inicia sesion
-    UsuarioDTO iniciarSesion(LoginDTO datos);
 }
