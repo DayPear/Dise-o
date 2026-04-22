@@ -11,11 +11,25 @@ import interfaces.IFachadaInicioSesion;
 
 /**
  *
- * @author aaron
+ * @author Aaron Burciaga - 262788
+ * @author Brian Sandoval - 262741
+ * @author Dayanara Peralta - 262695
+ * @author María Valdez - 262775
  */
 public class InicioSesionFachada implements IFachadaInicioSesion{
+    // para usar el singleton
+    private static InicioSesionFachada instance;
     
     private ControlInicioSesion control = ControlInicioSesion.getIntance();
+    
+    private InicioSesionFachada(){}
+    
+    public static InicioSesionFachada getInstance(){
+        if(instance == null){
+            instance = new InicioSesionFachada();
+        }
+        return instance;
+    }
     
     @Override
     public UsuarioDTO iniciarSesion(LoginDTO login){

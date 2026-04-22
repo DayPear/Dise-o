@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import interfaces.IFachadaInicioSesion;
+import fachada.InicioSesionFachada;
 /**
  *
  * @author Aaron Burciaga - 262788
@@ -24,7 +26,9 @@ public class ControlOperaciones implements IControlOperaciones {
     private List<Evento> eventos;
     private List<Usuario> usuarios;
     private List<AsientoEvento> asientosEvento;
-
+    
+    // --- intrefaces ---
+    private IFachadaInicioSesion fachadaInicioSesion = InicioSesionFachada.getInstance();
     public ControlOperaciones() {
         this.eventos = new ArrayList<>();
         this.usuarios = new ArrayList<>();
@@ -175,4 +179,17 @@ public class ControlOperaciones implements IControlOperaciones {
 
         asientosEvento.add(asientoEvento);
     }
+    public UsuarioDTO iniciarSesion(String correo, String contrasenia){
+        UsuarioDTO usuario = fachadaInicioSesion.verificarUsuario(correo, contrasenia);
+        for(){
+            
+        }
+
+        
+        if(usuario == null){
+            throw new IllegalArgumentException("Usuario Inexistente");
+        }
+        return usuario;
+    }
+
 }

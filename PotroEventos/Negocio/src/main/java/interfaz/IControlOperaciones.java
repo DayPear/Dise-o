@@ -3,6 +3,7 @@ package interfaz;
 import Entitys.AsientoEvento;
 import Entitys.Evento;
 import Entitys.Usuario;
+import dtos.UsuarioDTO;
 import java.util.List;
 
 /**
@@ -34,5 +35,7 @@ public interface IControlOperaciones {
     void agregarUsuario(Usuario usuario);
 
     void agregarAsientoEvento(AsientoEvento asientoEvento);
+    
+    UsuarioDTO iniciarSesion(String correo, String contrasenia);
 
 }

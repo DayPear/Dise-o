@@ -52,9 +52,7 @@ public interface ICoordinadorAplicacion {
     
     public List<CategoriaDTO> consultarCategorias();
     
-    public UsuarioDTO iniciarSesion(LoginDTO login);
-    
-    public UsuarioDTO verificarUsuario(String correo, String contrasenia);
+    public UsuarioDTO iniciarSesion(String correo, String contrasenia);
     
     public void setUsuarioSesion(UsuarioDTO usuario);
 }

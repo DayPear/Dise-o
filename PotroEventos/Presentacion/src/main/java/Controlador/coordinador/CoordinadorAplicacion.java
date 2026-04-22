@@ -181,13 +181,10 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         return new ArrayList<>();
     }
     @Override
-    public UsuarioDTO iniciarSesion(LoginDTO login){
-        return new UsuarioDTO();
+    public UsuarioDTO iniciarSesion(String correo, String contrasenia){
+        return null;
     }
-    @Override
-    public UsuarioDTO verificarUsuario(String correo, String contrasenia){
-        return new UsuarioDTO();
-    }
+
     @Override
     public void setUsuarioSesion(UsuarioDTO usuario){
     }

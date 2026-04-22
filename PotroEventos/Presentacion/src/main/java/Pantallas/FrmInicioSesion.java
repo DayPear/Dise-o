@@ -254,7 +254,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
             return;
         }
-        UsuarioDTO usuario = coordinador.verificarUsuario(correo, contrasenia);
+        UsuarioDTO usuario = coordinador.iniciarSesion(correo, contrasenia);
         if(usuario != null){
             javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
             coordinador.setUsuarioSesion(usuario);
