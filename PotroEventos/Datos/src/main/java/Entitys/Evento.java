@@ -14,17 +14,18 @@ import java.time.LocalDateTime;
 public class Evento {
 
     private Long idEvento;
-    private CategoriaEvento categoriaEvento;
+    private Categoria categoriaEvento;
     private String nombreEvento;
     private String informacionEvento;
     private LocalDateTime fechaHora;
     private String ubicacion;
     private EstadoEvento estadoEvento;
+    private String urlImagen;
 
     public Evento() {
     }
 
-    public Evento(Long idEvento, CategoriaEvento categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEvento estadoEvento) {
+    public Evento(Long idEvento, Categoria categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEvento estadoEvento, String urlImagen) {
         this.idEvento = idEvento;
         this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
@@ -32,15 +33,17 @@ public class Evento {
         this.fechaHora = fechaHora;
         this.ubicacion = ubicacion;
         this.estadoEvento = estadoEvento;
+        this.urlImagen = urlImagen;
     }
 
-    public Evento(CategoriaEvento categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEvento estadoEvento) {
+    public Evento(Categoria categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEvento estadoEvento, String urlImagen) {
         this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
         this.informacionEvento = informacionEvento;
         this.fechaHora = fechaHora;
         this.ubicacion = ubicacion;
         this.estadoEvento = estadoEvento;
+        this.urlImagen = urlImagen;
     }
 
     public Long getIdEvento() {
@@ -51,11 +54,11 @@ public class Evento {
         this.idEvento = idEvento;
     }
 
-    public CategoriaEvento getCategoriaEvento() {
+    public Categoria getCategoriaEvento() {
         return categoriaEvento;
     }
 
-    public void setCategoriaEvento(CategoriaEvento categoriaEvento) {
+    public void setCategoriaEvento(Categoria categoriaEvento) {
         this.categoriaEvento = categoriaEvento;
     }
 
@@ -99,9 +102,17 @@ public class Evento {
         this.estadoEvento = estadoEvento;
     }
 
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
     @Override
     public String toString() {
-        return "Evento{" + "idEvento=" + idEvento + ", categoriaEvento=" + categoriaEvento + ", nombreEvento=" + nombreEvento + ", informacionEvento=" + informacionEvento + ", fechaHora=" + fechaHora + ", ubicacion=" + ubicacion + '}';
+        return "Evento{" + "idEvento=" + idEvento + ", categoriaEvento=" + categoriaEvento + ", nombreEvento=" + nombreEvento + ", informacionEvento=" + informacionEvento + ", fechaHora=" + fechaHora + ", ubicacion=" + ubicacion + ", estadoEvento=" + estadoEvento + ", urlImagen=" + urlImagen + '}';
     }
 
 }

@@ -25,7 +25,7 @@ public class EventoAdapter {
 
         return new EventoDTO(
                 evento.getIdEvento(),
-                convertirCategoriaADTO(evento.getCategoria()),
+                convertirCategoriaADTO(evento.getCategoriaEvento()),
                 evento.getNombreEvento(),
                 evento.getInformacionEvento(),
                 evento.getFechaHora(),
@@ -66,9 +66,9 @@ public class EventoAdapter {
         }
 
         return new CategoriaDTO(
-                categoria.getIdCategoria(),
+                categoria.getId(),
                 categoria.getUrlImagen(),
-                CategoriaEventoDTO.valueOf(categoria.getNombreCategoria().name())
+                CategoriaEventoDTO.valueOf(categoria.getNombre().name())
         );
     }
 
@@ -83,8 +83,8 @@ public class EventoAdapter {
 
         return new Categoria(
                 dto.getIdCategoria(),
-                dto.getUrlImagen(),
-                CategoriaEvento.valueOf(dto.getNombreCategoria().name())
+                CategoriaEvento.valueOf(dto.getNombreCategoria().name()),
+                dto.getUrlImagen()
         );
     }
 

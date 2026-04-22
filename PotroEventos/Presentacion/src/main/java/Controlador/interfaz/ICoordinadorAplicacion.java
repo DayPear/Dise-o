@@ -2,7 +2,6 @@ package Controlador.interfaz;
 
 import dtos.CategoriaDTO;
 import dtos.EventoDTO;
-import dtos.LoginDTO;
 import dtos.UsuarioDTO;
 import java.util.List;
 

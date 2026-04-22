@@ -1,14 +1,9 @@
 package daos;
 
-import Entitys.Categoria;
-import Entitys.ENUMS.CategoriaEvento;
-import Entitys.ENUMS.EstadoEvento;
 import Entitys.Evento;
 import interfaces.IEventoDAO;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Implementación mock de la DAO de Evento.
@@ -19,41 +14,19 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class EventoDAO implements IEventoDAO {
 
-    private final List<Evento> eventos = new ArrayList<>();
-
-    public EventoDAO() {
-
-        Categoria cat = new Categoria(1L, "img.png", CategoriaEvento.FUTBOL);
-
-        eventos.add(new Evento(
-                1L,
-                cat,
-                "Final Liga MX",
-                "Gran final",
-                LocalDateTime.now().plusDays(5),
-                "Estadio Azteca",
-                EstadoEvento.ACTIVO,
-                "evento.png"
-        ));
-    }
-
     @Override
     public Evento buscarPorId(Long id) {
-        return eventos.stream()
-                .filter(e -> e.getIdEvento().equals(id))
-                .findFirst()
-                .orElse(null);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Evento> buscarTodos() {
-        return eventos;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Evento guardar(Evento evento) {
-        evento.setIdEvento((long) (eventos.size() + 1));
-        eventos.add(evento);
-        return evento;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }

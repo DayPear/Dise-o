@@ -1,6 +1,5 @@
 package objetosNegocio;
 
-import Entitys.Evento;
 import daos.EventoDAO;
 import dtos.EventoDTO;
 import excepciones.NegocioException;

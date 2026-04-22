@@ -1,6 +1,5 @@
 package dtos;
 
-import dtos.ENUMS.CategoriaEventoDTO;
 import dtos.ENUMS.EstadoEventoDTO;
 import java.time.LocalDateTime;
 
