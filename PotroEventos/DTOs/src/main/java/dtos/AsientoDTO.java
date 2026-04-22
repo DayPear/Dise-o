@@ -62,6 +62,10 @@ public class AsientoDTO {
         this.idseccion = idseccion;
     }
 
+    public String getNombreCompleto() {
+        return this.fila + "-" + this.numero;
+    }
+
     @Override
     public String toString() {
         return "AsientoDTO{" + "idAsiento=" + idAsiento + ", fila=" + fila + ", numero=" + numero + ", idseccion=" + idseccion + '}';

@@ -13,6 +13,8 @@
         <module>Pago</module>
         <module>GestionEvento</module>
         <module>InicioSesion</module>
+        <module>CompraBoleto</module>
+        <module>Dao</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

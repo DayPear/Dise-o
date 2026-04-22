@@ -14,6 +14,8 @@ import dtos.EventoDTO;
  * @author Dayanara Peralta - 262695
  * @author María Valdez - 262775
  *
+ *
+ */
 public class EventoAdapter {
 
     public EventoDTO entidadADTO(Evento evento) {
@@ -85,4 +87,4 @@ public class EventoAdapter {
 
         return EstadoEvento.valueOf(estadoDTO.name());
     }
-}*/
+}

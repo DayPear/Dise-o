@@ -6,7 +6,7 @@
         <artifactId>PotroEventos</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>Negocio</artifactId>
+    <artifactId>Dao</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -14,24 +14,9 @@
             <artifactId>Datos</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>DTOs</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>InicioSesion</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>dtos</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
     <properties>
-        <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>com.mycompany.negocio.Negocio</exec.mainClass>
+        <maven.compiler.release>24</maven.compiler.release>
+        <exec.mainClass>com.mycompany.dao.Dao</exec.mainClass>
     </properties>
 </project>
