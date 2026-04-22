@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>Presentacion</module>
-        <module>Negocio</module>
         <module>Datos</module>
         <module>DTOs</module>
         <module>Pago</module>
@@ -15,6 +14,7 @@
         <module>InicioSesion</module>
         <module>CompraBoleto</module>
         <module>Dao</module>
+        <module>ObjetosNegocio</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
