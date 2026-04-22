@@ -1,6 +1,7 @@
 Entitys\Boleto.class
 Entitys\ENUMS\EstadoBoleto.class
 Entitys\ENUMS\EstadoEvento.class
+Entitys\Categoria.class
 Entitys\Evento.class
 Entitys\Asiento.class
 Entitys\AsientoEvento.class

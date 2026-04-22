@@ -10,15 +10,22 @@ import dtos.ENUMS.EstadoEventoDTO;
 import dtos.EventoDTO;
 
 /**
- * Adapter para convertir entre Evento y EventoDTO.
+ * Adapter para convertir entre Evento y EventoDTO. Se usan métodos estáticos
+ * para evitar instanciación innecesaria.
  */
 public class EventoAdapter {
 
+    // Constructor privado para que nadie pueda hacer "new EventoAdapter()"
+    private EventoAdapter() {
+    }
+
     /**
      * Entidad -> DTO
+     *
+     * @param evento
+     * @return
      */
-    public EventoDTO entidadADTO(Evento evento) {
-
+    public static EventoDTO entidadADTO(Evento evento) {
         if (evento == null) {
             return null;
         }
@@ -30,41 +37,39 @@ public class EventoAdapter {
                 evento.getInformacionEvento(),
                 evento.getFechaHora(),
                 evento.getUbicacion(),
-                convertirEstado(evento.getEstadoEvento()),
+                convertirEstadoADTO(evento.getEstadoEvento()),
                 evento.getUrlImagen()
         );
     }
 
     /**
      * DTO -> Entidad
+     *
+     * @param dto
+     * @return
      */
-    public Evento dtoAEntidad(EventoDTO dto) {
-
+    public static Evento dtoAEntidad(EventoDTO dto) {
         if (dto == null) {
             return null;
         }
 
         return new Evento(
                 dto.getIdEvento(),
-                convertirCategoriaEntidad(dto.getCategoriaDTO()),
+                convertirCategoriaEntidad(dto.getCategoriaEvento()),
                 dto.getNombreEvento(),
                 dto.getInformacionEvento(),
                 dto.getFechaHora(),
                 dto.getUbicacion(),
-                convertirEstado(dto.getEstadoEvento()),
+                convertirEstadoAEntidad(dto.getEstadoEvento()),
                 dto.getUrlImagen()
         );
     }
 
-    /**
-     * Categoria Entidad -> DTO
-     */
-    private CategoriaDTO convertirCategoriaADTO(Categoria categoria) {
-
+    // Métodos de apoyo (también estáticos)
+    private static CategoriaDTO convertirCategoriaADTO(Categoria categoria) {
         if (categoria == null) {
             return null;
         }
-
         return new CategoriaDTO(
                 categoria.getId(),
                 categoria.getUrlImagen(),
@@ -72,15 +77,10 @@ public class EventoAdapter {
         );
     }
 
-    /**
-     * CategoriaDTO -> Entidad
-     */
-    private Categoria convertirCategoriaEntidad(CategoriaDTO dto) {
-
+    private static Categoria convertirCategoriaEntidad(CategoriaDTO dto) {
         if (dto == null) {
             return null;
         }
-
         return new Categoria(
                 dto.getIdCategoria(),
                 CategoriaEvento.valueOf(dto.getNombreCategoria().name()),
@@ -88,14 +88,11 @@ public class EventoAdapter {
         );
     }
 
-    /**
-     * Estado conversion
-     */
-    private EstadoEventoDTO convertirEstado(EstadoEvento estado) {
+    private static EstadoEventoDTO convertirEstadoADTO(EstadoEvento estado) {
         return estado != null ? EstadoEventoDTO.valueOf(estado.name()) : null;
     }
 
-    private EstadoEvento convertirEstado(EstadoEventoDTO dto) {
+    private static EstadoEvento convertirEstadoAEntidad(EstadoEventoDTO dto) {
         return dto != null ? EstadoEvento.valueOf(dto.name()) : null;
     }
 }

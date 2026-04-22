@@ -13,34 +13,35 @@ import java.time.LocalDateTime;
 public class EventoDTO {
 
     private Long idEvento;
+    private CategoriaDTO categoriaEvento;
     private String nombreEvento;
-    private EstadoEventoDTO estadoEvento;
     private String informacionEvento;
     private LocalDateTime fechaHora;
     private String ubicacion;
-    private CategoriaDTO categoriaDTO;
+    private EstadoEventoDTO estadoEvento;
     private String urlImagen;
 
     public EventoDTO() {
     }
 
-    public EventoDTO(Long idEvento, CategoriaDTO categoriaDTO, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEventoDTO estadoEvento, String urlImagen) {
+    public EventoDTO(Long idEvento, CategoriaDTO categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEventoDTO estadoEvento, String urlImagen) {
         this.idEvento = idEvento;
+        this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
         this.informacionEvento = informacionEvento;
         this.fechaHora = fechaHora;
         this.ubicacion = ubicacion;
-        this.categoriaDTO = categoriaDTO;
-        this.urlImagen = urlImagen;
         this.estadoEvento = estadoEvento;
+        this.urlImagen = urlImagen;
     }
 
-    public EventoDTO(CategoriaDTO categoriaDTO, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEventoDTO estadoEvento, String urlImagen) {
+    public EventoDTO(CategoriaDTO categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, String ubicacion, EstadoEventoDTO estadoEvento, String urlImagen) {
+        this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
         this.informacionEvento = informacionEvento;
         this.fechaHora = fechaHora;
         this.ubicacion = ubicacion;
-        this.categoriaDTO = categoriaDTO;
+        this.estadoEvento = estadoEvento;
         this.urlImagen = urlImagen;
     }
 
@@ -50,6 +51,14 @@ public class EventoDTO {
 
     public void setIdEvento(Long idEvento) {
         this.idEvento = idEvento;
+    }
+
+    public CategoriaDTO getCategoriaEvento() {
+        return categoriaEvento;
+    }
+
+    public void setCategoriaEvento(CategoriaDTO categoriaEvento) {
+        this.categoriaEvento = categoriaEvento;
     }
 
     public String getNombreEvento() {
@@ -84,12 +93,12 @@ public class EventoDTO {
         this.ubicacion = ubicacion;
     }
 
-    public CategoriaDTO getCategoriaDTO() {
-        return categoriaDTO;
+    public EstadoEventoDTO getEstadoEvento() {
+        return estadoEvento;
     }
 
-    public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
-        this.categoriaDTO = categoriaDTO;
+    public void setEstadoEvento(EstadoEventoDTO estadoEvento) {
+        this.estadoEvento = estadoEvento;
     }
 
     public String getUrlImagen() {
@@ -100,17 +109,9 @@ public class EventoDTO {
         this.urlImagen = urlImagen;
     }
 
-    public EstadoEventoDTO getEstadoEvento() {
-        return estadoEvento;
-    }
-
-    public void setEstadoEvento(EstadoEventoDTO estadoEvento) {
-        this.estadoEvento = estadoEvento;
-    }
-
     @Override
     public String toString() {
-        return "EventoDTO{" + "idEvento=" + idEvento + ", nombreEvento=" + nombreEvento + ", informacionEvento=" + informacionEvento + ", fechaHora=" + fechaHora + ", ubicacion=" + ubicacion + ", categoriaDTO=" + categoriaDTO.getNombreCategoria() + ", urlImagen=" + urlImagen + '}';
+        return "EventoDTO{" + "idEvento=" + idEvento + ", categoriaEvento=" + categoriaEvento + ", nombreEvento=" + nombreEvento + ", informacionEvento=" + informacionEvento + ", fechaHora=" + fechaHora + ", ubicacion=" + ubicacion + ", estadoEvento=" + estadoEvento + ", urlImagen=" + urlImagen + '}';
     }
 
 }

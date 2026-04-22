@@ -13,11 +13,9 @@ import java.util.List;
  */
 public interface IEventoBO {
 
-    EventoDTO crearEvento(EventoDTO evento) throws NegocioException;
+    EventoDTO guardarEvento(EventoDTO evento) throws NegocioException;
 
     List<EventoDTO> obtenerEventos();
 
     EventoDTO obtenerEventoPorId(Long id) throws NegocioException;
-
-    void eliminarEvento(Long id) throws NegocioException;
 }
