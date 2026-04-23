@@ -23,8 +23,16 @@ public class ControlInicioSesion {
     
     private static ControlInicioSesion instance;
     
-    private ControlInicioSesion(){}
+    private UsuarioDTO usuario;
     
+    private ControlInicioSesion() {
+        UsuarioDTO prueba = new UsuarioDTO();
+        prueba.setCorreo("admin@mail.com");
+        prueba.setContrasenia("1234");
+        prueba.setNombre("Dayanara");
+        listaUsuarios.add(prueba);
+    }
+
     public static ControlInicioSesion getIntance(){
         if(instance == null){
             instance = new ControlInicioSesion();
@@ -54,5 +62,17 @@ public class ControlInicioSesion {
             return null;
         }
         return this.iniciarSesion(new LoginDTO(correo, contrasenia));
+    }
+    
+    public void registrarSesion(UsuarioDTO usuario){
+        this.usuario = usuario;
+    }
+    
+    public void eliminarSesion(){
+        this.usuario = null;
+    }
+    
+    public UsuarioDTO obtenerUsuarioActual(){
+        return usuario;
     }
 }

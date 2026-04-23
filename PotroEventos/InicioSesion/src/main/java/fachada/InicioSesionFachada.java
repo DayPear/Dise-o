@@ -40,4 +40,9 @@ public class InicioSesionFachada implements IFachadaInicioSesion{
         return control.verificarUsuario(correo, contrasenia);
     }
 
+    @Override
+    public void cerrarSesion() {
+        control.eliminarSesion();
+    }
+
 }

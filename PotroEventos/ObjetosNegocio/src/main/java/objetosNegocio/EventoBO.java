@@ -1,7 +1,7 @@
 package objetosNegocio;
 
 import Entitys.Evento;
-import adapters.EventoAdapter;
+//import adapters.EventoAdapter;
 import daos.EventoDAO;
 import dtos.EventoDTO;
 import excepciones.NegocioException;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Objeto de negocio para Evento. Implementa patrón Singleton.
  */
-public class EventoBO implements IEventoBO {
+/*public class EventoBO implements IEventoBO {
     
     private static EventoBO instancia;
     private final IEventoDAO eventoDAO;
@@ -82,4 +82,4 @@ public class EventoBO implements IEventoBO {
         
         return true; // Si pasó todos los filtros
     }
-}
+}*/

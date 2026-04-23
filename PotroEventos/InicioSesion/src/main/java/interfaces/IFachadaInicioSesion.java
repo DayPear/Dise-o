@@ -19,4 +19,6 @@ public interface IFachadaInicioSesion {
     public UsuarioDTO iniciarSesion(LoginDTO login);
     
     public UsuarioDTO verificarUsuario(String correo, String contrasenia);
+    
+    public void cerrarSesion();
 }

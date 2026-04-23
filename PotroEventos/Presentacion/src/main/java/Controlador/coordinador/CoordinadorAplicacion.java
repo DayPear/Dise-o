@@ -15,6 +15,8 @@ import dtos.CategoriaDTO;
 import dtos.EventoDTO;
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
+import fachada.InicioSesionFachada;
+import interfaces.IFachadaInicioSesion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import java.util.List;
  * @author María Valdez - 262775
  */
 public class CoordinadorAplicacion implements ICoordinadorAplicacion {
+    private IFachadaInicioSesion logi = InicioSesionFachada.getInstance();
 
     private FrmInicioSesion frmInicioSesion;
     private FrmRegistrarse frmRegistrarse;
@@ -50,6 +53,9 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if(frmRegistro != null){
             frmRegistro.setVisible(false);
         }
+        if(frmInicioSesion != null){
+            frmInicioSesion.setVisible(false);
+        }
     }
 
     @Override
@@ -64,9 +70,14 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     @Override
     public void mostrarInicioSesion() {
         ocultarTodo();
+        if (frmPlantilla != null) {
+            frmPlantilla.dispose();
+            frmPlantilla = null;
+        }
         if (frmInicioSesion == null) {
             frmInicioSesion = new FrmInicioSesion(this);
         }
+        frmInicioSesion.limpiarCampos();
         frmInicioSesion.setVisible(true);
         frmInicioSesion.setLocationRelativeTo(null);
     }
@@ -182,10 +193,22 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
     @Override
     public UsuarioDTO iniciarSesion(String correo, String contrasenia){
-        return null;
+        return logi.verificarUsuario(correo, contrasenia);
     }
 
     @Override
     public void setUsuarioSesion(UsuarioDTO usuario){
+    }
+
+    @Override
+    public UsuarioDTO getUsuarioSesion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+
+    @Override
+    public void cerrarSesion() {
+        logi.cerrarSesion();
+        this.mostrarInicioSesion();
     }
 }

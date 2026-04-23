@@ -54,4 +54,8 @@ public interface ICoordinadorAplicacion {
     public UsuarioDTO iniciarSesion(String correo, String contrasenia);
     
     public void setUsuarioSesion(UsuarioDTO usuario);
+    
+    public UsuarioDTO getUsuarioSesion();
+    
+    public void cerrarSesion();
 }

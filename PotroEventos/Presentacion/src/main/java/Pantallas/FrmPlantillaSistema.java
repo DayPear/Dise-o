@@ -81,6 +81,7 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         busqueda = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
         botonInicio1 = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jpnlContenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,6 +137,17 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
             }
         });
 
+        btnCerrarSesion.setBackground(new java.awt.Color(0, 49, 141));
+        btnCerrarSesion.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAzulOscuroLayout = new javax.swing.GroupLayout(jPanelAzulOscuro);
         jPanelAzulOscuro.setLayout(jPanelAzulOscuroLayout);
         jPanelAzulOscuroLayout.setHorizontalGroup(
@@ -147,16 +159,19 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
                 .addComponent(btnConsultar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonInicio1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 762, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(18, 18, 18))
         );
         jPanelAzulOscuroLayout.setVerticalGroup(
             jPanelAzulOscuroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAzulOscuroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAzulOscuroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                     .addComponent(btnConsultar)
-                    .addComponent(botonInicio1))
+                    .addComponent(botonInicio1)
+                    .addComponent(btnCerrarSesion))
                 .addContainerGap())
         );
 
@@ -175,9 +190,9 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
             .addGroup(jPanelAzulLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textPotroEventos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelAzulOscuro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
@@ -233,8 +248,20 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         coordinador.mostrarConsultar();
     }//GEN-LAST:event_btnConsultarMouseClicked
 
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int respuesta = javax.swing.JOptionPane.showConfirmDialog(
+                this, "¿Estás seguro de que deseas cerrar sesión?",
+                "Confirmar salida", javax.swing.JOptionPane.YES_NO_OPTION
+        );
+        
+        if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+            coordinador.cerrarSesion();
+        }
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonInicio1;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JTextField busqueda;
     private javax.swing.JPanel jPanelAzul;
