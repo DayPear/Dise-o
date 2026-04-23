@@ -242,7 +242,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     private void txtContraseniaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseniaFocusLost
         if (String.valueOf(txtContrasenia.getPassword()).isEmpty()) {
             txtContrasenia.setText("********************");
-            txtCorreo.setForeground(Color.decode("#999999"));
+            txtContrasenia.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtContraseniaFocusLost
 
@@ -265,6 +265,12 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ingresarMouseClicked
 
+    public void limpiarCampos() {
+        txtCorreo.setText("Ingrese un correo");
+        txtCorreo.setForeground(new java.awt.Color(153, 153, 153));
+        txtContrasenia.setText("********************");
+        txtContrasenia.setForeground(new java.awt.Color(153, 153, 153));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnIngresar;

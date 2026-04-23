@@ -16,6 +16,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>InicioSesion</artifactId>
             <artifactId>GestionUsuarios</artifactId>
             <version>${project.version}</version>
         </dependency>

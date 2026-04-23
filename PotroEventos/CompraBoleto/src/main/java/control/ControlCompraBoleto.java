@@ -12,7 +12,7 @@ import interfaces.ISeccionBO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import objetosNegocio.EventoBO;
+//import objetosNegocio.EventoBO;
 
 /**
  * Controlador de caso de uso para la compra de boletos. Orquesta la
