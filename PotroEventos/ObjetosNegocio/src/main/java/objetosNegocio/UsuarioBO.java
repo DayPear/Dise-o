@@ -5,14 +5,11 @@
 package objetosNegocio;
 
 import adapters.UsuarioAdapter;
-import daos.CategoriaDAO;
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
 import interfaces.IUsuarioBO;
 import daos.UsuarioDAO;
-import excepciones.NegocioException;
 import interfaces.IUsuarioDAO;
-import java.util.List;
 
 /**
  *
@@ -35,33 +32,6 @@ public class UsuarioBO implements IUsuarioBO {
         return instance;
     }
 
-//    @Override
-//    public UsuarioDTO asociarUsuario(UsuarioDTO usuario) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//
-//    }
-//
-//    @Override
-//    public void desAsociarUsuario() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public UsuarioDTO iniciarSesion(LoginDTO login) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public UsuarioDTO verificarUsuario(String correo, String contrasenia) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//
-//    }
-//
-//    @Override
-//    public void cerrarSesion() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-
     @Override
     public boolean restarCreditos(Integer cantidad, Long idUsuario) {
         return usuarioDAO.restarCreditos(cantidad, idUsuario);
@@ -74,6 +44,11 @@ public class UsuarioBO implements IUsuarioBO {
         usuario.setContrasenia(sesion.getContrasenia());
 
         return UsuarioAdapter.entidadADTO(usuarioDAO.obtenerUsuario(UsuarioAdapter.dtoAEntidad(usuario)));
+    }
+
+    @Override
+    public UsuarioDTO guardarUsuario(UsuarioDTO dto) {
+        return UsuarioAdapter.entidadADTO(usuarioDAO.guardarUsuario(UsuarioAdapter.dtoAEntidad(dto)));
     }
 
 }

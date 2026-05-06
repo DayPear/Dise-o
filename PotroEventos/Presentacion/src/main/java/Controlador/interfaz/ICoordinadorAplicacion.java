@@ -2,10 +2,10 @@ package Controlador.interfaz;
 
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
-import dtos.BoletoDTO;
 import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
+import dtos.LoginDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -36,21 +36,21 @@ public interface ICoordinadorAplicacion {
     public void mostrarInfoEvento(EventoDTO evento);
 
     public void mostrarDetalles(ReservacionDTO reservacion);
-    
+
     public void mostarRegistroITSON();
 
     public void finalizarCompra();
 
     public void mostrarEventos(CategoriaDTO categoria);
-    
+
     public void mostrarPago(ReservacionDTO reservacion);
-    
+
     public void volverAEventos();
 
     public void mostrarConsultarEvento();
 
     public void volverAConsultar();
-    
+
     public void volverAConsultarEvento();
 
     public List<EventoDTO> consultarEventos(CategoriaDTO categoria);
@@ -65,14 +65,16 @@ public interface ICoordinadorAplicacion {
 
     public boolean agregarReservacion(ReservacionDTO reservacion);
 
-    public UsuarioDTO iniciarSesion(String correo, String contrasenia);
+    public UsuarioDTO iniciarSesion(LoginDTO login);
+
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuario);
 
     public void setUsuarioSesion(UsuarioDTO usuario);
 
     public UsuarioDTO getUsuarioSesion();
-    
+
     public void setUsuarioITSON(UsuarioInstitucionalDTO usuario);
-    
+
     public UsuarioInstitucionalDTO getUsuarioITSON();
 
     public void cerrarSesion();
@@ -84,10 +86,10 @@ public interface ICoordinadorAplicacion {
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion);
 
     boolean realizarCompra(TarjetaDTO noTarjeta, CobroDTO cobro);
-    
+
     Long getTotalPendiente();
-    
+
     String generarQR(EventoDTO evento, AsientoEventoDTO asiento);
-    
+
     boolean validarCredenciales(UsuarioInstitucionalDTO credenciales);
 }

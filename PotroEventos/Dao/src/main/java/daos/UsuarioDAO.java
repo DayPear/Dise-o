@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package daos;
 
 import Entitys.Usuario;
@@ -17,7 +13,10 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     private static UsuarioDAO instance;
 
+    private List<Usuario> usuarios;
+
     private UsuarioDAO() {
+        this.usuarios = new ArrayList<>();
     }
 
     public static UsuarioDAO getInstance() {
@@ -45,8 +44,6 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public List<Usuario> obtenerUsuarios() {
-        // craecion de lista manual para que el sistema pueda cargar informacion
-        List<Usuario> usuarios = new ArrayList<>();
 
         // usuario 1
         Usuario usuario1 = new Usuario();
@@ -88,13 +85,18 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public Usuario obtenerUsuario(Usuario usuario) {
-        List<Usuario> usuarios = obtenerUsuarios();
         for (Usuario u : usuarios) {
             if (u.getCorreo().equals(usuario.getCorreo()) && u.getContrasenia().equals(usuario.getContrasenia())) {
                 return u;
             }
         }
         return null;
+    }
+
+    @Override
+    public Usuario guardarUsuario(Usuario usuario) {
+        usuarios.add(usuario);
+        return usuario;
     }
 
 }

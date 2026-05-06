@@ -15,10 +15,11 @@ import dtos.UsuarioDTO;
  * @author María Valdez - 262775
  */
 public interface IFachadaInicioSesion {
+
     //inicia sesion
     public UsuarioDTO iniciarSesion(LoginDTO login);
-    
-    public UsuarioDTO verificarUsuario(String correo, String contrasenia);
-    
+
     public void cerrarSesion();
+
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuario);
 }

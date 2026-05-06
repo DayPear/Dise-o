@@ -4,14 +4,10 @@
  */
 package Pantallas.vistas;
 
-import Controlador.coordinador.CoordinadorAplicacion;
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.CategoriaDTO;
-import dtos.UsuarioDTO;
 import java.awt.Component;
 import java.awt.Image;
-import java.awt.Panel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,25 +17,38 @@ import javax.swing.ImageIcon;
 public class PnlCategoria extends javax.swing.JPanel {
 
     private CategoriaDTO categoria;
-    private Component padre;
     private ICoordinadorAplicacion coordinador;
-    private UsuarioDTO usuario;
 
-    /**
-     * Creates new form PnlCategoria
-     */
     public PnlCategoria(CategoriaDTO categoria, Component padre, ICoordinadorAplicacion coordinador) {
         this.categoria = categoria;
-        this.padre = padre;
         this.coordinador = coordinador;
-        this.usuario = coordinador.getUsuarioSesion();
-        initComponents();
-        setImagen();
 
+        initComponents();
+
+        // CONFIGURACIÓN DE LAYOUT PARA QUITAR ESPACIOS
+        this.setLayout(new java.awt.BorderLayout(0, 0)); // 0 espacio horizontal y vertical
+
+        // Ajustamos el label del nombre
+        lblNombreCategoria.setOpaque(true);
+        lblNombreCategoria.setBackground(new java.awt.Color(240, 240, 240)); // Un gris claro para el nombre
+        lblNombreCategoria.setPreferredSize(new java.awt.Dimension(250, 30));
+
+        // Añadimos al panel
+        this.add(lblNombreCategoria, java.awt.BorderLayout.NORTH);
+        this.add(iconCategoria, java.awt.BorderLayout.CENTER);
+
+        setNombre();
+        setImagen();
+    }
+
+    public void setNombre() {
+        if (categoria != null && categoria.getNombreCategoria() != null) {
+            lblNombreCategoria.setText(categoria.getNombreCategoria().name());
+        }
     }
 
     public void setImagen() {
-        if (categoria == null) {
+        if (categoria == null || categoria.getUrlImagen() == null) {
             return;
         }
 
@@ -50,28 +59,14 @@ public class PnlCategoria extends javax.swing.JPanel {
 
         ImageIcon icono = new ImageIcon(url);
 
-        int lblW = iconCategoria.getWidth();
-        int lblH = iconCategoria.getHeight();
+        int lblW = 250;
+        int lblH = 180;
 
-        if (lblW == 0 || lblH == 0) {
-            lblW = 250;
-            lblH = 187;
-        }
-
-        int imgW = icono.getIconWidth();
-        int imgH = icono.getIconHeight();
-
-        double escala = Math.min((double) lblW / imgW, (double) lblH / imgH);
-
-        int newW = (int) (imgW * escala);
-        int newH = (int) (imgH * escala);
-
-        Image img = icono.getImage().getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
-
-        iconCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconCategoria.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+        Image img = icono.getImage().getScaledInstance(lblW, lblH, Image.SCALE_SMOOTH);
 
         iconCategoria.setIcon(new ImageIcon(img));
+        iconCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconCategoria.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
     }
 
     /**
@@ -84,6 +79,7 @@ public class PnlCategoria extends javax.swing.JPanel {
     private void initComponents() {
 
         iconCategoria = new javax.swing.JLabel();
+        lblNombreCategoria = new javax.swing.JLabel();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -97,15 +93,26 @@ public class PnlCategoria extends javax.swing.JPanel {
             }
         });
 
+        lblNombreCategoria.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblNombreCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreCategoria.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(iconCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNombreCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(iconCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(lblNombreCategoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(iconCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,11 +122,12 @@ public class PnlCategoria extends javax.swing.JPanel {
     }//GEN-LAST:event_iconCategoriaMouseClicked
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
+
     }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iconCategoria;
+    private javax.swing.JLabel lblNombreCategoria;
     // End of variables declaration//GEN-END:variables
 }

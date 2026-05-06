@@ -6,9 +6,6 @@ package Pantallas.vistas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.CategoriaDTO;
-import dtos.UsuarioDTO;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,21 +17,27 @@ import javax.swing.ImageIcon;
 public class PnlCategorias extends javax.swing.JPanel {
 
     private ICoordinadorAplicacion coordinador;
-    private UsuarioDTO usuario;
 
-    /**
-     * Creates new form PnlConsultarEvento
-     */
     public PnlCategorias(ICoordinadorAplicacion coordinador) {
         this.coordinador = coordinador;
-        this.usuario = coordinador.getUsuarioSesion();
+
         initComponents();
-        for(CategoriaDTO categoria : coordinador.consultarCategorias()){
+
+        // FlowLayout los pone uno al lado del otro y salta de línea solo
+        this.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
+
+        // Limpiamos cualquier cosa que NetBeans haya puesto por defecto
+        this.removeAll();
+
+        //Cargamos las categorías de verdad
+        for (CategoriaDTO categoria : coordinador.consultarCategorias()) {
             PnlCategoria panel = new PnlCategoria(categoria, this, coordinador);
-            add(panel);
-            revalidate();
-            repaint();
+            this.add(panel);
         }
+
+        //Refrescamos la interfaz
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -161,7 +164,7 @@ public class PnlCategorias extends javax.swing.JPanel {
 
     }//GEN-LAST:event_evento1MouseClicked
 
-    public void mostrarEventosCategoria(CategoriaDTO categoria){
+    public void mostrarEventosCategoria(CategoriaDTO categoria) {
         coordinador.mostrarEventos(categoria);
     }
 

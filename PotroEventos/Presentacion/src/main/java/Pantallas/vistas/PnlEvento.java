@@ -21,12 +21,10 @@ import javax.swing.ImageIcon;
  * @author María Valdez - 262775
  */
 public class PnlEvento extends Panel {
-    
+
     private boolean modoConsulta;
-    private boolean modoVista;
     private EventoDTO evento;
     private ReservacionDTO reservacion;
-    private Component padre;
     private ICoordinadorAplicacion coordinador;
 
     /**
@@ -36,26 +34,25 @@ public class PnlEvento extends Panel {
     private PnlEvento(EventoDTO evento, ReservacionDTO reservacion, Component padre, boolean modoConsulta, ICoordinadorAplicacion coordinador) {
         this.evento = evento;
         this.reservacion = reservacion;
-        this.padre = padre;
         this.modoConsulta = modoConsulta;
-        this.modoVista = !modoConsulta;
         this.coordinador = coordinador;
-        
+
         initComponents();
         cargarEvento();
         configurarModo();
+        utilerias.BotonUtileria.estilizarBoton(btnMostrar);
     }
-    
+
     public static PnlEvento crearParaVista(EventoDTO evento, Component padre, ICoordinadorAplicacion coordinador) {
         // Le pasamos null a la reservación y false al modoConsulta
         return new PnlEvento(evento, null, padre, false, coordinador);
     }
-    
+
     public static PnlEvento crearParaConsulta(ReservacionDTO reservacion, Component padre, ICoordinadorAplicacion coordinador) {
         // Le pasamos la reservación y true al modoConsulta
         return new PnlEvento(reservacion.getBoleto().getEvento(), reservacion, padre, true, coordinador);
     }
-    
+
     private void cargarEvento() {
         ImageIcon icono = new ImageIcon(evento.getUrlImagen());
         int ancho = getWidth();
@@ -75,7 +72,7 @@ public class PnlEvento extends Panel {
         this.lblFechaHora.setText(String.valueOf(evento.getFechaHora().format(formateadorFecha)) + " - " + String.valueOf(evento.getFechaHora().format(formateadorHora)));
         this.lblUbicacion.setText(evento.getUbicacion().getNombre());
     }
-    
+
     private void configurarModo() {
         if (modoConsulta) {
             btnMostrar.setText("Ver mis boletos");
@@ -158,7 +155,7 @@ public class PnlEvento extends Panel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        if(btnMostrar.getText() == "Ver mis boletos"){
+        if (btnMostrar.getText() == "Ver mis boletos") {
             coordinador.mostrarDetalles(reservacion);
         } else {
             coordinador.mostrarInfoEvento(evento);

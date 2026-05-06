@@ -27,30 +27,26 @@ public class PnlEventos extends javax.swing.JPanel {
         this.categoria = categoria;
         this.coordinador = coordinador;
         initComponents();
+        utilerias.BotonUtileria.estilizarBoton(btnVolver);
 
-        // 1. Configurar el panel principal (this) para que ocupe todo el espacio
         this.removeAll();
         this.setLayout(new java.awt.BorderLayout());
 
-        // 2. Configurar el botón en la parte inferior 
         javax.swing.JPanel pnlBotonAbajo = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-        pnlBotonAbajo.setBackground(java.awt.Color.WHITE); // O el color de tu fondo
+        pnlBotonAbajo.setBackground(java.awt.Color.WHITE);
         pnlBotonAbajo.add(btnVolver);
         this.add(pnlBotonAbajo, java.awt.BorderLayout.SOUTH);
 
-        // Este panel estará dentro del Scroll y evitará que el GridLayout se estire verticalmente
         javax.swing.JPanel pnlNorte = new javax.swing.JPanel(new java.awt.BorderLayout());
         pnlNorte.setBackground(java.awt.Color.WHITE);
-        pnlNorte.add(PnlContenedor, java.awt.BorderLayout.NORTH); // <--- ESTO evita que se estiren
+        pnlNorte.add(PnlContenedor, java.awt.BorderLayout.NORTH);
 
-        // 4. Configurar el Scroll y añadirlo al centro
         jScrollPane1.setViewportView(pnlNorte);
         jScrollPane1.setBorder(null);
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
         this.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        // 5. Configurar el grid de los eventos
-        PnlContenedor.setLayout(new java.awt.GridLayout(0, 2, 20, 20)); // 2 columnas, espacios de 20px
+        PnlContenedor.setLayout(new java.awt.GridLayout(0, 2, 20, 20));
 
         cargarDatos();
     }

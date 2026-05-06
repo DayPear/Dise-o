@@ -9,7 +9,6 @@
         <module>Presentacion</module>
         <module>Datos</module>
         <module>DTOs</module>
-        <module>InicioSesion</module>
         <module>Dao</module>
         <module>ObjetosNegocio</module>
         <module>Infraestructura</module>
@@ -18,6 +17,7 @@
         <module>SubsistemaCompraBoleto</module>
         <module>SubsistemaGestionUsuarios</module>
         <module>SubsistemaITSON</module>
+        <module>SubsistemaInicioSesion</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

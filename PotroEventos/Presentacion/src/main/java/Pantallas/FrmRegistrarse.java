@@ -5,6 +5,8 @@
 package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
+import dtos.UsuarioDTO;
+import javax.swing.JOptionPane;
 import utilerias.BotonUtileria;
 
 /**
@@ -32,7 +34,6 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         this.coordinador = coordinador;
         initComponents();
         BotonUtileria.estilizarBoton(btnRegistrarse);
-        BotonUtileria.estilizarBoton(iniciaSesion);
     }
 
     /**
@@ -47,15 +48,20 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         iniciaSesion = new javax.swing.JLabel();
         txtContrasenia = new javax.swing.JPasswordField();
-        textContrasenia = new javax.swing.JLabel();
+        lblContrasenia = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
-        textCorreo = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JLabel();
         jPanelAzul = new javax.swing.JPanel();
         textiniciaSesion = new javax.swing.JLabel();
-        btnRegistrarse = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         txtConfirmacionContrasenia = new javax.swing.JPasswordField();
-        textContrasenia1 = new javax.swing.JLabel();
+        lblContraseniaConfirmacion = new javax.swing.JLabel();
+        btnRegistrarse = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
+        txtApellidoP = new javax.swing.JTextField();
+        lblApellidoP = new javax.swing.JLabel();
+        txtApellidoM = new javax.swing.JTextField();
+        lblApellidoM = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,23 +79,24 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         });
 
         txtContrasenia.setBackground(new java.awt.Color(234, 230, 230));
+        txtContrasenia.setForeground(java.awt.Color.black);
 
-        textContrasenia.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        textContrasenia.setForeground(new java.awt.Color(0, 0, 0));
-        textContrasenia.setText("Contraseña");
+        lblContrasenia.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblContrasenia.setForeground(new java.awt.Color(0, 0, 0));
+        lblContrasenia.setText("Contraseña");
 
         txtCorreo.setBackground(new java.awt.Color(234, 230, 230));
         txtCorreo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(217, 217, 217));
+        txtCorreo.setForeground(java.awt.Color.black);
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
             }
         });
 
-        textCorreo.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        textCorreo.setForeground(new java.awt.Color(0, 0, 0));
-        textCorreo.setText("Correo");
+        lblCorreo.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblCorreo.setForeground(new java.awt.Color(0, 0, 0));
+        lblCorreo.setText("Correo");
 
         jPanelAzul.setBackground(new java.awt.Color(31, 92, 204));
         jPanelAzul.setPreferredSize(new java.awt.Dimension(597, 50));
@@ -113,29 +120,59 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        btnRegistrarse.setBackground(new java.awt.Color(44, 114, 243));
-
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Registrarse");
-
-        javax.swing.GroupLayout btnRegistrarseLayout = new javax.swing.GroupLayout(btnRegistrarse);
-        btnRegistrarse.setLayout(btnRegistrarseLayout);
-        btnRegistrarseLayout.setHorizontalGroup(
-            btnRegistrarseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-        );
-        btnRegistrarseLayout.setVerticalGroup(
-            btnRegistrarseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-        );
-
         txtConfirmacionContrasenia.setBackground(new java.awt.Color(234, 230, 230));
+        txtConfirmacionContrasenia.setForeground(java.awt.Color.black);
 
-        textContrasenia1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        textContrasenia1.setForeground(new java.awt.Color(0, 0, 0));
-        textContrasenia1.setText("Confirmar contraseña");
+        lblContraseniaConfirmacion.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblContraseniaConfirmacion.setForeground(new java.awt.Color(0, 0, 0));
+        lblContraseniaConfirmacion.setText("Confirmar contraseña");
+
+        btnRegistrarse.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
+
+        txtNombre.setBackground(new java.awt.Color(234, 230, 230));
+        txtNombre.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        txtNombre.setForeground(java.awt.Color.black);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
+        lblNombre.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
+        lblNombre.setText("Nombre(s)");
+
+        txtApellidoP.setBackground(new java.awt.Color(234, 230, 230));
+        txtApellidoP.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        txtApellidoP.setForeground(java.awt.Color.black);
+        txtApellidoP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoPActionPerformed(evt);
+            }
+        });
+
+        lblApellidoP.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblApellidoP.setForeground(new java.awt.Color(0, 0, 0));
+        lblApellidoP.setText("Apellido Paterno");
+
+        txtApellidoM.setBackground(new java.awt.Color(234, 230, 230));
+        txtApellidoM.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        txtApellidoM.setForeground(java.awt.Color.black);
+        txtApellidoM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoMActionPerformed(evt);
+            }
+        });
+
+        lblApellidoM.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblApellidoM.setForeground(new java.awt.Color(0, 0, 0));
+        lblApellidoM.setText("Apellido Materno");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,43 +182,60 @@ public class FrmRegistrarse extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(160, 160, 160)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(iniciaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(iniciaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
+                        .addGap(98, 98, 98)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textContrasenia1)
-                            .addComponent(textContrasenia)
-                            .addComponent(textCorreo)
+                            .addComponent(lblApellidoM)
+                            .addComponent(lblApellidoP)
+                            .addComponent(lblNombre)
+                            .addComponent(lblContraseniaConfirmacion)
+                            .addComponent(lblContrasenia)
+                            .addComponent(lblCorreo)
                             .addComponent(txtContrasenia)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                            .addComponent(txtConfirmacionContrasenia))))
-                .addContainerGap(123, Short.MAX_VALUE))
+                            .addComponent(txtCorreo)
+                            .addComponent(txtConfirmacionContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
+                            .addComponent(txtApellidoP)
+                            .addComponent(txtApellidoM))))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanelAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(textCorreo)
+                .addGap(42, 42, 42)
+                .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblApellidoP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblApellidoM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(lblCorreo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblContrasenia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblContraseniaConfirmacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtConfirmacionContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(textContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(textContrasenia1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtConfirmacionContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(iniciaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,19 +260,80 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        String pass = String.valueOf(txtContrasenia.getPassword());
+        String confirmPass = String.valueOf(txtConfirmacionContrasenia.getPassword());
+
+        if (!pass.equals(confirmPass)) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$";
+        String regexCorreo = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+
+        if (!txtNombre.getText().trim().matches(regex)) {
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!txtApellidoP.getText().trim().matches(regex)) {
+            JOptionPane.showMessageDialog(null, "El apellido paterno solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String apellidoM = txtApellidoM.getText().trim();
+        if (!apellidoM.isEmpty() && !apellidoM.matches(regex)) {
+            JOptionPane.showMessageDialog(null, "El apellido materno solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String correo = txtCorreo.getText().trim();
+        if (!correo.matches(regexCorreo)) {
+            JOptionPane.showMessageDialog(null, "Correo electrónico no válido", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        UsuarioDTO usuario = new UsuarioDTO(txtNombre.getText().trim(), txtApellidoP.getText().trim(), apellidoM.isEmpty() ? null : apellidoM, correo, pass, 0);
+
+        UsuarioDTO usuarioGuardado = coordinador.guardarUsuario(usuario);
+
+        if (usuarioGuardado != null) {
+            JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            coordinador.mostrarInicioSesion();
+        }
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoPActionPerformed
+
+    private void txtApellidoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnRegistrarse;
+    private javax.swing.JButton btnRegistrarse;
     private javax.swing.JLabel iniciaSesion;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAzul;
-    private javax.swing.JLabel textContrasenia;
-    private javax.swing.JLabel textContrasenia1;
-    private javax.swing.JLabel textCorreo;
+    private javax.swing.JLabel lblApellidoM;
+    private javax.swing.JLabel lblApellidoP;
+    private javax.swing.JLabel lblContrasenia;
+    private javax.swing.JLabel lblContraseniaConfirmacion;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel textiniciaSesion;
+    private javax.swing.JTextField txtApellidoM;
+    private javax.swing.JTextField txtApellidoP;
     private javax.swing.JPasswordField txtConfirmacionContrasenia;
     private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

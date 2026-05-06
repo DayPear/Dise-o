@@ -6,10 +6,10 @@ package inicioSistema;
 
 import Controlador.coordinador.CoordinadorAplicacion;
 import Controlador.interfaz.ICoordinadorAplicacion;
-
+import javax.swing.UIManager;
 
 /**
- *
+ *&
  * @author maria
  */
 public class InicioPotroEventos {
@@ -18,15 +18,12 @@ public class InicioPotroEventos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-//        IUsuarioBO bo = UsuarioBO.getInstance();
-//        try{
-//            bo.asociarUsuario(new UsuarioDTO(1L, "Aslan Jade", "Callenreese", "", "eijimypookie@gmail.com", "eiji4ever", 0));
-//        } catch(NegocioException ne){
-//            System.out.println("falló agregar el usuario.");
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+        }
         ICoordinadorAplicacion inicio = new CoordinadorAplicacion();
         inicio.mostrarInicioSesion();
     }
-    
+
 }

@@ -12,40 +12,29 @@ import Pantallas.vistas.PnlConsultarEvento;
 import Pantallas.vistas.PnlEventos;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
-import dtos.BoletoDTO;
 import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
+import dtos.LoginDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
 import dtos.UsuarioDTO;
 import dtos.UsuarioInstitucionalDTO;
 import fachada.InicioSesionFachada;
-import interfaces.IFachadaInicioSesion;
 import excepciones.CompraBoletoException;
 import excepciones.GestionEventoException;
 import excepciones.GestionUsuarioException;
-import excepciones.NegocioException;
-import excepciones.PagoException;
 import fachada.CompraBoletoFachada;
 import fachada.GestionEventoFachada;
 import fachada.GestionUsuarioFachada;
-import fachada.PagoFachada;
 import interfaces.IFachadaGestionEvento;
+import interfaces.IFachadaInicioSesion;
 import interfaces.IGestionUsuariosFachada;
-import interfaces.IReservacionBO;
 import interfaz.ICompraBoleto;
-import interfaz.IPago;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import objetosNegocio.AsientoBO;
-import objetosNegocio.AsientoEventoBO;
-import objetosNegocio.ReservacionBO;
-import objetosNegocio.SeccionBO;
 
 /**
  * Clase que actúa como coordinador principal de la aplicación. Se encarga de
@@ -59,12 +48,10 @@ import objetosNegocio.SeccionBO;
  */
 public class CoordinadorAplicacion implements ICoordinadorAplicacion {
 
-    private IFachadaInicioSesion logi = InicioSesionFachada.getInstance();
-    private ICompraBoleto controlCompra = new CompraBoletoFachada();
-    private IFachadaGestionEvento controlEvento = new GestionEventoFachada();
-    private IGestionUsuariosFachada controlUsuarios = new GestionUsuarioFachada();
-    private SeccionBO seccionBO = SeccionBO.getInstance();
-    private AsientoEventoBO asientoEventoBO = AsientoEventoBO.getInstance();
+    private final IFachadaInicioSesion controlInicioSesion = InicioSesionFachada.getInstance();
+    private final ICompraBoleto controlCompra = new CompraBoletoFachada();
+    private final IFachadaGestionEvento controlEvento = new GestionEventoFachada();
+    private final IGestionUsuariosFachada controlUsuarios = new GestionUsuarioFachada();
 
     private UsuarioDTO usuario;
     private UsuarioInstitucionalDTO usuarioITSON;
@@ -97,7 +84,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmRegistro != null) {
             frmRegistro.setVisible(false);
         }
-        if(frmPlantilla != null){
+        if (frmPlantilla != null) {
             frmPlantilla.setVisible(false);
         }
     }
@@ -108,15 +95,15 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         }
         return usuario;
     }
-    
+
     @Override
-    public void setUsuarioITSON(UsuarioInstitucionalDTO usuario){
+    public void setUsuarioITSON(UsuarioInstitucionalDTO usuario) {
         this.usuarioITSON = usuario;
     }
-    
+
     @Override
-    public UsuarioInstitucionalDTO getUsuarioITSON(){
-        if(usuarioITSON == null){
+    public UsuarioInstitucionalDTO getUsuarioITSON() {
+        if (usuarioITSON == null) {
             return null;
         }
         return usuarioITSON;
@@ -200,11 +187,11 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         }
         frmDetalles.setVisible(true);
     }
-    
+
     @Override
-    public void mostarRegistroITSON(){
+    public void mostarRegistroITSON() {
         ocultarTodo();
-        if(frmRegistro == null){
+        if (frmRegistro == null) {
             frmRegistro = new FrmRegistroItson(this);
         }
         frmRegistro.setVisible(true);
@@ -256,8 +243,8 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public UsuarioDTO iniciarSesion(String correo, String contrasenia) {
-        UsuarioDTO usuarioDTO = logi.verificarUsuario(correo, contrasenia);
+    public UsuarioDTO iniciarSesion(LoginDTO login) {
+        UsuarioDTO usuarioDTO = controlInicioSesion.iniciarSesion(login);
         setUsuarioSesion(usuarioDTO);
         return usuarioDTO;
     }
@@ -274,7 +261,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
 
     @Override
     public void cerrarSesion() {
-        logi.cerrarSesion();
+        controlInicioSesion.cerrarSesion();
         usuario = null;
         this.mostrarInicioSesion();
     }
@@ -406,10 +393,15 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         frmPago.setVisible(true);
         frmPago.setLocationRelativeTo(null);
     }
-    
+
     @Override
-    public boolean validarCredenciales(UsuarioInstitucionalDTO credenciales){
+    public boolean validarCredenciales(UsuarioInstitucionalDTO credenciales) {
         return controlCompra.validarCredencialesITSON(credenciales);
+    }
+
+    @Override
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) {
+        return controlInicioSesion.registrarUsuario(usuario);
     }
 
 }

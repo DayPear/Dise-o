@@ -6,7 +6,7 @@
         <artifactId>PotroEventos</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>InicioSesion</artifactId>
+    <artifactId>SubsistemaInicioSesion</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -24,4 +24,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.mycompany.iniciosesion.InicioSesion</exec.mainClass>
     </properties>
+    <name>SubsistemaInicioSesion</name>
 </project>

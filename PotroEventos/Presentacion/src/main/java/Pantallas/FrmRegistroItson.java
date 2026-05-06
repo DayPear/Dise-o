@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author María Valdez - 262775
  */
 public class FrmRegistroItson extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmRegistroItson.class.getName());
     private ICoordinadorAplicacion coordinador;
     private boolean exitoRegistro = false;
@@ -28,9 +28,11 @@ public class FrmRegistroItson extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.coordinador = coordinador;
+        utilerias.BotonUtileria.estilizarBoton(btnIngresar);
+        utilerias.BotonUtileria.estilizarBoton(btnVolver);
     }
-    
-    public boolean registroExitoso(){
+
+    public boolean registroExitoso() {
         return exitoRegistro;
     }
 
@@ -85,6 +87,7 @@ public class FrmRegistroItson extends javax.swing.JFrame {
         txtNoItson.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtNoItson.setForeground(new java.awt.Color(0, 51, 204));
         txtNoItson.setText("<html><u>No soy personal/alumnado ITSON.</u></font></html>");
+        txtNoItson.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtNoItson.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNoItsonMouseClicked(evt);
@@ -107,6 +110,10 @@ public class FrmRegistroItson extends javax.swing.JFrame {
                 .addComponent(txtNoItson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        txtID.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+
+        txtContrasenia.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
         btnVolver.setBackground(new java.awt.Color(0, 119, 255));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -160,7 +167,7 @@ public class FrmRegistroItson extends javax.swing.JFrame {
                             .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -243,16 +250,16 @@ public class FrmRegistroItson extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtID.getText().trim();
         String contrasenia = String.valueOf(txtContrasenia.getPassword());
-        if(id == null || id.isEmpty() || id.isBlank()){
+        if (id == null || id.isEmpty() || id.isBlank()) {
             JOptionPane.showMessageDialog(this, "Por favor ingrese su ID de Potro ITSON.");
             return;
-        } else if(!id.matches("^0{0,5}[1-9]\\d{0,5}$")){
+        } else if (!id.matches("^0{0,5}[1-9]\\d{0,5}$")) {
             JOptionPane.showMessageDialog(this, "Formato de ID inválido.");
             return;
         }
         UsuarioInstitucionalDTO usuario = new UsuarioInstitucionalDTO(id, contrasenia);
         exitoRegistro = coordinador.validarCredenciales(usuario);
-        if(!exitoRegistro){
+        if (!exitoRegistro) {
             JOptionPane.showMessageDialog(this, "No se encontró al usuario ITSON, verifique tener la información correcta.");
             return;
         } else {
@@ -262,7 +269,7 @@ public class FrmRegistroItson extends javax.swing.JFrame {
             coordinador.volverAConsultarEvento();
             dispose();
         }
-        
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

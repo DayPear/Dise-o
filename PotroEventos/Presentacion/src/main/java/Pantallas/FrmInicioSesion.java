@@ -32,7 +32,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         this.coordinador = coordinador;
         initComponents();
         BotonUtileria.estilizarBoton(btnIngresar);
-        BotonUtileria.estilizarBoton(registrate);
     }
 
     /**
@@ -52,8 +51,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         textCorreo = new javax.swing.JLabel();
         jPanelAzul = new javax.swing.JPanel();
         textiniciaSesion = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JPanel();
-        ingresar = new javax.swing.JLabel();
+        btnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -62,7 +60,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(845, 465));
 
         registrate.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
-        registrate.setForeground(new java.awt.Color(0, 0, 0));
         registrate.setText("<html>¿No tienes cuenta? <font color=\"blue\"><u>Regístrate</u></font></html>");
         registrate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registrate.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -84,7 +81,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         textContrasenia.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        textContrasenia.setForeground(new java.awt.Color(0, 0, 0));
         textContrasenia.setText("Contraseña");
 
         txtCorreo.setBackground(new java.awt.Color(234, 230, 230));
@@ -106,7 +102,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         textCorreo.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        textCorreo.setForeground(new java.awt.Color(0, 0, 0));
         textCorreo.setText("Correo");
 
         jPanelAzul.setBackground(new java.awt.Color(31, 92, 204));
@@ -131,33 +126,19 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        btnIngresar.setBackground(new java.awt.Color(44, 114, 243));
-
-        ingresar.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        ingresar.setForeground(new java.awt.Color(255, 255, 255));
-        ingresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ingresar.setText("Ingresar");
-        ingresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ingresarMouseClicked(evt);
+        btnIngresar.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout btnIngresarLayout = new javax.swing.GroupLayout(btnIngresar);
-        btnIngresar.setLayout(btnIngresarLayout);
-        btnIngresarLayout.setHorizontalGroup(
-            btnIngresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ingresar, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-        );
-        btnIngresarLayout.setVerticalGroup(
-            btnIngresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ingresar, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelAzul, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,13 +149,12 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                             .addComponent(txtContrasenia)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(171, 171, 171)
-                        .addComponent(registrate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(registrate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(123, Short.MAX_VALUE))
-            .addComponent(jPanelAzul, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +168,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 .addComponent(textContrasenia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(registrate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
         );
@@ -246,24 +226,24 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtContraseniaFocusLost
 
-    private void ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseClicked
-        
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String correo = txtCorreo.getText();
         String contrasenia = String.valueOf(txtContrasenia.getPassword());
-        if(correo.equals("Ingrese un correo") || contrasenia.equals("********************")){
+        if (correo.equals("Ingrese un correo") || contrasenia.equals("********************")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
             return;
         }
-        UsuarioDTO usuario = coordinador.iniciarSesion(correo, contrasenia);
-        if(usuario != null){
+        LoginDTO login = new LoginDTO(correo, contrasenia);
+        UsuarioDTO usuario = coordinador.iniciarSesion(login);
+        if (usuario != null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
             coordinador.setUsuarioSesion(usuario);
             coordinador.mostrarInicio();
             this.dispose();
-        }else{
+        } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error de acceso", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_ingresarMouseClicked
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     public void limpiarCampos() {
         txtCorreo.setText("Ingrese un correo");
@@ -273,8 +253,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnIngresar;
-    private javax.swing.JLabel ingresar;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAzul;
     private javax.swing.JLabel registrate;

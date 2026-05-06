@@ -11,7 +11,6 @@ import dtos.CategoriaDTO;
 import dtos.UsuarioDTO;
 import java.awt.GridLayout;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -120,7 +119,6 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         jPanelAzul = new javax.swing.JPanel();
         textPotroEventos = new javax.swing.JLabel();
         jPanelAzulOscuro = new javax.swing.JPanel();
-        busqueda = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
         botonInicio1 = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
@@ -143,14 +141,8 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
 
         jPanelAzulOscuro.setBackground(new java.awt.Color(0, 49, 141));
 
-        busqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                busquedaActionPerformed(evt);
-            }
-        });
-
         btnConsultar.setBackground(new java.awt.Color(0, 49, 141));
-        btnConsultar.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        btnConsultar.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultar.setText("Consultar");
         btnConsultar.setBorder(null);
@@ -166,7 +158,7 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         });
 
         botonInicio1.setBackground(new java.awt.Color(0, 49, 141));
-        botonInicio1.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        botonInicio1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         botonInicio1.setForeground(new java.awt.Color(255, 255, 255));
         botonInicio1.setText("Inicio");
         botonInicio1.setBorder(null);
@@ -205,12 +197,10 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         jPanelAzulOscuroLayout.setHorizontalGroup(
             jPanelAzulOscuroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAzulOscuroLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnConsultar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(22, 22, 22)
                 .addComponent(botonInicio1)
+                .addGap(54, 54, 54)
+                .addComponent(btnConsultar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -222,15 +212,14 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         jPanelAzulOscuroLayout.setVerticalGroup(
             jPanelAzulOscuroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAzulOscuroLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jPanelAzulOscuroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(busqueda)
                     .addComponent(btnConsultar)
                     .addComponent(botonInicio1)
                     .addComponent(btnCerrarSesion)
                     .addComponent(jLabel1)
                     .addComponent(creditos))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelAzulLayout = new javax.swing.GroupLayout(jPanelAzul);
@@ -249,8 +238,8 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(textPotroEventos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelAzulOscuro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelAzulOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jpnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,7 +258,8 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
             .addGroup(jPanelBaseLayout.createSequentialGroup()
                 .addComponent(jPanelAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpnlContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jpnlContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,10 +276,6 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void busquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_busquedaActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -321,7 +307,6 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
     private javax.swing.JButton botonInicio1;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JTextField busqueda;
     private javax.swing.JLabel creditos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelAzul;

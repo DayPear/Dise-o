@@ -12,10 +12,12 @@ import java.util.List;
  * @author aaron
  */
 public interface IUsuarioDAO {
-    
+
     List<Usuario> obtenerUsuarios();
-    
+
     boolean restarCreditos(Integer cantidad, Long idUsuario);
-    
-    Usuario obtenerUsuario(Usuario usuario);    
+
+    Usuario obtenerUsuario(Usuario usuario);
+
+    Usuario guardarUsuario(Usuario usuario);
 }

@@ -16,33 +16,36 @@ import interfaces.IFachadaInicioSesion;
  * @author Dayanara Peralta - 262695
  * @author María Valdez - 262775
  */
-public class InicioSesionFachada implements IFachadaInicioSesion{
+public class InicioSesionFachada implements IFachadaInicioSesion {
+
     // para usar el singleton
     private static InicioSesionFachada instance;
-    
-    private ControlInicioSesion control = ControlInicioSesion.getIntance();
-    
-    private InicioSesionFachada(){}
-    
-    public static InicioSesionFachada getInstance(){
-        if(instance == null){
+
+    private final ControlInicioSesion control = ControlInicioSesion.getIntance();
+
+    private InicioSesionFachada() {
+    }
+
+    public static InicioSesionFachada getInstance() {
+        if (instance == null) {
             instance = new InicioSesionFachada();
         }
         return instance;
     }
-    
+
     @Override
-    public UsuarioDTO iniciarSesion(LoginDTO login){
+    public UsuarioDTO iniciarSesion(LoginDTO login) {
         return control.iniciarSesion(login);
-    }
-    @Override
-    public UsuarioDTO verificarUsuario(String correo, String contrasenia){
-        return control.verificarUsuario(correo, contrasenia);
     }
 
     @Override
     public void cerrarSesion() {
         control.eliminarSesion();
+    }
+
+    @Override
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) {
+        return control.registrarUsuario(usuario);
     }
 
 }
