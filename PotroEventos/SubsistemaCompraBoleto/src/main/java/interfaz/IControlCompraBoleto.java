@@ -3,9 +3,12 @@ package interfaz;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
 import dtos.CategoriaDTO;
+import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
+import dtos.TarjetaDTO;
+import dtos.UsuarioInstitucionalDTO;
 import excepciones.CompraBoletoException;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +21,6 @@ import java.util.Map;
  * @author María Valdez - 262775
  */
 public interface IControlCompraBoleto {
-
-    /**
-     * Obtiene la información detallada de un evento por su ID.
-     */
-    EventoDTO obtenerInformacionEvento(Long idEvento) throws CompraBoletoException;
 
     /**
      * Obtiene la lista de secciones asociadas a un evento.
@@ -43,8 +41,21 @@ public interface IControlCompraBoleto {
     /**
      * Registra una nueva reservación en el sistema.
      */
-    boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
-    
+    boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException; 
     
     public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento) throws CompraBoletoException;
+    
+    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException;
+    
+    public boolean reservarAsiento(Long idAsientoEvento) throws CompraBoletoException;
+    
+    public boolean liberarAsiento(Long idAsientoEvento) throws CompraBoletoException;
+    
+    public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion) throws CompraBoletoException;
+    
+    public boolean realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException;
+    
+    public Long getTotalPendiente();
+    
+    public boolean validarCredencialesITSON(UsuarioInstitucionalDTO usuario);
 }

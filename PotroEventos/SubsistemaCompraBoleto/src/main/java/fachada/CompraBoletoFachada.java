@@ -3,8 +3,6 @@ package fachada;
 import control.ControlCompraBoleto;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
-import dtos.BoletoDTO;
-import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
@@ -13,6 +11,7 @@ import dtos.TarjetaDTO;
 import dtos.UsuarioInstitucionalDTO;
 import excepciones.CompraBoletoException;
 import interfaz.ICompraBoleto;
+import interfaz.IControlCompraBoleto;
 import java.util.List;
 import java.util.Map;
 
@@ -22,12 +21,7 @@ import java.util.Map;
  */
 public class CompraBoletoFachada implements ICompraBoleto {
 
-    private ControlCompraBoleto controlCompra = new ControlCompraBoleto();
-
-    @Override
-    public EventoDTO obtenerEvento(Long idEvento) throws CompraBoletoException {
-        return controlCompra.obtenerInformacionEvento(idEvento);
-    }
+    private IControlCompraBoleto controlCompra = new ControlCompraBoleto();
 
     @Override
     public List<SeccionDTO> obtenerSeccionesPorEvento(Long idEvento) throws CompraBoletoException {

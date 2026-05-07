@@ -17,8 +17,6 @@ public interface IFachadaGestionEvento {
     
     EventoDTO consultarEvento(Long idEvento);
     
-    List<EventoDTO> consultarEventos();
-    
     List<EventoDTO> consultarEventosPorCategoria(CategoriaDTO categoria);
     
     List<CategoriaDTO> consultarCategorias() throws GestionEventoException;

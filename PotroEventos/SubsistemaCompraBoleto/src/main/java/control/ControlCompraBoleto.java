@@ -10,8 +10,6 @@ import fachada.FachadaITSON;
 import fachada.PagoFachada;
 import interfaces.IAsientoBO;
 import interfaces.IAsientoEventoBO;
-import interfaces.ICategoriaBO;
-import interfaces.IEventoBO;
 import interfaces.IReservacionBO;
 import interfaces.ISeccionBO;
 import interfaces.IUsuarioBO;
@@ -39,13 +37,11 @@ import net.glxn.qrgen.javase.QRCode;
  * @author Kaleb
  */
 public class ControlCompraBoleto implements IControlCompraBoleto {
-
-    private final IEventoBO eventoBO;
+    
     private final ISeccionBO seccionBO;
     private final IAsientoBO asientoBO;
     private final IAsientoEventoBO asientoEventoBO;
     private final IReservacionBO reservacionBO;
-    private final ICategoriaBO categoriaBO;
     private final IUsuarioBO usuarioBO;
     private final IPago controlPago;
     private final IITSON controlItson;
@@ -64,38 +60,16 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * Constructor que inicializa dependencias y estado interno.
      */
     public ControlCompraBoleto() {
-        this.eventoBO = EventoBO.getInstance();
         this.seccionBO = SeccionBO.getInstance();
         this.asientoBO = AsientoBO.getInstance();
         this.asientoEventoBO = AsientoEventoBO.getInstance();
         this.reservacionBO = ReservacionBO.getInstance();
-        this.categoriaBO = CategoriaBO.getInstance();
         this.usuarioBO = UsuarioBO.getInstance();
         this.controlPago = new PagoFachada();
         this.controlItson = new FachadaITSON();
 
         this.asientosPendientesCompra = new ArrayList<>();
         this.totalPendienteCompra = 0L;
-    }
-
-    /**
-     * Obtiene la información de un evento por su ID.
-     *
-     * @param idEvento identificador del evento
-     * @return evento encontrado
-     * @throws CompraBoletoException si ocurre un error o no existe el evento
-     */
-    @Override
-    public EventoDTO obtenerInformacionEvento(Long idEvento) throws CompraBoletoException {
-        try {
-            EventoDTO e = eventoBO.obtenerEventoPorId(idEvento);
-            if (e == null) {
-                throw new CompraBoletoException("El evento con ID " + idEvento + " no fue encontrado.");
-            }
-            return e;
-        } catch (Exception ex) {
-            throw new CompraBoletoException("Error al obtener la información del evento: " + ex.getMessage());
-        }
     }
 
     /**
@@ -211,6 +185,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @return ruta del archivo QR generado
      * @throws CompraBoletoException si ocurre un error
      */
+    @Override
     public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException {
         try {
             int asientoID = 0;
@@ -251,6 +226,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @return true si se reservó
      * @throws CompraBoletoException si ocurre un error
      */
+    @Override
     public boolean reservarAsiento(Long idAsientoEvento) throws CompraBoletoException {
         try {
             return asientoEventoBO.reservarAsiento(idAsientoEvento);
@@ -266,6 +242,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @return true si se liberó
      * @throws CompraBoletoException si ocurre un error
      */
+    @Override
     public boolean liberarAsiento(Long idAsientoEvento) throws CompraBoletoException {
         try {
             return asientoEventoBO.liberarAsiento(idAsientoEvento);
@@ -277,6 +254,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     /**
      * Maneja la lógica de venta de asientos.
      */
+    @Override
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion) throws CompraBoletoException {
         try {
             if (reservacion == null) {
@@ -311,6 +289,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     /**
      * Realiza el pago de la compra pendiente.
      */
+    @Override
     public boolean realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException {
         try {
             boolean pagado = controlPago.procesarPago(tarjeta, cobro);
@@ -338,10 +317,18 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      *
      * @return total en centavos
      */
+    @Override
     public Long getTotalPendiente() {
         return totalPendienteCompra;
     }
     
+    /**
+     * Valida que un usuario si sea perteneciente a ITSON
+     * @param usuario El DTO con la información para validar al usuario en el
+     * subsistema ITSON.
+     * @return true si sí es usuario ITSON, false de lo contrario.
+     */
+    @Override
     public boolean validarCredencialesITSON(UsuarioInstitucionalDTO usuario){
         return controlItson.validarUsuarioITSON(UsuarioInstitucionalAdapter.dtoAInfraestructura(usuario));
     }

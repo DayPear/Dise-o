@@ -26,16 +26,6 @@ import java.util.Map;
 public interface ICompraBoleto {
 
     /**
-     * 1. Carga la información general del evento (Título, fecha, imagen,
-     * ubicación).
-     *
-     * @param idEvento
-     * @return
-     * @throws excepciones.CompraBoletoException
-     */
-    EventoDTO obtenerEvento(Long idEvento) throws CompraBoletoException;
-
-    /**
      * 2. Obtiene las secciones de un evento específico (Para saber los precios:
      * ej. $1800).
      *

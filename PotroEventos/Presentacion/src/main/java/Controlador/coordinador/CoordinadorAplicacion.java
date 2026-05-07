@@ -198,11 +198,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public void finalizarCompra() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void mostrarEventos(CategoriaDTO categoria) {
         ocultarTodo();
         if (frmPlantilla == null) {
@@ -210,21 +205,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         }
         frmPlantilla.setContenido(new PnlEventos(this, categoria));
         frmPlantilla.setVisible(true);
-    }
-
-    @Override
-    public void volverAEventos() {
-
-    }
-
-    @Override
-    public void mostrarConsultarEvento() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void volverAConsultar() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

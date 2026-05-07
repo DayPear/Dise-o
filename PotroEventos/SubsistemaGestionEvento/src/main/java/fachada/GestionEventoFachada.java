@@ -25,11 +25,6 @@ public class GestionEventoFachada implements IFachadaGestionEvento {
     }
 
     @Override
-    public List<EventoDTO> consultarEventos() {
-        return control.consultarEventos();
-    }
-
-    @Override
     public List<EventoDTO> consultarEventosPorCategoria(CategoriaDTO categoria) {
         return control.consultarEventosPorCategoria(categoria);
     }

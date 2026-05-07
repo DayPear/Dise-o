@@ -147,7 +147,7 @@ public class PnlInfoEvento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        coordinador.volverAEventos();
+        coordinador.consultarEventos(null);
     }//GEN-LAST:event_btnVolverActionPerformed
 
 

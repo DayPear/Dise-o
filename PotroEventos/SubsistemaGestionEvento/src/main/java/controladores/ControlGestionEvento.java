@@ -51,10 +51,6 @@ public class ControlGestionEvento {
         return null;
     }
     
-    public List<EventoDTO> consultarEventos(){
-        return listaEventos;
-    }
-    
     public List<EventoDTO> consultarEventosPorCategoria(CategoriaDTO categoria){
         return eventoBO.obtenerEventosPorCategoria(categoria);
     }

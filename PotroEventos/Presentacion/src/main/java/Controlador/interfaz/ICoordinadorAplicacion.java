@@ -39,17 +39,9 @@ public interface ICoordinadorAplicacion {
 
     public void mostarRegistroITSON();
 
-    public void finalizarCompra();
-
     public void mostrarEventos(CategoriaDTO categoria);
 
     public void mostrarPago(ReservacionDTO reservacion);
-
-    public void volverAEventos();
-
-    public void mostrarConsultarEvento();
-
-    public void volverAConsultar();
 
     public void volverAConsultarEvento();
 
