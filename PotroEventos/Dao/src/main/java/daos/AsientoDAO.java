@@ -1,25 +1,43 @@
 package daos;
 
 import Entitys.Asiento;
-import Entitys.Seccion;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import conexion.ConexionMongo;
+import excepciones.PersistenciaException;
 import interfaces.IAsientoDAO;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  * @author Kaleb
  */
 public class AsientoDAO implements IAsientoDAO {
 
-    @Override
-    public List<Asiento> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private final MongoCollection<Asiento> coleccionAsientos;
+
+    private static AsientoDAO instancia;
+
+    public AsientoDAO() {
+        this.coleccionAsientos = ConexionMongo.obtenerBaseDatos().getCollection("asientos", Asiento.class);
+    }
+
+    public static AsientoDAO getInstance() {
+        if (instancia == null) {
+            instancia = new AsientoDAO();
+        }
+        return instancia;
     }
 
     @Override
-    public List<Asiento> consultarPorSeccion(Long idSeccion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Asiento> consultarAsientos() throws PersistenciaException {
+        try {
+            return this.coleccionAsientos.find().into(new ArrayList<>());
+        } catch (MongoException e) {
+            throw new PersistenciaException("No fue posible obtener los asientos");
+        }
     }
 
-   
 }

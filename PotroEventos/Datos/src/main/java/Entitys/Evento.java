@@ -1,6 +1,5 @@
 package Entitys;
 
-import Entitys.ENUMS.CategoriaEvento;
 import Entitys.ENUMS.EstadoEvento;
 import Entitys.ENUMS.TipoEventoP;
 import java.time.LocalDateTime;

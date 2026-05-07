@@ -7,7 +7,6 @@ package daos;
 import Entitys.Categoria;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.result.InsertOneResult;
 import conexion.ConexionMongo;
 import excepciones.PersistenciaException;
 import interfaces.ICategoriaDAO;
@@ -44,26 +43,4 @@ public class CategoriaDAO implements ICategoriaDAO {
             throw new PersistenciaException("No fue posible obtener las categorías");
         }
     }
-
-    @Override
-    public Categoria registrarCategoria(Categoria categoria) throws PersistenciaException {
-        if (categoria == null) {
-            throw new PersistenciaException("La categoria no puede ser null");
-        }
-
-        try {
-            InsertOneResult resultado = coleccionCategorias.insertOne(categoria);
-
-            if (resultado.getInsertedId() == null) {
-                throw new PersistenciaException("Error al registrar la categoria");
-            }
-
-            categoria.setId(resultado.getInsertedId().asObjectId().getValue().toHexString());
-
-            return categoria;
-        } catch (MongoException e) {
-            throw new PersistenciaException("Error al intentar registrar la categoria");
-        }
-    }
-
 }

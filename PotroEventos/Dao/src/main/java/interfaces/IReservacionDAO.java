@@ -5,6 +5,7 @@
 package interfaces;
 
 import Entitys.Reservacion;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -12,8 +13,8 @@ import java.util.List;
  * @author maria
  */
 public interface IReservacionDAO {
-    
-    boolean guardarReservacion(Reservacion reservacion);
-    
-    List<Reservacion> obtenerReservacionesUsuario(String idUsuario);
+
+    Reservacion guardarReservacion(Reservacion reservacion) throws PersistenciaException;
+
+    List<Reservacion> obtenerReservacionesUsuario(String idUsuario) throws PersistenciaException;
 }

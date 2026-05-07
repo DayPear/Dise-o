@@ -21,11 +21,12 @@ public class CategoriaBO implements ICategoriaBO {
 
     private static CategoriaBO instance;
     private ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
-    
-    private CategoriaBO(){}
-    
-    public static CategoriaBO getInstance(){
-        if(instance == null){
+
+    private CategoriaBO() {
+    }
+
+    public static CategoriaBO getInstance() {
+        if (instance == null) {
             instance = new CategoriaBO();
         }
         return instance;
@@ -33,8 +34,11 @@ public class CategoriaBO implements ICategoriaBO {
 
     @Override
     public List<CategoriaDTO> consultarCategorias() throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return CategoriaAdapter.listaDTOs(categoriaDAO.consultarCategorias());
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
-   
-    
+
 }

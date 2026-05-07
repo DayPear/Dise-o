@@ -4,7 +4,6 @@
  */
 package interfaces;
 
-import Entitys.Asiento;
 import dtos.AsientoDTO;
 import excepciones.NegocioException;
 import java.util.List;
@@ -14,11 +13,7 @@ import java.util.List;
  * @author maria
  */
 public interface IAsientoBO {
-    
-    List<AsientoDTO> consultarTodosLosAsientos() throws NegocioException;
-    
-    public List<AsientoDTO> consultarPorSeccion(String idSeccion);
-    
-    
-    
+
+    public List<AsientoDTO> consultarAsientos() throws NegocioException;
+
 }

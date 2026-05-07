@@ -5,7 +5,7 @@
 package interfaces;
 
 import Entitys.Usuario;
-import java.util.List;
+import excepciones.PersistenciaException;
 
 /**
  *
@@ -13,11 +13,9 @@ import java.util.List;
  */
 public interface IUsuarioDAO {
 
-    List<Usuario> obtenerUsuarios();
+    boolean restarCreditos(Integer cantidad, String idUsuario) throws PersistenciaException;
 
-    boolean restarCreditos(Integer cantidad, String idUsuario);
+    Usuario obtenerUsuario(Usuario usuario) throws PersistenciaException;
 
-    Usuario obtenerUsuario(Usuario usuario);
-
-    Usuario guardarUsuario(Usuario usuario);
+    Usuario guardarUsuario(Usuario usuario) throws PersistenciaException;
 }

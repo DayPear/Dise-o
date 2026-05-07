@@ -12,6 +12,4 @@ public interface ICategoriaDAO {
 
     List<Categoria> consultarCategorias() throws PersistenciaException;
 
-    Categoria registrarCategoria(Categoria categoria) throws PersistenciaException;
-
 }

@@ -7,6 +7,8 @@ package fachada;
 import controladores.ControlInicioSesion;
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
+import excepciones.InicioSesionException;
+import excepciones.NegocioException;
 import interfaces.IFachadaInicioSesion;
 
 /**
@@ -34,8 +36,12 @@ public class InicioSesionFachada implements IFachadaInicioSesion {
     }
 
     @Override
-    public UsuarioDTO iniciarSesion(LoginDTO login) {
-        return control.iniciarSesion(login);
+    public UsuarioDTO iniciarSesion(LoginDTO login) throws InicioSesionException {
+        try {
+            return control.iniciarSesion(login);
+        } catch (NegocioException ex) {
+            throw new InicioSesionException(ex.getMessage());
+        }
     }
 
     @Override
@@ -44,8 +50,12 @@ public class InicioSesionFachada implements IFachadaInicioSesion {
     }
 
     @Override
-    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) {
-        return control.registrarUsuario(usuario);
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) throws InicioSesionException {
+        try {
+            return control.registrarUsuario(usuario);
+        } catch (NegocioException ex) {
+            throw new InicioSesionException(ex.getMessage());
+        }
     }
 
 }

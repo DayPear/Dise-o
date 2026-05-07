@@ -9,6 +9,8 @@ import dtos.LoginDTO;
 import dtos.UsuarioDTO;
 import interfaces.IUsuarioBO;
 import daos.UsuarioDAO;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.IUsuarioDAO;
 
 /**
@@ -33,22 +35,30 @@ public class UsuarioBO implements IUsuarioBO {
     }
 
     @Override
-    public boolean restarCreditos(Integer cantidad, String idUsuario) {
-        return usuarioDAO.restarCreditos(cantidad, idUsuario);
+    public UsuarioDTO obtenerUsuario(LoginDTO sesion) throws NegocioException {
+        try {
+            UsuarioDTO usuario = new UsuarioDTO();
+            usuario.setCorreo(sesion.getCorreo());
+            usuario.setContrasenia(sesion.getContrasenia());
+
+            return UsuarioAdapter.entidadADTO(usuarioDAO.obtenerUsuario(UsuarioAdapter.dtoAEntidad(usuario)));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @Override
-    public UsuarioDTO obtenerUsuario(LoginDTO sesion) {
-        UsuarioDTO usuario = new UsuarioDTO();
-        usuario.setCorreo(sesion.getCorreo());
-        usuario.setContrasenia(sesion.getContrasenia());
-
-        return UsuarioAdapter.entidadADTO(usuarioDAO.obtenerUsuario(UsuarioAdapter.dtoAEntidad(usuario)));
+    public UsuarioDTO guardarUsuario(UsuarioDTO dto) throws NegocioException {
+        try {
+            return UsuarioAdapter.entidadADTO(usuarioDAO.guardarUsuario(UsuarioAdapter.dtoAEntidad(dto)));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @Override
-    public UsuarioDTO guardarUsuario(UsuarioDTO dto) {
-        return UsuarioAdapter.entidadADTO(usuarioDAO.guardarUsuario(UsuarioAdapter.dtoAEntidad(dto)));
+    public boolean restarCreditos(Integer cantidad, String idUsuario) throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

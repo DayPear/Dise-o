@@ -4,8 +4,6 @@ import dtos.EventoDTO;
 import dtos.SeccionDTO;
 import dtos.AsientoEventoDTO;
 import dtos.AsientoDTO;
-import dtos.BoletoDTO;
-import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.ReservacionDTO;
 import dtos.TarjetaDTO;
@@ -55,7 +53,7 @@ public interface ICompraBoleto {
      */
     List<AsientoEventoDTO> obtenerEstadoAsientosPorEvento(String idEvento) throws CompraBoletoException;
 
-    boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
+    ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
 
     List<AsientoDTO> obtenerCatalogoAsientos() throws CompraBoletoException;
 

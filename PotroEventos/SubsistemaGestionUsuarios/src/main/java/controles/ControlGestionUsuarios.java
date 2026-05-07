@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controles;
 
 import dtos.ReservacionDTO;
@@ -50,10 +46,9 @@ public class ControlGestionUsuarios {
         return usuarioActivo;
     }
 
-    public boolean restarCreditos(Integer cantidad, String idUsuario) {
-        return usuarioBO.restarCreditos(cantidad, idUsuario);
-    }
-
+//    public boolean restarCreditos(Integer cantidad, String idUsuario) {
+//        return usuarioBO.restarCreditos(cantidad, idUsuario);
+//    }
     public List<ReservacionDTO> obtenerReservacionUsuario(String idUsuario) throws GestionUsuarioException {
         try {
             return reservacionBO.obtenerReservacionesUsuario(idUsuario);

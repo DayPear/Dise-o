@@ -39,7 +39,7 @@ public class CompraBoletoFachada implements ICompraBoleto {
     }
 
     @Override
-    public boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
+    public ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
         return controlCompra.agregarReservacion(reservacion);
     }
 

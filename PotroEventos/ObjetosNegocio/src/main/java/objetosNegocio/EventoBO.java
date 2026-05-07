@@ -1,8 +1,6 @@
 package objetosNegocio;
 
 import Entitys.ENUMS.CategoriaEvento;
-import Entitys.Evento;
-import adapters.EventoAdapter;
 import Entitys.Categoria;
 import adapters.EventoAdapter;
 import daos.EventoDAO;
@@ -20,10 +18,10 @@ import java.util.List;
 public class EventoBO implements IEventoBO {
 
     private static EventoBO instancia;
-    private final IEventoDAO eventoDAO;
+    private final IEventoDAO eventoDAO = EventoDAO.getInstance();
 
     private EventoBO() {
-        this.eventoDAO = new EventoDAO();
+
     }
 
     public static EventoBO getInstance() {

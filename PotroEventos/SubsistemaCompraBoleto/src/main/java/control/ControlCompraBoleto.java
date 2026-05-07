@@ -113,7 +113,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     @Override
     public List<AsientoDTO> obtenerCatalogoAsientos() throws CompraBoletoException {
         try {
-            List<AsientoDTO> asientos = asientoBO.consultarTodosLosAsientos();
+            List<AsientoDTO> asientos = asientoBO.consultarAsientos();
 
             return asientos.stream().map(a -> new AsientoDTO(
                     a.getIdAsiento(),
@@ -165,11 +165,10 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * Agrega una reservación al sistema.
      *
      * @param reservacion datos de la reservación
-     * @return true si se agregó correctamente
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
+    public ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
         try {
             return reservacionBO.agregarReservacion(reservacion);
         } catch (Exception ex) {

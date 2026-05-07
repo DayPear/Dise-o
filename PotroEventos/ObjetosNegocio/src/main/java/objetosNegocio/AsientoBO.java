@@ -9,6 +9,7 @@ import adapters.AsientoAdapter;
 import daos.AsientoDAO;
 import dtos.AsientoDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.IAsientoBO;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class AsientoBO implements IAsientoBO {
 
     private static AsientoBO instancia;
 
-    private AsientoDAO asientoDAO = new AsientoDAO();
+    private AsientoDAO asientoDAO = AsientoDAO.getInstance();
 
     private AsientoBO() {
     }
@@ -33,14 +34,12 @@ public class AsientoBO implements IAsientoBO {
     }
 
     @Override
-    public List<AsientoDTO> consultarTodosLosAsientos() throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<AsientoDTO> consultarAsientos() throws NegocioException {
+        try {
+            return AsientoAdapter.entidadesADTO(asientoDAO.consultarAsientos());
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
-
-    @Override
-    public List<AsientoDTO> consultarPorSeccion(String idSeccion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 
 }

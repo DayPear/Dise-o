@@ -7,7 +7,9 @@ package Pantallas;
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
+import excepciones.CoordinadorException;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import utilerias.BotonUtileria;
 
 /**
@@ -18,20 +20,26 @@ import utilerias.BotonUtileria;
  * @author María Valdez - 262775
  */
 public class FrmInicioSesion extends javax.swing.JFrame {
-
+    
     private ICoordinadorAplicacion coordinador;
-
+    
     public FrmInicioSesion() {
         initComponents();
     }
 
     /**
      * Creates new form frmInicioSesion
+     *
+     * @param coordinador
      */
     public FrmInicioSesion(ICoordinadorAplicacion coordinador) {
         this.coordinador = coordinador;
         initComponents();
         BotonUtileria.estilizarBoton(btnIngresar);
+    }
+    
+    private void mostrarMensaje(String message) {
+        JOptionPane.showMessageDialog(null, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -227,24 +235,28 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseniaFocusLost
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String correo = txtCorreo.getText();
-        String contrasenia = String.valueOf(txtContrasenia.getPassword());
-        if (correo.equals("Ingrese un correo") || contrasenia.equals("********************")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
-            return;
-        }
-        LoginDTO login = new LoginDTO(correo, contrasenia);
-        UsuarioDTO usuario = coordinador.iniciarSesion(login);
-        if (usuario != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
-            coordinador.setUsuarioSesion(usuario);
-            coordinador.mostrarInicio();
-            this.dispose();
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error de acceso", javax.swing.JOptionPane.ERROR_MESSAGE);
+        try {
+            String correo = txtCorreo.getText();
+            String contrasenia = String.valueOf(txtContrasenia.getPassword());
+            if (correo.equals("Ingrese un correo") || contrasenia.equals("********************")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
+                return;
+            }
+            LoginDTO login = new LoginDTO(correo, contrasenia);
+            UsuarioDTO usuario = coordinador.iniciarSesion(login);
+            if (usuario != null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
+                coordinador.setUsuarioSesion(usuario);
+                coordinador.mostrarInicio();
+                this.dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error de acceso", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (CoordinadorException ex) {
+            mostrarMensaje(ex.getMessage());
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
-
+    
     public void limpiarCampos() {
         txtCorreo.setText("Ingrese un correo");
         txtCorreo.setForeground(new java.awt.Color(153, 153, 153));

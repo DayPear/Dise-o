@@ -8,6 +8,7 @@ import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.CobroDTO;
 import dtos.ReservacionDTO;
 import dtos.TarjetaDTO;
+import excepciones.CoordinadorException;
 import javax.swing.JOptionPane;
 import utilerias.BotonUtileria;
 
@@ -26,11 +27,15 @@ public class FrmPago extends javax.swing.JFrame {
     public FrmPago(ICoordinadorAplicacion coordinador, ReservacionDTO reservacion) {
         this.coordinador = coordinador;
         this.reservacion = reservacion;
-        
+
         initComponents();
 
         BotonUtileria.estilizarBoton(btnPagar);
         BotonUtileria.estilizarBoton(btnVolver);
+    }
+
+    private void mostrarMensaje(String message) {
+        JOptionPane.showMessageDialog(null, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -328,7 +333,11 @@ public class FrmPago extends javax.swing.JFrame {
         if (coordinador.realizarCompra(tarjeta, cobro)) {
             JOptionPane.showMessageDialog(null, "Pago realizado exitosamente", "Pago realizado", JOptionPane.INFORMATION_MESSAGE);
             reservacion.setCobro(cobro);
-            coordinador.agregarReservacion(reservacion);
+            try {
+                coordinador.agregarReservacion(reservacion);
+            } catch (CoordinadorException ex) {
+                mostrarMensaje(ex.getMessage());
+            }
             // -> aquí debe abrir el frame de resumen compra
             coordinador.mostrarDetalles(reservacion);
         } else {

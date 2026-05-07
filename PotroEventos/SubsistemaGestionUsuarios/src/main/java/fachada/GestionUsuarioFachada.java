@@ -10,59 +10,36 @@ import controles.ControlGestionUsuarios;
 import dtos.ReservacionDTO;
 import excepciones.GestionUsuarioException;
 import java.util.List;
+
 /**
  * Fachada del subsistema, se encarga de comunicarse con el controlador.
- * 
+ *
  * @author Aaron Burciaga - 262788
  * @author Brian Sandoval - 262741
  * @author Dayanara Peralta - 262695
  * @author María Valdez - 262775
  */
-public class GestionUsuarioFachada implements IGestionUsuariosFachada{
+public class GestionUsuarioFachada implements IGestionUsuariosFachada {
 
-    private final  ControlGestionUsuarios control;
+    private final ControlGestionUsuarios control;
 
     public GestionUsuarioFachada() {
         this.control = new ControlGestionUsuarios();
     }
-    
-//    // --- Metodos para asociar un usuario a la sesion 
-//    @Override
-//    public UsuarioDTO vincularUsuario(UsuarioDTO usuario) throws GestionUsuarioException{
-//        try{
-//            // recibe el usuario
-//            UsuarioDTO user = control.obtenerUsuarioActivo(usuario);
-//            
-//            if(user == null){
-//                throw new GestionUsuarioException("El usuario no se ha podido vincular.");
-//            }
-//            user = control.asociarUsuario(usuario);
-//            return user;
-//        }catch(GestionUsuarioException ex){
-//            throw new GestionUsuarioException(ex.getMessage());
-//        }
-//        
-//    }
-    
-//    // --- Metodo para deslindar un usuario de una sesion ---
-//    @Override
-//    public void desvincularUsuario()throws GestionUsuarioException{
-//        control.limpiarSesion();
-//    }
-    
+
     // --- Método que regresa el usuario con la sesion activa --- 
     @Override
-    public UsuarioDTO obtenerUsuarioActivo(){
+    public UsuarioDTO obtenerUsuarioActivo() {
         return control.getUsuarioActivo();
-    }
-    
-    @Override
-    public boolean restarCreditos(Integer cantidad, String idUsuario){
-        return control.restarCreditos(cantidad, idUsuario);
     }
 
     @Override
     public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws GestionUsuarioException {
         return control.obtenerReservacionUsuario(idUsuario);
+    }
+
+    @Override
+    public boolean restarCreditos(Integer cantidad, String idUsuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

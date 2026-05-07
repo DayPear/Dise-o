@@ -23,8 +23,10 @@ import dtos.UsuarioDTO;
 import dtos.UsuarioInstitucionalDTO;
 import fachada.InicioSesionFachada;
 import excepciones.CompraBoletoException;
+import excepciones.CoordinadorException;
 import excepciones.GestionEventoException;
 import excepciones.GestionUsuarioException;
+import excepciones.InicioSesionException;
 import fachada.CompraBoletoFachada;
 import fachada.GestionEventoFachada;
 import fachada.GestionUsuarioFachada;
@@ -230,10 +232,14 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public UsuarioDTO iniciarSesion(LoginDTO login) {
-        UsuarioDTO usuarioDTO = controlInicioSesion.iniciarSesion(login);
-        setUsuarioSesion(usuarioDTO);
-        return usuarioDTO;
+    public UsuarioDTO iniciarSesion(LoginDTO login) throws CoordinadorException {
+        try {
+            UsuarioDTO usuarioDTO = controlInicioSesion.iniciarSesion(login);
+            setUsuarioSesion(usuarioDTO);
+            return usuarioDTO;
+        } catch (InicioSesionException ex) {
+            throw new CoordinadorException(ex.getMessage());
+        }
     }
 
     @Override
@@ -264,13 +270,12 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public boolean agregarReservacion(ReservacionDTO reservacion) {
+    public ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CoordinadorException {
         try {
             return controlCompra.agregarReservacion(reservacion);
         } catch (CompraBoletoException ex) {
-            System.out.println("Falló al consultar reservaciones: " + ex.getMessage());
+            throw new CoordinadorException(ex.getMessage());
         }
-        return false;
     }
 
     /**
@@ -387,8 +392,12 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) {
-        return controlInicioSesion.registrarUsuario(usuario);
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) throws CoordinadorException {
+        try {
+            return controlInicioSesion.registrarUsuario(usuario);
+        } catch (InicioSesionException ex) {
+            throw new CoordinadorException(ex.getMessage());
+        }
     }
 
 }

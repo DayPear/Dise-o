@@ -1,17 +1,17 @@
 package daos;
 
-import Entitys.Asiento;
 import Entitys.AsientoEvento;
-import Entitys.Categoria;
 import Entitys.ENUMS.EstadoAsiento;
-import Entitys.Seccion;
-import com.mongodb.client.MongoClient;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.result.UpdateResult;
 import conexion.ConexionMongo;
 import excepciones.PersistenciaException;
 import interfaces.IAsientoEventoDAO;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  * DAO mock para la gestión de asientos por evento.
@@ -36,10 +36,10 @@ public class AsientoEventoDAO implements IAsientoEventoDAO {
      * Lista mock a nivel de clase para persistencia en memoria. Esto permite
      * que las pruebas mantengan estado entre llamadas.
      */
-    private final MongoCollection<AsientoEvento> asientosEventos;
+    private final MongoCollection<AsientoEvento> coleccionAsientosEventos;
 
     private AsientoEventoDAO() {
-        this.asientosEventos = ConexionMongo.obtenerBaseDatos().getCollection("asientoEventos", AsientoEvento.class);
+        this.coleccionAsientosEventos = ConexionMongo.obtenerBaseDatos().getCollection("asientoEventos", AsientoEvento.class);
     }
 
     public static AsientoEventoDAO getInstancia() {
@@ -51,22 +51,71 @@ public class AsientoEventoDAO implements IAsientoEventoDAO {
 
     @Override
     public List<AsientoEvento> buscarPorEvento(String idEvento) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.coleccionAsientosEventos.find(eq("idEvento", new ObjectId(idEvento))).into(new ArrayList<>());
+
     }
 
     @Override
     public boolean reservarAsiento(String idAsiento) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            AsientoEvento asiento = this.coleccionAsientosEventos.find(eq("_id", new ObjectId(idAsiento))).first();
+            if (asiento == null) {
+                throw new PersistenciaException("AsientoEvento no encontrado");
+            }
+
+            asiento.setEstadoAsiento(EstadoAsiento.RESERVADO);
+
+            UpdateResult resultado = this.coleccionAsientosEventos.replaceOne(eq("_id", new ObjectId(asiento.getIdAsientoEvento())), asiento);
+            if (resultado.getMatchedCount() == 0) {
+                throw new PersistenciaException("No se encontró el asiento");
+            }
+            return true;
+
+        } catch (MongoException e) {
+            throw new PersistenciaException("No fue posible reservar el asiento");
+        }
     }
 
     @Override
     public boolean liberarAsiento(String idAsiento) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            AsientoEvento asiento = this.coleccionAsientosEventos.find(eq("_id", new ObjectId(idAsiento))).first();
+            if (asiento == null) {
+                throw new PersistenciaException("AsientoEvento no encontrado");
+            }
+
+            asiento.setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+
+            UpdateResult resultado = this.coleccionAsientosEventos.replaceOne(eq("_id", new ObjectId(asiento.getIdAsientoEvento())), asiento);
+            if (resultado.getMatchedCount() == 0) {
+                throw new PersistenciaException("No se encontró el asiento");
+            }
+            return true;
+
+        } catch (MongoException e) {
+            throw new PersistenciaException("No fue posible liberar el asiento");
+        }
     }
 
     @Override
     public boolean venderAsiento(String idAsiento) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            AsientoEvento asiento = this.coleccionAsientosEventos.find(eq("_id", new ObjectId(idAsiento))).first();
+            if (asiento == null) {
+                throw new PersistenciaException("AsientoEvento no encontrado");
+            }
+
+            asiento.setEstadoAsiento(EstadoAsiento.VENDIDO);
+
+            UpdateResult resultado = this.coleccionAsientosEventos.replaceOne(eq("_id", new ObjectId(asiento.getIdAsientoEvento())), asiento);
+            if (resultado.getMatchedCount() == 0) {
+                throw new PersistenciaException("No se encontró el asiento");
+            }
+            return true;
+
+        } catch (MongoException e) {
+            throw new PersistenciaException("No fue posible vender el asiento");
+        }
     }
 
 }

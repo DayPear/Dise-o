@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package objetosNegocio;
 
 import adapters.ReservacionAdapter;
 import daos.ReservacionDAO;
 import dtos.ReservacionDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.IReservacionBO;
 import interfaces.IReservacionDAO;
 import java.util.List;
@@ -20,59 +17,68 @@ public class ReservacionBO implements IReservacionBO {
 
     private static ReservacionBO instance;
     private final IReservacionDAO reservacionDAO = ReservacionDAO.getInstance();
-    
-    private ReservacionBO(){}
-    
-    public static ReservacionBO getInstance(){
-        if(instance == null){
+
+    private ReservacionBO() {
+    }
+
+    public static ReservacionBO getInstance() {
+        if (instance == null) {
             instance = new ReservacionBO();
         }
         return instance;
     }
-    
+
     @Override
-    public boolean agregarReservacion(ReservacionDTO reservacion) throws NegocioException {
-        if(!validarDatos(reservacion)){
-            throw new NegocioException("Reservación inválida.");
+    public ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws NegocioException {
+        try {
+            if (!validarDatos(reservacion)) {
+                throw new NegocioException("Reservación inválida.");
+            }
+            return ReservacionAdapter.entidadADTO(reservacionDAO.guardarReservacion(ReservacionAdapter.dtoAEntidad(reservacion)));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
         }
-        return reservacionDAO.guardarReservacion(ReservacionAdapter.dtoAEntidad(reservacion));
     }
 
     @Override
     public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws NegocioException {
-        if(idUsuario == null){
-            throw new NegocioException("ID usuario inválido.");
+        try {
+            if (idUsuario == null) {
+                throw new NegocioException("ID usuario inválido.");
+            }
+            return ReservacionAdapter.listaDTOs(reservacionDAO.obtenerReservacionesUsuario(idUsuario));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
         }
-        return ReservacionAdapter.listaDTOs(reservacionDAO.obtenerReservacionesUsuario(idUsuario));
     }
-    
-    private boolean validarDatos(ReservacionDTO r){
-        
-        if(r == null){
+
+    private boolean validarDatos(ReservacionDTO r) {
+
+        if (r == null) {
             return false;
         }
-        
-        if(r.getBoleto() == null){
+
+        if (r.getBoleto() == null) {
             return false;
         }
-        
-        if(r.getEstado() == null){
+
+        if (r.getEstado() == null) {
             return false;
         }
-        
-        if(r.getFechaHora() == null){
+
+        if (r.getFechaHora() == null) {
             return false;
         }
-        
-        if(r.getTotal() == null){
+
+        if (r.getTotal() == null) {
             return false;
         }
-        
-        if(r.getUsuario() == null){
+
+        if (r.getUsuario() == null) {
             return false;
         }
-        
+
         return true;
     }
-    
+
 }

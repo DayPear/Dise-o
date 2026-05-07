@@ -6,6 +6,7 @@ package interfaces;
 
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
+import excepciones.InicioSesionException;
 
 /**
  *
@@ -17,9 +18,9 @@ import dtos.UsuarioDTO;
 public interface IFachadaInicioSesion {
 
     //inicia sesion
-    public UsuarioDTO iniciarSesion(LoginDTO login);
+    public UsuarioDTO iniciarSesion(LoginDTO login) throws InicioSesionException;
 
     public void cerrarSesion();
 
-    public UsuarioDTO registrarUsuario(UsuarioDTO usuario);
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) throws InicioSesionException;
 }

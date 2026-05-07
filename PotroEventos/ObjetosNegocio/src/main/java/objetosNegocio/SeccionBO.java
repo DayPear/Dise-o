@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package objetosNegocio;
 
 import adapters.SeccionAdapter;
 import daos.SeccionDAO;
 import dtos.SeccionDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.ISeccionBO;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class SeccionBO implements ISeccionBO {
 
     private static SeccionBO instancia;
 
-    private SeccionDAO seccionDAO = new SeccionDAO();
+    private SeccionDAO seccionDAO = SeccionDAO.getInstance();
 
     private SeccionBO() {
     }
@@ -33,7 +30,11 @@ public class SeccionBO implements ISeccionBO {
 
     @Override
     public List<SeccionDTO> consultarSeccionesPorEvento(String idEvento) throws NegocioException {
-        return SeccionAdapter.listaEntidadADTO(seccionDAO.buscarPorEvento(idEvento));
+        try {
+            return SeccionAdapter.listaEntidadADTO(seccionDAO.buscarPorEvento(idEvento));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
 }

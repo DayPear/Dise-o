@@ -6,7 +6,6 @@ package objetosNegocio;
 
 import Entitys.AsientoEvento;
 import adapters.AsientoEventoAdapter;
-import daos.AsientoDAO;
 import daos.AsientoEventoDAO;
 import dtos.AsientoEventoDTO;
 import excepciones.NegocioException;

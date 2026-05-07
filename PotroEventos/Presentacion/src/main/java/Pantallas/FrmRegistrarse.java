@@ -6,6 +6,7 @@ package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.UsuarioDTO;
+import excepciones.CoordinadorException;
 import javax.swing.JOptionPane;
 import utilerias.BotonUtileria;
 
@@ -17,12 +18,12 @@ import utilerias.BotonUtileria;
  * @author María Valdez - 262775
  */
 public class FrmRegistrarse extends javax.swing.JFrame {
-
+    
     private ICoordinadorAplicacion coordinador;
-
+    
     public FrmRegistrarse() {
         initComponents();
-
+        
     }
 
     /**
@@ -34,6 +35,10 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         this.coordinador = coordinador;
         initComponents();
         BotonUtileria.estilizarBoton(btnRegistrarse);
+    }
+    
+    private void mostrarMensaje(String message) {
+        JOptionPane.showMessageDialog(null, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -263,44 +268,49 @@ public class FrmRegistrarse extends javax.swing.JFrame {
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         String pass = String.valueOf(txtContrasenia.getPassword());
         String confirmPass = String.valueOf(txtConfirmacionContrasenia.getPassword());
-
+        
         if (!pass.equals(confirmPass)) {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$";
         String regexCorreo = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-
+        
         if (!txtNombre.getText().trim().matches(regex)) {
             JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         if (!txtApellidoP.getText().trim().matches(regex)) {
             JOptionPane.showMessageDialog(null, "El apellido paterno solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         String apellidoM = txtApellidoM.getText().trim();
         if (!apellidoM.isEmpty() && !apellidoM.matches(regex)) {
             JOptionPane.showMessageDialog(null, "El apellido materno solo debe contener letras", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         String correo = txtCorreo.getText().trim();
         if (!correo.matches(regexCorreo)) {
             JOptionPane.showMessageDialog(null, "Correo electrónico no válido", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         UsuarioDTO usuario = new UsuarioDTO(txtNombre.getText().trim(), txtApellidoP.getText().trim(), apellidoM.isEmpty() ? null : apellidoM, correo, pass, 0);
-
-        UsuarioDTO usuarioGuardado = coordinador.guardarUsuario(usuario);
-
-        if (usuarioGuardado != null) {
-            JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            coordinador.mostrarInicioSesion();
+        
+        UsuarioDTO usuarioGuardado;
+        try {
+            usuarioGuardado = coordinador.guardarUsuario(usuario);
+            
+            if (usuarioGuardado != null) {
+                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                coordinador.mostrarInicioSesion();
+            }
+        } catch (CoordinadorException ex) {
+            mostrarMensaje(ex.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 

@@ -11,6 +11,7 @@ import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
 import dtos.UsuarioDTO;
 import dtos.UsuarioInstitucionalDTO;
+import excepciones.CoordinadorException;
 import excepciones.GestionEventoException;
 import java.util.List;
 import java.util.Map;
@@ -56,11 +57,11 @@ public interface ICoordinadorAplicacion {
 
     public List<AsientoDTO> obtenerCatalogoAsientos();
 
-    public boolean agregarReservacion(ReservacionDTO reservacion);
+    public ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CoordinadorException;
 
-    public UsuarioDTO iniciarSesion(LoginDTO login);
+    public UsuarioDTO iniciarSesion(LoginDTO login) throws CoordinadorException;
 
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuario);
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) throws CoordinadorException;
 
     public void setUsuarioSesion(UsuarioDTO usuario);
 

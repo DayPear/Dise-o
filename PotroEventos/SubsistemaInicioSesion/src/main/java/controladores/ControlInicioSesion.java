@@ -11,6 +11,7 @@ import dtos.UsuarioDTO;
  * @author María Valdez - 262775
  */
 import dtos.LoginDTO;
+import excepciones.NegocioException;
 import interfaces.IUsuarioBO;
 import objetosNegocio.UsuarioBO;
 
@@ -32,7 +33,7 @@ public class ControlInicioSesion {
         return instance;
     }
 
-    public UsuarioDTO iniciarSesion(LoginDTO login) {
+    public UsuarioDTO iniciarSesion(LoginDTO login) throws NegocioException {
         if (verificarUsuario(login)) {
 
         }
@@ -58,7 +59,7 @@ public class ControlInicioSesion {
         return usuario;
     }
 
-    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) {
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) throws NegocioException {
         return usuarioBO.guardarUsuario(usuario);
     }
 }

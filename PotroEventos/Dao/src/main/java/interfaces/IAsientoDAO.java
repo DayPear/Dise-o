@@ -5,6 +5,7 @@
 package interfaces;
 
 import Entitys.Asiento;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -13,7 +14,5 @@ import java.util.List;
  */
 public interface IAsientoDAO {
 
-    List<Asiento> consultarTodos();
-
-    List<Asiento> consultarPorSeccion(Long idSeccion);
+    public List<Asiento> consultarAsientos() throws PersistenciaException;
 }

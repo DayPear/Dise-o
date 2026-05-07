@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package interfaces;
 
 import dtos.LoginDTO;
 import dtos.UsuarioDTO;
+import excepciones.NegocioException;
 
 /**
  *
@@ -13,9 +10,9 @@ import dtos.UsuarioDTO;
  */
 public interface IUsuarioBO {
 
-    public UsuarioDTO obtenerUsuario(LoginDTO sesion);
+    public UsuarioDTO obtenerUsuario(LoginDTO sesion) throws NegocioException;
 
-    public boolean restarCreditos(Integer cantidad, String idUsuario);
+    public boolean restarCreditos(Integer cantidad, String idUsuario) throws NegocioException;
 
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuario);
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) throws NegocioException;
 }

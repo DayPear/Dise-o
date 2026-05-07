@@ -2,7 +2,6 @@ package interfaz;
 
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
-import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
@@ -41,7 +40,7 @@ public interface IControlCompraBoleto {
     /**
      * Registra una nueva reservación en el sistema.
      */
-    boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
+    ReservacionDTO agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
 
     public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento) throws CompraBoletoException;
 
