@@ -9,6 +9,7 @@ import Pantallas.vistas.PnlCategoria;
 import Pantallas.vistas.PnlEventos;
 import dtos.CategoriaDTO;
 import dtos.UsuarioDTO;
+import excepciones.GestionEventoException;
 import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JPanel;
@@ -98,7 +99,7 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         jpnlContenedor.repaint();
     }
 
-    public void setEventos(CategoriaDTO categoria) {
+    public void setEventos(CategoriaDTO categoria) throws GestionEventoException {
         jpnlContenedor.removeAll();
         jpnlContenedor.add(new PnlEventos(coordinador, categoria));
 

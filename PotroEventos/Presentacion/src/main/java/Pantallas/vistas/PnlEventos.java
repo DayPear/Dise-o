@@ -7,6 +7,7 @@ package Pantallas.vistas;
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.CategoriaDTO;
 import dtos.EventoDTO;
+import excepciones.GestionEventoException;
 
 /**
  *
@@ -23,7 +24,7 @@ public class PnlEventos extends javax.swing.JPanel {
     /**
      * Creates new form PnlEventos
      */
-    public PnlEventos(ICoordinadorAplicacion coordinador, CategoriaDTO categoria) {
+    public PnlEventos(ICoordinadorAplicacion coordinador, CategoriaDTO categoria) throws GestionEventoException {
         this.categoria = categoria;
         this.coordinador = coordinador;
         initComponents();
@@ -51,7 +52,7 @@ public class PnlEventos extends javax.swing.JPanel {
         cargarDatos();
     }
 
-    public void cargarDatos() {
+    public void cargarDatos() throws GestionEventoException {
         PnlContenedor.removeAll();
 
         for (EventoDTO evento : coordinador.consultarEventos(categoria)) {

@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface IAsientoEventoDAO {
 
-    List<AsientoEvento> buscarPorEvento(Long idEvento) throws PersistenciaException;
+    List<AsientoEvento> buscarPorEvento(String idEvento) throws PersistenciaException;
 
-    boolean reservarAsiento(Long idAsiento) throws PersistenciaException;
+    boolean reservarAsiento(String idAsiento) throws PersistenciaException;
 
-    boolean liberarAsiento(Long idAsiento) throws PersistenciaException;
+    boolean liberarAsiento(String idAsiento) throws PersistenciaException;
     
-    boolean venderAsiento(Long idAsiento) throws PersistenciaException;
+    boolean venderAsiento(String idAsiento) throws PersistenciaException;
 }

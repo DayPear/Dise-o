@@ -21,11 +21,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
@@ -37,7 +37,7 @@ import net.glxn.qrgen.javase.QRCode;
  * @author Kaleb
  */
 public class ControlCompraBoleto implements IControlCompraBoleto {
-    
+
     private final ISeccionBO seccionBO;
     private final IAsientoBO asientoBO;
     private final IAsientoEventoBO asientoEventoBO;
@@ -80,7 +80,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public List<SeccionDTO> obtenerSeccionesEvento(Long idEvento) throws CompraBoletoException {
+    public List<SeccionDTO> obtenerSeccionesEvento(String idEvento) throws CompraBoletoException {
         try {
             return seccionBO.consultarSeccionesPorEvento(idEvento);
         } catch (Exception ex) {
@@ -96,7 +96,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public List<AsientoEventoDTO> obtenerOcupacionEvento(Long idEvento) throws CompraBoletoException {
+    public List<AsientoEventoDTO> obtenerOcupacionEvento(String idEvento) throws CompraBoletoException {
         try {
             return asientoEventoBO.consultarEstadosPorEvento(idEvento);
         } catch (Exception ex) {
@@ -135,7 +135,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento) throws CompraBoletoException {
+    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento) throws CompraBoletoException {
         try {
             List<SeccionDTO> secciones = seccionBO.consultarSeccionesPorEvento(idEvento);
             List<AsientoEventoDTO> ocupacion = asientoEventoBO.consultarEstadosPorEvento(idEvento);
@@ -188,27 +188,29 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     @Override
     public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException {
         try {
-            int asientoID = 0;
-            int identificador = 0;
-            if(asiento == null){
-                asientoID = 0;
-                identificador = LocalDateTime.now().getNano();
+            String asientoID = null;
+            String identificador;
+
+            if (asiento == null || asiento.getIdAsiento() == null) {
+
+                identificador = UUID.randomUUID().toString();
+
             } else {
-                asientoID = asiento.getIdAsiento().intValue();
-                identificador = asiento.getIdAsiento().intValue();
+
+                asientoID = asiento.getIdAsiento();
+                identificador = asiento.getIdAsiento();
             }
 
-            String datos = "Evento: " + evento.getNombreEvento()
-                    + ", Fecha: " + evento.getFechaHora()
-                    + ", Ubicación: " + evento.getUbicacion().getNombre()
-                    + ", Asiento: " + asientoID;
-            
+            String token = UUID.randomUUID().toString();
+
+            String datos = token;
+
             String ruta = "/src/main/resources/qrs-boletos";
             Path directorioDestino = Paths.get("src", "main", "resources", "qrs-boletos");
             if (!Files.exists(directorioDestino)) {
                 Files.createDirectories(directorioDestino);
             }
-            
+
             File temp = QRCode.from(datos).to(ImageType.PNG).withSize(300, 300).file();
             String nombreArchivo = "Boleto_" + identificador + "_" + evento.getIdEvento() + ".png";
             Path rutaDestino = directorioDestino.resolve(nombreArchivo);
@@ -227,7 +229,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public boolean reservarAsiento(Long idAsientoEvento) throws CompraBoletoException {
+    public boolean reservarAsiento(String idAsientoEvento) throws CompraBoletoException {
         try {
             return asientoEventoBO.reservarAsiento(idAsientoEvento);
         } catch (NegocioException e) {
@@ -243,7 +245,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public boolean liberarAsiento(Long idAsientoEvento) throws CompraBoletoException {
+    public boolean liberarAsiento(String idAsientoEvento) throws CompraBoletoException {
         try {
             return asientoEventoBO.liberarAsiento(idAsientoEvento);
         } catch (NegocioException e) {
@@ -267,8 +269,8 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
             }
 
             if (reservacion.getCobro() != null) {
-                System.out.println((int)(totalCompra/100.0 * 2));
-                if (usuarioBO.restarCreditos((int)(totalCompra/100.0 * 2), reservacion.getUsuario().getIdUsuario())) {
+                System.out.println((int) (totalCompra / 100.0 * 2));
+                if (usuarioBO.restarCreditos((int) (totalCompra / 100.0 * 2), reservacion.getUsuario().getIdUsuario())) {
                     asientoEventoBO.venderAsiento(reservacion.getBoleto().getAsiento().getIdAsiento());
                     reservacionBO.agregarReservacion(reservacion);
                     return true;
@@ -321,15 +323,16 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     public Long getTotalPendiente() {
         return totalPendienteCompra;
     }
-    
+
     /**
      * Valida que un usuario si sea perteneciente a ITSON
+     *
      * @param usuario El DTO con la información para validar al usuario en el
      * subsistema ITSON.
      * @return true si sí es usuario ITSON, false de lo contrario.
      */
     @Override
-    public boolean validarCredencialesITSON(UsuarioInstitucionalDTO usuario){
+    public boolean validarCredencialesITSON(UsuarioInstitucionalDTO usuario) {
         return controlItson.validarUsuarioITSON(UsuarioInstitucionalAdapter.dtoAInfraestructura(usuario));
     }
 }

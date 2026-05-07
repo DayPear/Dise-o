@@ -15,5 +15,5 @@ public interface IReservacionDAO {
     
     boolean guardarReservacion(Reservacion reservacion);
     
-    List<Reservacion> obtenerReservacionesUsuario(Long idUsuario);
+    List<Reservacion> obtenerReservacionesUsuario(String idUsuario);
 }

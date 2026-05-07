@@ -8,6 +8,7 @@ import adapters.CategoriaAdapter;
 import daos.CategoriaDAO;
 import dtos.CategoriaDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.ICategoriaBO;
 import interfaces.ICategoriaDAO;
 import java.util.List;
@@ -29,10 +30,11 @@ public class CategoriaBO implements ICategoriaBO {
         }
         return instance;
     }
-    
+
     @Override
     public List<CategoriaDTO> consultarCategorias() throws NegocioException {
-        return CategoriaAdapter.listaDTOs(categoriaDAO.consultarCategorias());
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+   
     
 }

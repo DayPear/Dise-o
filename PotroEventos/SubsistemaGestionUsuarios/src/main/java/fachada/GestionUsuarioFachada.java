@@ -57,12 +57,12 @@ public class GestionUsuarioFachada implements IGestionUsuariosFachada{
     }
     
     @Override
-    public boolean restarCreditos(Integer cantidad, Long idUsuario){
+    public boolean restarCreditos(Integer cantidad, String idUsuario){
         return control.restarCreditos(cantidad, idUsuario);
     }
 
     @Override
-    public List<ReservacionDTO> obtenerReservacionesUsuario(Long idUsuario) throws GestionUsuarioException {
+    public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws GestionUsuarioException {
         return control.obtenerReservacionUsuario(idUsuario);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Interfaz que sirve como puente entre la fachada y la capa de presentación.
- * 
+ *
  * @author Aaron Burciaga - 262788
  * @author Brian Sandoval - 262741
  * @author Dayanara Peralta - 262695
@@ -21,18 +21,13 @@ import java.util.List;
 public interface IGestionUsuariosFachada {
 
     // --- Metodos para asociar un usuario a la sesion 
-    
     //public UsuarioDTO vincularUsuario(UsuarioDTO usuario)throws GestionUsuarioException;
-    
     // --- Metodo para deslindar un usuario de una sesion ---
-    
     //public void desvincularUsuario()throws GestionUsuarioException;
-    
     // --- Método que regresa el usuario con la sesion activa --- 
-    
     public UsuarioDTO obtenerUsuarioActivo();
-    
-    public boolean restarCreditos(Integer cantidad, Long idUsuario);
-    
-    public List<ReservacionDTO> obtenerReservacionesUsuario(Long idUsuario) throws GestionUsuarioException;
+
+    public boolean restarCreditos(Integer cantidad, String idUsuario);
+
+    public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws GestionUsuarioException;
 }

@@ -36,9 +36,9 @@ public class AsientoEventoBO implements IAsientoEventoBO {
     }
 
     @Override
-    public List<AsientoEventoDTO> consultarEstadosPorEvento(Long idEvento) throws NegocioException {
+    public List<AsientoEventoDTO> consultarEstadosPorEvento(String idEvento) throws NegocioException {
         // Validaciones de negocio previas
-        if (idEvento == null || idEvento <= 0) {
+        if (idEvento == null) {
             throw new NegocioException("ID de evento no válido.");
         }
 
@@ -57,8 +57,8 @@ public class AsientoEventoBO implements IAsientoEventoBO {
     }
 
     @Override
-    public boolean reservarAsiento(Long idAsiento) throws NegocioException {
-        if (idAsiento == null || idAsiento <= 0) {
+    public boolean reservarAsiento(String idAsiento) throws NegocioException {
+        if (idAsiento == null) {
             throw new NegocioException("ID de asientoEvento no válido.");
         }
 
@@ -70,8 +70,8 @@ public class AsientoEventoBO implements IAsientoEventoBO {
     }
 
     @Override
-    public boolean liberarAsiento(Long idAsiento) throws NegocioException {
-        if (idAsiento == null || idAsiento <= 0) {
+    public boolean liberarAsiento(String idAsiento) throws NegocioException {
+        if (idAsiento == null) {
             throw new NegocioException("ID de asientoEvento no válido.");
         }
 
@@ -83,8 +83,8 @@ public class AsientoEventoBO implements IAsientoEventoBO {
     }
 
     @Override
-    public boolean venderAsiento(Long idAsiento) throws NegocioException {
-        if (idAsiento == null || idAsiento <= 0) {
+    public boolean venderAsiento(String idAsiento) throws NegocioException {
+        if (idAsiento == null) {
             throw new NegocioException("ID de asientoEvento no válido.");
         }
 

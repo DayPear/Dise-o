@@ -11,8 +11,8 @@ import dtos.ENUMS.TipoUbicacionN;
  * @author maria
  */
 public class UbicacionDTO {
-    
-    private Long idUbicacion;
+
+    private String idUbicacion;
     private String nombre;
     private Integer capacidad;
     private TipoUbicacionN tipo;
@@ -20,7 +20,7 @@ public class UbicacionDTO {
     public UbicacionDTO() {
     }
 
-    public UbicacionDTO(Long idUbicacion, String nombre, Integer capacidad, TipoUbicacionN tipo) {
+    public UbicacionDTO(String idUbicacion, String nombre, Integer capacidad, TipoUbicacionN tipo) {
         this.idUbicacion = idUbicacion;
         this.nombre = nombre;
         this.capacidad = capacidad;
@@ -33,11 +33,11 @@ public class UbicacionDTO {
         this.tipo = tipo;
     }
 
-    public Long getIdUbicacion() {
+    public String getIdUbicacion() {
         return idUbicacion;
     }
 
-    public void setIdUbicacion(Long idUbicacion) {
+    public void setIdUbicacion(String idUbicacion) {
         this.idUbicacion = idUbicacion;
     }
 
@@ -64,5 +64,5 @@ public class UbicacionDTO {
     public void setTipo(TipoUbicacionN tipo) {
         this.tipo = tipo;
     }
-    
+
 }

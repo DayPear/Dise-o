@@ -33,7 +33,7 @@ public class UsuarioBO implements IUsuarioBO {
     }
 
     @Override
-    public boolean restarCreditos(Integer cantidad, Long idUsuario) {
+    public boolean restarCreditos(Integer cantidad, String idUsuario) {
         return usuarioDAO.restarCreditos(cantidad, idUsuario);
     }
 

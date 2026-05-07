@@ -39,7 +39,7 @@ public class ReservacionBO implements IReservacionBO {
     }
 
     @Override
-    public List<ReservacionDTO> obtenerReservacionesUsuario(Long idUsuario) throws NegocioException {
+    public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws NegocioException {
         if(idUsuario == null){
             throw new NegocioException("ID usuario inválido.");
         }

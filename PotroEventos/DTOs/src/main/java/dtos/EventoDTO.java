@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public class EventoDTO {
 
-    private Long idEvento;
+    private String idEvento;
     private CategoriaDTO categoriaEvento;
     private String nombreEvento;
     private String informacionEvento;
@@ -28,7 +28,7 @@ public class EventoDTO {
     public EventoDTO() {
     }
 
-    public EventoDTO(Long idEvento, CategoriaDTO categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, UbicacionDTO ubicacion, EstadoEventoDTO estadoEvento, String urlImagen, boolean gratuito, TipoEventoN tipoEvento, Integer disponibilidad) {
+    public EventoDTO(String idEvento, CategoriaDTO categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, UbicacionDTO ubicacion, EstadoEventoDTO estadoEvento, String urlImagen, boolean gratuito, TipoEventoN tipoEvento, Integer disponibilidad) {
         this.idEvento = idEvento;
         this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
@@ -55,11 +55,11 @@ public class EventoDTO {
         this.disponibilidad = disponibilidad;
     }
 
-    public Long getIdEvento() {
+    public String getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Long idEvento) {
+    public void setIdEvento(String idEvento) {
         this.idEvento = idEvento;
     }
 

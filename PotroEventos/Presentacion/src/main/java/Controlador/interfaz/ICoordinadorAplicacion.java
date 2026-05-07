@@ -11,6 +11,7 @@ import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
 import dtos.UsuarioDTO;
 import dtos.UsuarioInstitucionalDTO;
+import excepciones.GestionEventoException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,13 +46,13 @@ public interface ICoordinadorAplicacion {
 
     public void volverAConsultarEvento();
 
-    public List<EventoDTO> consultarEventos(CategoriaDTO categoria);
+    public List<EventoDTO> consultarEventos(CategoriaDTO categoria) throws GestionEventoException;
 
     public List<CategoriaDTO> consultarCategorias();
 
-    public List<ReservacionDTO> consultarReservaciones(Long idUsuario);
+    public List<ReservacionDTO> consultarReservaciones(String idUsuario);
 
-    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento);
+    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento);
 
     public List<AsientoDTO> obtenerCatalogoAsientos();
 
@@ -71,9 +72,9 @@ public interface ICoordinadorAplicacion {
 
     public void cerrarSesion();
 
-    boolean reservarAsiento(Long idAsientoEvento);
+    boolean reservarAsiento(String idAsientoEvento);
 
-    boolean liberarAsiento(Long idAsientoEvento);
+    boolean liberarAsiento(String idAsientoEvento);
 
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion);
 

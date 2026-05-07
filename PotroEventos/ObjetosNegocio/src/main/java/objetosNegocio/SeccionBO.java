@@ -32,7 +32,7 @@ public class SeccionBO implements ISeccionBO {
     }
 
     @Override
-    public List<SeccionDTO> consultarSeccionesPorEvento(Long idEvento) throws NegocioException {
+    public List<SeccionDTO> consultarSeccionesPorEvento(String idEvento) throws NegocioException {
         return SeccionAdapter.listaEntidadADTO(seccionDAO.buscarPorEvento(idEvento));
     }
 

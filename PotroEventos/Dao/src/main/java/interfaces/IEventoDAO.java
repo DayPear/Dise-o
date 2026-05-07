@@ -2,6 +2,7 @@ package interfaces;
 
 import Entitys.Categoria;
 import Entitys.Evento;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -13,9 +14,11 @@ import java.util.List;
  */
 public interface IEventoDAO {
 
-    Evento buscarPorId(Long id);
+    Evento buscarPorId(String idEvento) throws PersistenciaException;
 
-    List<Evento> buscarTodosCategoria(Categoria categoria);
+    List<Evento> buscarTodosCategoria(Categoria categoria) throws PersistenciaException;
 
-    Evento guardar(Evento evento);
+    Evento guardar(Evento evento) throws PersistenciaException;
+
+    Evento actualizarEvento(Evento evento) throws PersistenciaException;
 }

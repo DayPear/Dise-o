@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class SeccionDTO {
 
-    private Long idSeccion;
+    private String idSeccion;
     private String nombre;
     private Integer capacidad;
     private Long precioBase;
@@ -27,7 +27,7 @@ public class SeccionDTO {
     public SeccionDTO() {
     }
 
-    public SeccionDTO(Long idSeccion, String nombre, Integer capacidad, Long precioBase) {
+    public SeccionDTO(String idSeccion, String nombre, Integer capacidad, Long precioBase) {
         this.idSeccion = idSeccion;
         this.nombre = nombre;
         this.capacidad = capacidad;
@@ -40,11 +40,11 @@ public class SeccionDTO {
         this.precioBase = precioBase;
     }
 
-    public Long getIdSeccion() {
+    public String getIdSeccion() {
         return idSeccion;
     }
 
-    public void setIdSeccion(Long idSeccion) {
+    public void setIdSeccion(String idSeccion) {
         this.idSeccion = idSeccion;
     }
 

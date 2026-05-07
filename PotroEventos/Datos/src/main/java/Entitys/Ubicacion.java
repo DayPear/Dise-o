@@ -11,8 +11,8 @@ import Entitys.ENUMS.TipoUbicacionP;
  * @author maria
  */
 public class Ubicacion {
-    
-    private Long idUbicacion;
+
+    private String idUbicacion;
     private String nombre;
     private Integer capacidad;
     private TipoUbicacionP tipo;
@@ -20,7 +20,7 @@ public class Ubicacion {
     public Ubicacion() {
     }
 
-    public Ubicacion(Long idUbicacion, String nombre, Integer capacidad, TipoUbicacionP tipo) {
+    public Ubicacion(String idUbicacion, String nombre, Integer capacidad, TipoUbicacionP tipo) {
         this.idUbicacion = idUbicacion;
         this.nombre = nombre;
         this.capacidad = capacidad;
@@ -33,11 +33,11 @@ public class Ubicacion {
         this.tipo = tipo;
     }
 
-    public Long getIdUbicacion() {
+    public String getIdUbicacion() {
         return idUbicacion;
     }
 
-    public void setIdUbicacion(Long idUbicacion) {
+    public void setIdUbicacion(String idUbicacion) {
         this.idUbicacion = idUbicacion;
     }
 
@@ -64,5 +64,5 @@ public class Ubicacion {
     public void setTipo(TipoUbicacionP tipo) {
         this.tipo = tipo;
     }
-    
+
 }

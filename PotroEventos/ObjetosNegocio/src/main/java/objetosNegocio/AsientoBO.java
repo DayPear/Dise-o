@@ -34,12 +34,13 @@ public class AsientoBO implements IAsientoBO {
 
     @Override
     public List<AsientoDTO> consultarTodosLosAsientos() throws NegocioException {
-        return AsientoAdapter.entidadesADTO(asientoDAO.consultarTodos());
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<AsientoDTO> consultarPorSeccion(Long idSeccion) {
-        return AsientoAdapter.entidadesADTO(asientoDAO.consultarPorSeccion(idSeccion));
+    public List<AsientoDTO> consultarPorSeccion(String idSeccion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
 }

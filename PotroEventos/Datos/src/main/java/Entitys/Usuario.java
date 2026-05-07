@@ -9,7 +9,7 @@ package Entitys;
  */
 public class Usuario {
 
-    private Long idUsuario;
+    private String idUsuario;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -29,7 +29,7 @@ public class Usuario {
         this.creditos = creditos;
     }
 
-    public Usuario(Long idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, Integer creditos) {
+    public Usuario(String idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, Integer creditos) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -39,11 +39,11 @@ public class Usuario {
         this.creditos = creditos;
     }
 
-    public Long getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 

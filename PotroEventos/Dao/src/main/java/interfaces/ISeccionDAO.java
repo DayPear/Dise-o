@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface ISeccionDAO {
 
-    List<Seccion> buscarPorEvento(Long idEvento);
+    List<Seccion> buscarPorEvento(String idEvento);
 }

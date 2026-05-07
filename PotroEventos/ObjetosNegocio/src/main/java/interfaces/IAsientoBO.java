@@ -17,7 +17,7 @@ public interface IAsientoBO {
     
     List<AsientoDTO> consultarTodosLosAsientos() throws NegocioException;
     
-    public List<AsientoDTO> consultarPorSeccion(Long idSeccion);
+    public List<AsientoDTO> consultarPorSeccion(String idSeccion);
     
     
     

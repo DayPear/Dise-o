@@ -11,7 +11,7 @@ import Entitys.ENUMS.EstadoAsiento;
  */
 public class AsientoEvento {
 
-    private Long idAsientoEvento;
+    private String idAsientoEvento;
     private Reservacion reservacion;
     private EstadoAsiento estadoAsiento;
     private Asiento asiento;
@@ -27,7 +27,7 @@ public class AsientoEvento {
         this.evento = evento;
     }
 
-    public AsientoEvento(Long idAsientoEvento, Reservacion reservacion, EstadoAsiento estadoAsiento, Asiento asiento, Evento evento) {
+    public AsientoEvento(String idAsientoEvento, Reservacion reservacion, EstadoAsiento estadoAsiento, Asiento asiento, Evento evento) {
         this.idAsientoEvento = idAsientoEvento;
         this.reservacion = reservacion;
         this.estadoAsiento = estadoAsiento;
@@ -35,11 +35,11 @@ public class AsientoEvento {
         this.evento = evento;
     }
 
-    public Long getIdAsientoEvento() {
+    public String getIdAsientoEvento() {
         return idAsientoEvento;
     }
 
-    public void setIdAsientoEvento(Long idAsientoEvento) {
+    public void setIdAsientoEvento(String idAsientoEvento) {
         this.idAsientoEvento = idAsientoEvento;
     }
 

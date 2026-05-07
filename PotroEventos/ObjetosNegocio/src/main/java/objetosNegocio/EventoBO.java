@@ -9,6 +9,7 @@ import daos.EventoDAO;
 import dtos.CategoriaDTO;
 import dtos.EventoDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import interfaces.IEventoBO;
 import interfaces.IEventoDAO;
 import java.util.List;
@@ -17,39 +18,51 @@ import java.util.List;
  * Objeto de negocio para Evento. Implementa patrón Singleton.
  */
 public class EventoBO implements IEventoBO {
-    
+
     private static EventoBO instancia;
     private final IEventoDAO eventoDAO;
-    
+
     private EventoBO() {
         this.eventoDAO = new EventoDAO();
     }
-    
+
     public static EventoBO getInstance() {
         if (instancia == null) {
             instancia = new EventoBO();
         }
         return instancia;
     }
-    
+
     @Override
     public EventoDTO guardarEvento(EventoDTO evento) throws NegocioException {
-        if(!validarDatos(evento)){
+        if (!validarDatos(evento)) {
             throw new NegocioException("Evento inválido.");
         }
-        return EventoAdapter.entidadADTO(eventoDAO.guardar(EventoAdapter.dtoAEntidad(evento)));
+        try {
+            return EventoAdapter.entidadADTO(eventoDAO.guardar(EventoAdapter.dtoAEntidad(evento)));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
-    
+
     @Override
-    public List<EventoDTO> obtenerEventosPorCategoria(CategoriaDTO categoria) {
-        return EventoAdapter.listaDTOs(eventoDAO.buscarTodosCategoria(new Categoria(categoria.getIdCategoria(), CategoriaEvento.valueOf(categoria.getNombreCategoria().name()), categoria.getUrlImagen())));
+    public List<EventoDTO> obtenerEventosPorCategoria(CategoriaDTO categoria) throws NegocioException {
+        try {
+            return EventoAdapter.listaDTOs(eventoDAO.buscarTodosCategoria(new Categoria(categoria.getIdCategoria(), CategoriaEvento.valueOf(categoria.getNombreCategoria().name()), categoria.getUrlImagen())));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
-    
+
     @Override
-    public EventoDTO obtenerEventoPorId(Long id) throws NegocioException {
-        return EventoAdapter.entidadADTO(eventoDAO.buscarPorId(id));
+    public EventoDTO obtenerEventoPorId(String id) throws NegocioException {
+        try {
+            return EventoAdapter.entidadADTO(eventoDAO.buscarPorId(id));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
-    
+
     public boolean validarDatos(EventoDTO eventoDTO) {
         // 1. Validar que el objeto no sea nulo
         if (eventoDTO == null) {
@@ -83,11 +96,11 @@ public class EventoBO implements IEventoBO {
         if (eventoDTO.getInformacionEvento() != null) {
             eventoDTO.setInformacionEvento(eventoDTO.getInformacionEvento().trim().toLowerCase());
         }
-        
-        if(eventoDTO.getDisponibilidad() == null || eventoDTO.getDisponibilidad() < 0){
+
+        if (eventoDTO.getDisponibilidad() == null || eventoDTO.getDisponibilidad() < 0) {
             return false;
         }
-        
+
         return true; // Si pasó todos los filtros
     }
 }

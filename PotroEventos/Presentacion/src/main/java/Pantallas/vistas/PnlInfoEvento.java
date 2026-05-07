@@ -5,6 +5,7 @@
 package Pantallas.vistas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
+import excepciones.GestionEventoException;
 
 /**
  *
@@ -147,7 +148,11 @@ public class PnlInfoEvento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        coordinador.consultarEventos(null);
+        try {
+            coordinador.consultarEventos(null);
+        } catch (GestionEventoException ex) {
+            System.getLogger(PnlInfoEvento.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnVolverActionPerformed
 
 

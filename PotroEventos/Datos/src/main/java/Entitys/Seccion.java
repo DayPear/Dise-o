@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Seccion {
 
-    private Long idSeccion;
+    private String idSeccion;
     private String nombre;
     private Integer capacidad;
     private Long precioBase;
@@ -25,18 +25,18 @@ public class Seccion {
         this.precioBase = precioBase;
     }
 
-    public Seccion(Long idSeccion, String nombre, Integer capacidad, Long precioBase) {
+    public Seccion(String idSeccion, String nombre, Integer capacidad, Long precioBase) {
         this.idSeccion = idSeccion;
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.precioBase = precioBase;
     }
 
-    public Long getIdSeccion() {
+    public String getIdSeccion() {
         return idSeccion;
     }
 
-    public void setIdSeccion(Long idSeccion) {
+    public void setIdSeccion(String idSeccion) {
         this.idSeccion = idSeccion;
     }
 

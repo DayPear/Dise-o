@@ -9,7 +9,7 @@ package Entitys;
  */
 public class Asiento {
 
-    private Long idAsiento;
+    private String idAsiento;
     private String fila;
     private Integer numero;
     private Seccion seccion;
@@ -17,7 +17,7 @@ public class Asiento {
     public Asiento() {
     }
 
-    public Asiento(Long idAsiento, String fila, Integer numero, Seccion seccion) {
+    public Asiento(String idAsiento, String fila, Integer numero, Seccion seccion) {
         this.idAsiento = idAsiento;
         this.fila = fila;
         this.numero = numero;
@@ -30,11 +30,11 @@ public class Asiento {
         this.seccion = seccion;
     }
 
-    public Long getIdAsiento() {
+    public String getIdAsiento() {
         return idAsiento;
     }
 
-    public void setIdAsiento(Long idAsiento) {
+    public void setIdAsiento(String idAsiento) {
         this.idAsiento = idAsiento;
     }
 

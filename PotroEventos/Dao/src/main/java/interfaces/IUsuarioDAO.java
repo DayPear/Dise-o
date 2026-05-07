@@ -15,7 +15,7 @@ public interface IUsuarioDAO {
 
     List<Usuario> obtenerUsuarios();
 
-    boolean restarCreditos(Integer cantidad, Long idUsuario);
+    boolean restarCreditos(Integer cantidad, String idUsuario);
 
     Usuario obtenerUsuario(Usuario usuario);
 

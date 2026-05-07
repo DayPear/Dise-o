@@ -17,40 +17,25 @@ public class ReservacionDAO implements IReservacionDAO {
 
     private static List<Reservacion> reservaciones = new ArrayList<>();
     private static ReservacionDAO instance;
-    
-    private ReservacionDAO(){}
-    
-    public static ReservacionDAO getInstance(){
-        if(instance == null){
+
+    private ReservacionDAO() {
+    }
+
+    public static ReservacionDAO getInstance() {
+        if (instance == null) {
             instance = new ReservacionDAO();
         }
         return instance;
     }
-    
+
     @Override
     public boolean guardarReservacion(Reservacion reservacion) {
-        int contador = reservaciones.size();
-        reservacion.setIdReservacion(contador+1L);
-        reservaciones.add(reservacion);
-        if(reservaciones.size() != contador){
-            System.out.println("Sí se agregó la reservación.");
-            return true;
-        }
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Reservacion> obtenerReservacionesUsuario(Long idUsuario) {
-        List<Reservacion> reser = new ArrayList<>();
-        
-        for(Reservacion r : reservaciones){
-            if(r.getUsuario().getIdUsuario() == idUsuario){
-                reser.add(r);
-                System.out.println("Sí hay reservaciones del usuario.");
-            }
-        }
-        
-        return reser;
+    public List<Reservacion> obtenerReservacionesUsuario(String idUsuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

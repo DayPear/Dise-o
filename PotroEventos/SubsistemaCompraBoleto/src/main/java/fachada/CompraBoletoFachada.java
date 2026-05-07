@@ -24,17 +24,17 @@ public class CompraBoletoFachada implements ICompraBoleto {
     private IControlCompraBoleto controlCompra = new ControlCompraBoleto();
 
     @Override
-    public List<SeccionDTO> obtenerSeccionesPorEvento(Long idEvento) throws CompraBoletoException {
+    public List<SeccionDTO> obtenerSeccionesPorEvento(String idEvento) throws CompraBoletoException {
         return controlCompra.obtenerSeccionesEvento(idEvento);
     }
 
     @Override
-    public List<AsientoDTO> obtenerAsientosPorSeccion(Long idSeccion) throws CompraBoletoException {
+    public List<AsientoDTO> obtenerAsientosPorSeccion(String idSeccion) throws CompraBoletoException {
         return controlCompra.obtenerCatalogoAsientos(); // ojo xq donde me meto el id? ahorita checas majo
     }
 
     @Override
-    public List<AsientoEventoDTO> obtenerEstadoAsientosPorEvento(Long idEvento) throws CompraBoletoException {
+    public List<AsientoEventoDTO> obtenerEstadoAsientosPorEvento(String idEvento) throws CompraBoletoException {
         return controlCompra.obtenerOcupacionEvento(idEvento);
     }
 
@@ -54,12 +54,12 @@ public class CompraBoletoFachada implements ICompraBoleto {
     }
 
     @Override
-    public boolean reservarAsiento(Long idAsientoEvento) throws CompraBoletoException {
+    public boolean reservarAsiento(String idAsientoEvento) throws CompraBoletoException {
         return controlCompra.reservarAsiento(idAsientoEvento);
     }
 
     @Override
-    public boolean liberarAsiento(Long idAsientoEvento) throws CompraBoletoException {
+    public boolean liberarAsiento(String idAsientoEvento) throws CompraBoletoException {
         return controlCompra.liberarAsiento(idAsientoEvento);
     }
 
@@ -79,7 +79,7 @@ public class CompraBoletoFachada implements ICompraBoleto {
     }
 
     @Override
-    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento) throws CompraBoletoException {
+    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento) throws CompraBoletoException {
         return controlCompra.obtenerMapaOcupacion(idEvento);
     }
     

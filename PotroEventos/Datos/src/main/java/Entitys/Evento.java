@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class Evento {
 
-    private Long idEvento;
+    private String idEvento;
     private Categoria categoriaEvento;
     private String nombreEvento;
     private String informacionEvento;
@@ -29,7 +29,7 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(Long idEvento, Categoria categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, Ubicacion ubicacion, EstadoEvento estadoEvento, String urlImagen, boolean gratuito, TipoEventoP tipoEvento, Integer disponibilidad) {
+    public Evento(String idEvento, Categoria categoriaEvento, String nombreEvento, String informacionEvento, LocalDateTime fechaHora, Ubicacion ubicacion, EstadoEvento estadoEvento, String urlImagen, boolean gratuito, TipoEventoP tipoEvento, Integer disponibilidad) {
         this.idEvento = idEvento;
         this.categoriaEvento = categoriaEvento;
         this.nombreEvento = nombreEvento;
@@ -56,11 +56,11 @@ public class Evento {
         this.disponibilidad = disponibilidad;
     }
 
-    public Long getIdEvento() {
+    public String getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Long idEvento) {
+    public void setIdEvento(String idEvento) {
         this.idEvento = idEvento;
     }
 

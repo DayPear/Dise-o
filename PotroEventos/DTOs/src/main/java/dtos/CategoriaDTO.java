@@ -12,13 +12,13 @@ import dtos.ENUMS.CategoriaEventoDTO;
  */
 public class CategoriaDTO {
 
-    private Long idCategoria;
+    private String idCategoria;
 
     private String UrlImagen;
 
     private CategoriaEventoDTO nombreCategoria;
 
-    public CategoriaDTO(Long idCategoria, String UrlImagen, CategoriaEventoDTO nombreCategoria) {
+    public CategoriaDTO(String idCategoria, String UrlImagen, CategoriaEventoDTO nombreCategoria) {
         this.idCategoria = idCategoria;
         this.UrlImagen = UrlImagen;
         this.nombreCategoria = nombreCategoria;
@@ -27,11 +27,11 @@ public class CategoriaDTO {
     public CategoriaDTO() {
     }
 
-    public Long getIdCategoria() {
+    public String getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Long idCategoria) {
+    public void setIdCategoria(String idCategoria) {
         this.idCategoria = idCategoria;
     }
 

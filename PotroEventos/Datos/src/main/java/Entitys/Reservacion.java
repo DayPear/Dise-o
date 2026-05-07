@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
  */
 public class Reservacion {
     
-    private Long idReservacion;
+    private String idReservacion;
     private Double total;
     private Boleto boleto;
-    //private Cobro cobro;
     private Usuario usuario;
     private LocalDateTime fechaHora;
     private ReservacionEstado estado;
@@ -24,7 +23,7 @@ public class Reservacion {
     public Reservacion() {
     }
 
-    public Reservacion(Long idReservacion, Double total, Boleto boleto, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
+    public Reservacion(String idReservacion, Double total, Boleto boleto, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
         this.idReservacion = idReservacion;
         this.total = total;
         this.boleto = boleto;
@@ -41,11 +40,11 @@ public class Reservacion {
         this.estado = estado;
     }
 
-    public Long getIdReservacion() {
+    public String getIdReservacion() {
         return idReservacion;
     }
 
-    public void setIdReservacion(Long idReservacion) {
+    public void setIdReservacion(String idReservacion) {
         this.idReservacion = idReservacion;
     }
 

@@ -35,6 +35,7 @@ import interfaz.ICompraBoleto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que actúa como coordinador principal de la aplicación. Se encarga de
@@ -203,13 +204,19 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
         }
-        frmPlantilla.setContenido(new PnlEventos(this, categoria));
+        try {
+            frmPlantilla.setContenido(new PnlEventos(this, categoria));
+        } catch (GestionEventoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
         frmPlantilla.setVisible(true);
     }
 
     @Override
-    public List<EventoDTO> consultarEventos(CategoriaDTO categoria) {
+    public List<EventoDTO> consultarEventos(CategoriaDTO categoria) throws GestionEventoException {
+
         return controlEvento.consultarEventosPorCategoria(categoria);
+
     }
 
     @Override
@@ -247,7 +254,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public List<ReservacionDTO> consultarReservaciones(Long idUsuario) {
+    public List<ReservacionDTO> consultarReservaciones(String idUsuario) {
         try {
             return controlUsuarios.obtenerReservacionesUsuario(idUsuario);
         } catch (GestionUsuarioException ex) {
@@ -277,7 +284,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
      * AsientoEventoDTO.
      */
     @Override
-    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento) {
+    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento) {
         try {
             return controlCompra.obtenerMapaOcupacion(idEvento);
         } catch (CompraBoletoException e) {
@@ -305,7 +312,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public boolean reservarAsiento(Long idAsientoEvento) {
+    public boolean reservarAsiento(String idAsientoEvento) {
         try {
             return controlCompra.reservarAsiento(idAsientoEvento);
         } catch (CompraBoletoException ex) {
@@ -314,7 +321,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public boolean liberarAsiento(Long idAsientoEvento) {
+    public boolean liberarAsiento(String idAsientoEvento) {
         try {
             return controlCompra.liberarAsiento(idAsientoEvento);
         } catch (CompraBoletoException ex) {

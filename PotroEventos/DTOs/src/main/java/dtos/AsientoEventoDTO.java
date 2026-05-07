@@ -11,32 +11,32 @@ import dtos.ENUMS.EstadoAsientoDTO;
  */
 public class AsientoEventoDTO {
 
-    private Long idReservacion;
+    private String idReservacion;
     private EstadoAsientoDTO estadoAsiento;
-    private Long idAsiento;
-    private Long idEvento;
+    private String idAsiento;
+    private String idEvento;
 
     public AsientoEventoDTO() {
     }
 
-    public AsientoEventoDTO(Long idReservacion, EstadoAsientoDTO estadoAsiento, Long idAsiento, Long idEvento) {
+    public AsientoEventoDTO(String idReservacion, EstadoAsientoDTO estadoAsiento, String idAsiento, String idEvento) {
         this.idReservacion = idReservacion;
         this.estadoAsiento = estadoAsiento;
         this.idAsiento = idAsiento;
         this.idEvento = idEvento;
     }
 
-    public AsientoEventoDTO(EstadoAsientoDTO estadoAsiento, Long idAsiento, Long idEvento) {
+    public AsientoEventoDTO(EstadoAsientoDTO estadoAsiento, String idAsiento, String idEvento) {
         this.estadoAsiento = estadoAsiento;
         this.idAsiento = idAsiento;
         this.idEvento = idEvento;
     }
 
-    public Long getIdReservacion() {
+    public String getIdReservacion() {
         return idReservacion;
     }
 
-    public void setIdReservacion(Long idReservacion) {
+    public void setIdReservacion(String idReservacion) {
         this.idReservacion = idReservacion;
     }
 
@@ -48,19 +48,19 @@ public class AsientoEventoDTO {
         this.estadoAsiento = estadoAsiento;
     }
 
-    public Long getIdAsiento() {
+    public String getIdAsiento() {
         return idAsiento;
     }
 
-    public void setIdAsiento(Long idAsiento) {
+    public void setIdAsiento(String idAsiento) {
         this.idAsiento = idAsiento;
     }
 
-    public Long getIdEvento() {
+    public String getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Long idEvento) {
+    public void setIdEvento(String idEvento) {
         this.idEvento = idEvento;
     }
 

@@ -9,35 +9,35 @@ package dtos;
  */
 public class AsientoDTO {
 
-    private Long idAsiento;
+    private String idAsiento;
     private String fila;
     private Integer numero;
     /*
     igual, no le muevo pero es mejor que tenga su objeto completo
-    */
-    private Long idseccion;
+     */
+    private String idseccion;
 
     public AsientoDTO() {
     }
 
-    public AsientoDTO(Long idAsiento, String fila, Integer numero, Long idseccion) {
+    public AsientoDTO(String idAsiento, String fila, Integer numero, String idseccion) {
         this.idAsiento = idAsiento;
         this.fila = fila;
         this.numero = numero;
         this.idseccion = idseccion;
     }
 
-    public AsientoDTO(String fila, Integer numero, Long idseccion) {
+    public AsientoDTO(String fila, Integer numero, String idseccion) {
         this.fila = fila;
         this.numero = numero;
         this.idseccion = idseccion;
     }
 
-    public Long getIdAsiento() {
+    public String getIdAsiento() {
         return idAsiento;
     }
 
-    public void setIdAsiento(Long idAsiento) {
+    public void setIdAsiento(String idAsiento) {
         this.idAsiento = idAsiento;
     }
 
@@ -57,11 +57,11 @@ public class AsientoDTO {
         this.numero = numero;
     }
 
-    public Long getIdSeccion() {
+    public String getIdSeccion() {
         return idseccion;
     }
 
-    public void setIdSeccion(Long idseccion) {
+    public void setIdSeccion(String idseccion) {
         this.idseccion = idseccion;
     }
 

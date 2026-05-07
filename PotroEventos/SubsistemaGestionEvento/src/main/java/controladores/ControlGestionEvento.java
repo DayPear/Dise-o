@@ -4,7 +4,6 @@
  */
 package controladores;
 
-
 import dtos.CategoriaDTO;
 import dtos.ENUMS.CategoriaEventoDTO;
 import dtos.ENUMS.EstadoEventoDTO;
@@ -22,43 +21,43 @@ import objetosNegocio.EventoBO;
  *
  * @author maria
  */
-
 public class ControlGestionEvento {
-    
+
     private List<EventoDTO> listaEventos = new ArrayList<>();
-    
+
     private static ControlGestionEvento instance;
-    
+
     private ICategoriaBO categoriaBO = CategoriaBO.getInstance();
-    
+
     private IEventoBO eventoBO = EventoBO.getInstance();
-    
-    private ControlGestionEvento(){}
-    
-    public static ControlGestionEvento getInstance(){
-        if(instance == null){
+
+    private ControlGestionEvento() {
+    }
+
+    public static ControlGestionEvento getInstance() {
+        if (instance == null) {
             instance = new ControlGestionEvento();
         }
         return instance;
     }
-    
-    public EventoDTO consultarEvento(Long idEvento){
-        for(EventoDTO e : listaEventos){
-            if(e.getIdEvento() == idEvento){
+
+    public EventoDTO consultarEvento(String idEvento) {
+        for (EventoDTO e : listaEventos) {
+            if (e.getIdEvento() == idEvento) {
                 return e;
             }
         }
         return null;
     }
-    
-    public List<EventoDTO> consultarEventosPorCategoria(CategoriaDTO categoria){
+
+    public List<EventoDTO> consultarEventosPorCategoria(CategoriaDTO categoria) throws NegocioException {
         return eventoBO.obtenerEventosPorCategoria(categoria);
     }
-    
+
     public List<CategoriaDTO> consultarCategorias() throws GestionEventoException {
-        try{
+        try {
             return categoriaBO.consultarCategorias();
-        } catch(NegocioException ex){
+        } catch (NegocioException ex) {
             throw new GestionEventoException(ex.getMessage());
         }
     }

@@ -33,7 +33,7 @@ public interface ICompraBoleto {
      * @return
      * @throws excepciones.CompraBoletoException
      */
-    List<SeccionDTO> obtenerSeccionesPorEvento(Long idEvento) throws CompraBoletoException;
+    List<SeccionDTO> obtenerSeccionesPorEvento(String idEvento) throws CompraBoletoException;
 
     /**
      * 3. Obtiene el catálogo físico de los asientos de una sección (Para saber
@@ -43,7 +43,7 @@ public interface ICompraBoleto {
      * @return
      * @throws excepciones.CompraBoletoException
      */
-    List<AsientoDTO> obtenerAsientosPorSeccion(Long idSeccion) throws CompraBoletoException;
+    List<AsientoDTO> obtenerAsientosPorSeccion(String idSeccion) throws CompraBoletoException;
 
     /**
      * 4. Obtiene el estado dinámico de los asientos (Para saber si el asiento
@@ -53,7 +53,7 @@ public interface ICompraBoleto {
      * @return
      * @throws excepciones.CompraBoletoException
      */
-    List<AsientoEventoDTO> obtenerEstadoAsientosPorEvento(Long idEvento) throws CompraBoletoException;
+    List<AsientoEventoDTO> obtenerEstadoAsientosPorEvento(String idEvento) throws CompraBoletoException;
 
     boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException;
 
@@ -61,9 +61,9 @@ public interface ICompraBoleto {
 
     String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException;
 
-    boolean reservarAsiento(Long idAsientoEvento) throws CompraBoletoException;
+    boolean reservarAsiento(String idAsientoEvento) throws CompraBoletoException;
 
-    boolean liberarAsiento(Long idAsientoEvento) throws CompraBoletoException;
+    boolean liberarAsiento(String idAsientoEvento) throws CompraBoletoException;
 
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion) throws CompraBoletoException;
 
@@ -71,8 +71,8 @@ public interface ICompraBoleto {
 
     Long getTotalPendiente();
 
-    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(Long idEvento) throws CompraBoletoException;
-    
+    public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(String idEvento) throws CompraBoletoException;
+
     public boolean validarCredencialesITSON(UsuarioInstitucionalDTO usuario);
 
 }

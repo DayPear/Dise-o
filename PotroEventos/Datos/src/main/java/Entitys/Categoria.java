@@ -12,24 +12,24 @@ import Entitys.ENUMS.CategoriaEvento;
  */
 public class Categoria {
 
-    private Long id;
+    private String id;
     private CategoriaEvento nombre;
     private String urlImagen;
 
     public Categoria() {
     }
 
-    public Categoria(Long id, CategoriaEvento nombre, String urlImagen) {
+    public Categoria(String id, CategoriaEvento nombre, String urlImagen) {
         this.id = id;
         this.nombre = nombre;
         this.urlImagen = urlImagen;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

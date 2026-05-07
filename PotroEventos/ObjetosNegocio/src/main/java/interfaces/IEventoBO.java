@@ -16,7 +16,7 @@ public interface IEventoBO {
 
     EventoDTO guardarEvento(EventoDTO evento) throws NegocioException;
 
-    List<EventoDTO> obtenerEventosPorCategoria(CategoriaDTO categoria);
+    List<EventoDTO> obtenerEventosPorCategoria(CategoriaDTO categoria) throws NegocioException;
 
-    EventoDTO obtenerEventoPorId(Long id) throws NegocioException;
+    EventoDTO obtenerEventoPorId(String id) throws NegocioException;
 }

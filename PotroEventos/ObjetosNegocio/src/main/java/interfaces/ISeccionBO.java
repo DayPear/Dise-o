@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface ISeccionBO {
     
-    List<SeccionDTO> consultarSeccionesPorEvento(Long idEvento) throws NegocioException;
+    List<SeccionDTO> consultarSeccionesPorEvento(String idEvento) throws NegocioException;
 }

@@ -21,7 +21,7 @@ public class AsientoAdapter {
             return null;
         }
 
-        Long idSeccion = null;
+        String idSeccion = null;
 
         if (asientoEntidad.getSeccion() != null) {
             idSeccion = asientoEntidad.getSeccion().getIdSeccion();

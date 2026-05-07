@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface IAsientoEventoBO {
 
-    List<AsientoEventoDTO> consultarEstadosPorEvento(Long idEvento) throws NegocioException;
+    List<AsientoEventoDTO> consultarEstadosPorEvento(String idEvento) throws NegocioException;
 
-    boolean reservarAsiento(Long idAsiento) throws NegocioException;
+    boolean reservarAsiento(String idAsiento) throws NegocioException;
 
-    boolean liberarAsiento(Long idAsiento) throws NegocioException;
+    boolean liberarAsiento(String idAsiento) throws NegocioException;
 
-    boolean venderAsiento(Long idAsiento) throws NegocioException;
+    boolean venderAsiento(String idAsiento) throws NegocioException;
 }

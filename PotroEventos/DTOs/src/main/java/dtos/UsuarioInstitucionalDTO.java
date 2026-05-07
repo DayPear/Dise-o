@@ -9,7 +9,7 @@ package dtos;
  * @author maria
  */
 public class UsuarioInstitucionalDTO {
-    
+
     private String idITSON;
     private String claveITSON;
 
@@ -36,5 +36,5 @@ public class UsuarioInstitucionalDTO {
     public void setClaveITSON(String claveITSON) {
         this.claveITSON = claveITSON;
     }
-    
+
 }

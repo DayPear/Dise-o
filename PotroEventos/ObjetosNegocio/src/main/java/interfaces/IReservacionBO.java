@@ -16,6 +16,6 @@ public interface IReservacionBO {
     
     boolean agregarReservacion(ReservacionDTO reservacion) throws NegocioException;
     
-    List<ReservacionDTO> obtenerReservacionesUsuario(Long idUsuario) throws NegocioException;
+    List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws NegocioException;
     
 }
