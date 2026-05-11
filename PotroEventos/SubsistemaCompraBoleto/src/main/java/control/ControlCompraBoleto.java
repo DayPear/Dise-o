@@ -135,7 +135,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     @Override
     public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(EventoDTO evento) throws CompraBoletoException {
         try {
-            if(evento == null || evento.getUbicacion() == null){
+            if (evento == null || evento.getUbicacion() == null) {
                 throw new CompraBoletoException("El evento y/o su ubicación no puede ser nula.");
             }
             List<SeccionDTO> secciones = evento.getUbicacion().getSecciones();
@@ -144,12 +144,12 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
 
             Map<SeccionDTO, List<AsientoEventoDTO>> mapa = new HashMap<>();
 
-                for (SeccionDTO seccion : secciones) {
-                    List<AsientoEventoDTO> asientosDeSeccion = ocupacion.stream()
-                            .filter(ae -> ae.getAsiento() != null
-                            && ae.getAsiento().getSeccion() != null
-                            && ae.getAsiento().getSeccion().getIdSeccion().equals(seccion.getIdSeccion()))
-                            .collect(Collectors.toList());
+            for (SeccionDTO seccion : secciones) {
+                List<AsientoEventoDTO> asientosDeSeccion = ocupacion.stream()
+                        .filter(ae -> ae.getAsiento() != null
+                        && ae.getAsiento().getSeccion() != null
+                        && ae.getAsiento().getSeccion().getIdSeccion().equals(seccion.getIdSeccion()))
+                        .collect(Collectors.toList());
                 mapa.put(seccion, asientosDeSeccion);
             }
 
@@ -169,7 +169,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     @Override
     public boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
         try {
-            if(reservacionBO.agregarReservacion(reservacion) != null){
+            if (reservacionBO.agregarReservacion(reservacion) != null) {
                 return true;
             }
             return false;
@@ -183,11 +183,12 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      *
      * @param evento evento asociado
      * @param asiento asiento del boleto
+     * @param token token del boleto
      * @return ruta del archivo QR generado
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
-    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException {
+    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento, String token) throws CompraBoletoException {
         try {
             String asientoID = null;
             String identificador;
@@ -201,8 +202,6 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
                 asientoID = asiento.getAsiento().getIdAsiento();
                 identificador = asiento.getAsiento().getIdAsiento();
             }
-
-            String token = UUID.randomUUID().toString();
 
             String datos = token;
 
@@ -278,7 +277,6 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
 //                }
 //                return false;
 //            }
-
             this.asientosPendientesCompra = new ArrayList<>(asientosSeleccionados);
             this.totalPendienteCompra = totalCompra;
 

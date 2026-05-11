@@ -1,6 +1,8 @@
 package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
+import Entitys.Categoria;
+import dtos.CategoriaDTO;
 import dtos.UsuarioInstitucionalDTO;
 import javax.swing.JOptionPane;
 
@@ -12,22 +14,24 @@ import javax.swing.JOptionPane;
  * @author María Valdez - 262775
  */
 public class FrmRegistroItson extends javax.swing.JFrame {
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmRegistroItson.class.getName());
     private ICoordinadorAplicacion coordinador;
     private boolean exitoRegistro = false;
+    private final CategoriaDTO categoria;
 
     /**
      * Creates new form frmRegistroItson
      */
-    public FrmRegistroItson(ICoordinadorAplicacion coordinador) {
+    public FrmRegistroItson(ICoordinadorAplicacion coordinador, CategoriaDTO categoria) {
         initComponents();
         setLocationRelativeTo(null);
         this.coordinador = coordinador;
+        this.categoria = categoria;
         utilerias.BotonUtileria.estilizarBoton(btnIngresar);
         utilerias.BotonUtileria.estilizarBoton(btnVolver);
     }
-
+    
     public boolean registroExitoso() {
         return exitoRegistro;
     }
@@ -253,7 +257,6 @@ public class FrmRegistroItson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Formato de ID inválido.");
             return;
         }
-        id = id.replaceFirst("^0+", "");
         UsuarioInstitucionalDTO usuario = new UsuarioInstitucionalDTO(id, contrasenia);
         exitoRegistro = coordinador.validarCredenciales(usuario);
         if (!exitoRegistro) {
@@ -271,7 +274,8 @@ public class FrmRegistroItson extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        coordinador.volverAConsultarEvento();
+        
+        coordinador.mostrarEventos(categoria);
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

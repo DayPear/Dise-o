@@ -17,18 +17,20 @@ public class BoletoDTO {
     private EstadoBoletoDTO estadoBoleto;
     private EventoDTO evento;
     private AsientoEventoDTO asiento;
+    private String token;
 
     public BoletoDTO() {
     }
 
-    public BoletoDTO(String codigoQR, Double precio, EstadoBoletoDTO estadoBoleto, EventoDTO evento, AsientoEventoDTO asiento) {
+    public BoletoDTO(String codigoQR, Double precio, EstadoBoletoDTO estadoBoleto, EventoDTO evento, AsientoEventoDTO asiento, String token) {
         this.codigoQR = codigoQR;
         this.precio = precio;
         this.estadoBoleto = estadoBoleto;
         this.evento = evento;
         this.asiento = asiento;
+        this.token = token;
     }
-    
+
     public String getCodigoQR() {
         return codigoQR;
     }
@@ -67,6 +69,14 @@ public class BoletoDTO {
 
     public void setAsiento(AsientoEventoDTO asiento) {
         this.asiento = asiento;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }

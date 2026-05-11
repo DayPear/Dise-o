@@ -2,6 +2,7 @@ package Controlador.interfaz;
 
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
+import dtos.BoletoDTO;
 import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
@@ -83,7 +84,7 @@ public interface ICoordinadorAplicacion {
 
     Long getTotalPendiente();
 
-    String generarQR(EventoDTO evento, AsientoEventoDTO asiento);
+    String generarQR(EventoDTO evento, AsientoEventoDTO asiento, String token);
 
     boolean validarCredenciales(UsuarioInstitucionalDTO credenciales);
 }

@@ -14,7 +14,6 @@ import dtos.ENUMS.TipoEventoN;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -64,6 +64,10 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
         this.coordinador = coordinador;
         this.evento = evento;
 
+        java.awt.EventQueue.invokeLater(() -> {
+            validarUsuarioITSON();
+        });
+
         initComponents();
 
         txtInfo.setContentType("text/html");
@@ -79,7 +83,16 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             cargarEstadio();
             actualizarEtiquetasAsientos(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
+
         iniciarTemporizador();
+    }
+
+    private void validarUsuarioITSON() {
+        if (evento.getTipoEvento() == TipoEventoN.ITSON) {
+            if (coordinador.getUsuarioITSON() == null) {
+                coordinador.mostarRegistroITSON();
+            }
+        }
     }
 
     public void modoPantalla() {
@@ -670,16 +683,14 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
 
     private void btnComprarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComprarMouseClicked
 
-        if (evento.getTipoEvento() == TipoEventoN.ITSON) {
-            if (coordinador.getUsuarioITSON() == null) {
-                coordinador.mostarRegistroITSON();
-                return;
-            }
-        }
         if (evento.isGratuito()) {
 
-            BoletoDTO boletoGratis = new BoletoDTO("", 0.0, EstadoBoletoDTO.ACTIVO, evento, null);
-            boletoGratis.setCodigoQR(coordinador.generarQR(evento, null));
+            String tokenNuevo = UUID.randomUUID().toString();
+
+            // 2. Generar la ruta del QR usando ese token
+            String rutaQR = coordinador.generarQR(evento, null, tokenNuevo);
+
+            BoletoDTO boletoGratis = new BoletoDTO(rutaQR, 0.0, EstadoBoletoDTO.ACTIVO, evento, null, tokenNuevo);
 
             reservacionParcial.setBoleto(boletoGratis);
             reservacionParcial.setCobro(null);
@@ -705,7 +716,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Solo puede adquirir un boleto por compra.");
             return;
         }
-        
+
         AsientoEventoDTO asientoDTO = new AsientoEventoDTO(
                 asientosSeleccionados.get(0).getIdAsientoEvento(),
                 asientosSeleccionados.get(0).getPrecio(),
@@ -714,13 +725,16 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
                 asientosSeleccionados.get(0).getEvento()
         );
 
-        BoletoDTO boleto = new BoletoDTO(
-                coordinador.generarQR(evento, asientoDTO),
-                0.0, 
-                EstadoBoletoDTO.ACTIVO,
-                evento,
-                asientoDTO
-        );
+        // 1. Generar token
+        String tokenPago = UUID.randomUUID().toString();
+
+        // 2. Generar QR
+        String rutaQR = coordinador.generarQR(evento, asientoDTO, tokenPago);
+
+        // 3. Crear DTO
+        BoletoDTO boleto = new BoletoDTO(rutaQR, 0.0, EstadoBoletoDTO.ACTIVO, evento, asientoDTO, tokenPago);
+
+        reservacionParcial.setBoleto(boleto);
 
         reservacionParcial.setBoleto(boleto);
         reservacionParcial.setFechaHora(LocalDateTime.now());
@@ -730,8 +744,8 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
 
         /*
         esto irá en comentarios xq rn no aplica
-        */
-        /*
+         */
+ /*
         int opcion = JOptionPane.showConfirmDialog(this, "¿Desea pagar con créditos de la aplicación?");
 
         // ================= PAGO CON CRÉDITOS =================
@@ -761,7 +775,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             // Ahora sí vas a la pantalla de pago
             coordinador.mostrarPago(reservacionParcial);
         }*/
-         // Guardas como pendiente en backend
+        // Guardas como pendiente en backend
         coordinador.venderAsientos(asientosSeleccionados, totalCompra, false, reservacionParcial);
 
         // Ahora sí vas a la pantalla de pago
@@ -783,7 +797,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro de volver? Esto eliminará el proceso de compra actual.");
-        if(opcion == JOptionPane.OK_OPTION){
+        if (opcion == JOptionPane.OK_OPTION) {
             coordinador.mostrarInicio();
         }
     }//GEN-LAST:event_btnVolverActionPerformed

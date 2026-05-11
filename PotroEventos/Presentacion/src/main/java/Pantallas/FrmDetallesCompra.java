@@ -6,9 +6,15 @@ package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.ReservacionDTO;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,7 +25,7 @@ import javax.swing.ImageIcon;
  * @author María Valdez - 262775
  */
 public class FrmDetallesCompra extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmDetallesCompra.class.getName());
     private ICoordinadorAplicacion coordinador;
     private ReservacionDTO reservacion;
@@ -34,8 +40,8 @@ public class FrmDetallesCompra extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarDatos();
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         iconEvento.setIcon(null);
         iconEvento.setText("");
         iconQR.setIcon(null);
@@ -46,15 +52,15 @@ public class FrmDetallesCompra extends javax.swing.JFrame {
         txtUbicacion.setText("");
         txtHorasAntes.setText("48");
     }
-    
-    public void setReservacion(ReservacionDTO reservacion){
+
+    public void setReservacion(ReservacionDTO reservacion) {
         limpiar();
         this.reservacion = reservacion;
         cargarDatos();
     }
-    
-    public void cargarDatos(){
-        if(reservacion == null){
+
+    public void cargarDatos() {
+        if (reservacion == null) {
             return;
         }
         // cargar evento
@@ -82,27 +88,67 @@ public class FrmDetallesCompra extends javax.swing.JFrame {
         // cargar qr
         if (reservacion.getBoleto().getCodigoQR() != null && !reservacion.getBoleto().getCodigoQR().isEmpty()) {
 
-            String rutaLimpia = reservacion.getBoleto().getCodigoQR().replace("/src/main/resources", "");
-            String rutaAlternativa = reservacion.getBoleto().getCodigoQR().replace("src/main/resources", "");
+            String rutaRelativa = reservacion.getBoleto().getCodigoQR();
+            BufferedImage imgOriginal = null;
 
-            java.net.URL imgUrl = getClass().getResource(rutaLimpia);
-            if (imgUrl == null) {
-                imgUrl = getClass().getResource(rutaAlternativa);
+            // 1. Intentar cargar la imagen (con el método robusto anterior)
+            try {
+                String rutaLimpia = rutaRelativa.replace("/src/main/resources", "");
+                java.net.URL imgUrl = getClass().getResource(rutaLimpia);
+
+                if (imgUrl != null) {
+                    imgOriginal = ImageIO.read(imgUrl);
+                } else {
+                    File archivoQR = new File(rutaRelativa.startsWith("/") ? rutaRelativa.substring(1) : rutaRelativa);
+                    if (archivoQR.exists()) {
+                        imgOriginal = ImageIO.read(archivoQR);
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Error leyendo la imagen: " + e.getMessage());
             }
 
-            if (imgUrl != null) {
-                ImageIcon icono = new ImageIcon(imgUrl);
+            // 2. Si logramos obtener la imagen original, la escalamos con ALTA CALIDAD
+            if (imgOriginal != null) {
+                // Obtenemos el tamaño actual del JLabel para una adaptación perfecta
+                // Si iconQR aún no es visible, usa tus valores fijos: int anchoTarget = 306; int altoTarget = 202;
+                int anchoTarget = iconQR.getWidth();
+                int altoTarget = iconQR.getHeight();
 
-                int ancho = 306;
-                int alto = 202;
+                // Corrección por si el layout aún no ha calculado el tamaño
+                if (anchoTarget == 0) {
+                    anchoTarget = 306;
+                }
+                if (altoTarget == 0) {
+                    altoTarget = 202;
+                }
 
-                Image imagenEscalada = icono.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-                iconQR.setIcon(new ImageIcon(imagenEscalada));
+                // Creamos una nueva imagen vacía con el tamaño del destino
+                BufferedImage dimg = new BufferedImage(anchoTarget, altoTarget, BufferedImage.TYPE_INT_ARGB);
+
+                // Obtenemos el objeto gráfico para "pintar" sobre la nueva imagen
+                Graphics2D g2d = dimg.createGraphics();
+
+                // ACTIVAMOS LA ALTA CALIDAD (Esto es clave)
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Pintamos la imagen original estirándola para ocupar todo el nuevo lienzo
+                g2d.drawImage(imgOriginal, 0, 0, anchoTarget, altoTarget, null);
+                g2d.dispose(); // Liberamos recursos gráficos
+
+                // 3. Mostramos la imagen final
+                iconQR.setIcon(new ImageIcon(dimg));
+                iconQR.setText("");
+            } else {
+                iconQR.setText("QR no encontrado");
+                iconQR.setIcon(null); // Limpiamos icono previo si hubo error
             }
-            iconQR.setText("");
         }
+
         this.txtEvento.setText(reservacion.getBoleto().getEvento().getNombreEvento());
-        if(reservacion.getBoleto().getEvento().isGratuito()){
+        if (reservacion.getBoleto().getEvento().isGratuito()) {
             txtAsientos.setText("LIBRE");
         } else {
             txtAsientos.setText(reservacion.getBoleto().getAsiento().getAsiento().getNumero().toString());

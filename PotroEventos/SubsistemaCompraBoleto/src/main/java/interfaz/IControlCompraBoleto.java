@@ -2,6 +2,7 @@ package interfaz;
 
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
+import dtos.BoletoDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
@@ -44,7 +45,7 @@ public interface IControlCompraBoleto {
 
     public Map<SeccionDTO, List<AsientoEventoDTO>> obtenerMapaOcupacion(EventoDTO evento) throws CompraBoletoException;
 
-    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException;
+    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento, String token) throws CompraBoletoException;
 
     public boolean reservarAsiento(String idAsientoEvento) throws CompraBoletoException;
 

@@ -12,6 +12,7 @@ import Pantallas.vistas.PnlConsultarEvento;
 import Pantallas.vistas.PnlEventos;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
+import dtos.BoletoDTO;
 import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
@@ -194,9 +195,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     @Override
     public void mostarRegistroITSON() {
         ocultarTodo();
-        if (frmRegistro == null) {
-            frmRegistro = new FrmRegistroItson(this);
-        }
         frmRegistro.setVisible(true);
     }
 
@@ -206,6 +204,10 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
         }
+        if (frmRegistro == null) {
+            frmRegistro = new FrmRegistroItson(this, categoria);
+        }
+
         try {
             frmPlantilla.setContenido(new PnlEventos(this, categoria));
         } catch (GestionEventoException ex) {
@@ -367,9 +369,9 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public String generarQR(EventoDTO evento, AsientoEventoDTO asiento) {
+    public String generarQR(EventoDTO evento, AsientoEventoDTO asiento, String token) {
         try {
-            return controlCompra.generarCodigoQR(evento, asiento);
+            return controlCompra.generarCodigoQR(evento, asiento, token);
         } catch (CompraBoletoException ex) {
             return null;
         }

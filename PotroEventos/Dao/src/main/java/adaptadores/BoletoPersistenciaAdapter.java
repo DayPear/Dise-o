@@ -30,7 +30,7 @@ public class BoletoPersistenciaAdapter {
     private static IAsientoEventoDAO asientoEventoDAO = AsientoEventoDAO.getInstancia();
     
     public static BoletoMongoEntidad convertirAMongo(Boleto dominio) throws PersistenciaException {
-        if(dominio == null){
+        if (dominio == null) {
             return null;
         }
         
@@ -39,10 +39,11 @@ public class BoletoPersistenciaAdapter {
         mongo.setCodigoQR(dominio.getCodigoQR());
         mongo.setPrecio(dominio.getPrecio());
         mongo.setEstado(dominio.getEstadoBoleto().name());
+        mongo.setToken(dominio.getToken());
         
         EventoResumenMongo e = new EventoResumenMongo(
-                convertirStringAObjectId(dominio.getEvento().getIdEvento()), 
-                dominio.getEvento().getNombreEvento(), 
+                convertirStringAObjectId(dominio.getEvento().getIdEvento()),
+                dominio.getEvento().getNombreEvento(),
                 dominio.getEvento().getFechaHora());
         
         mongo.setEvento(e);
@@ -63,7 +64,7 @@ public class BoletoPersistenciaAdapter {
     }
     
     public static Boleto convertirADominio(BoletoMongoEntidad mongo) throws PersistenciaException {
-        if(mongo == null){
+        if (mongo == null) {
             return null;
         }
         
@@ -72,9 +73,10 @@ public class BoletoPersistenciaAdapter {
         dominio.setCodigoQR(mongo.getCodigoQR());
         dominio.setPrecio(mongo.getPrecio());
         dominio.setEstadoBoleto(EstadoBoleto.valueOf(mongo.getEstado()));
+        dominio.setToken(mongo.getToken());
         
         Evento e = eventoDAO.buscarPorId(mongo.getEvento().getIdComoTexto());
-        if(e != null){
+        if (e != null) {
             dominio.setEvento(e);
         }
         
@@ -93,11 +95,11 @@ public class BoletoPersistenciaAdapter {
     public static List<Boleto> convertirListaADominio(List<BoletoMongoEntidad> lista) throws PersistenciaException {
         List<Boleto> boletos = new ArrayList<>();
         
-        if(lista == null){
+        if (lista == null) {
             return boletos;
         }
         
-        for(BoletoMongoEntidad mongo : lista){
+        for (BoletoMongoEntidad mongo : lista) {
             boletos.add(convertirADominio(mongo));
         }
         

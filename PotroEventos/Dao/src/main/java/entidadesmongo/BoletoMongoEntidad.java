@@ -6,8 +6,6 @@ package entidadesmongo;
 
 import entidadesresumenmongo.AsientoEventoResumenMongo;
 import entidadesresumenmongo.EventoResumenMongo;
-import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -20,16 +18,18 @@ public class BoletoMongoEntidad {
     private String estado;
     private EventoResumenMongo evento;
     private AsientoEventoResumenMongo asiento;
+    private String token;
 
     public BoletoMongoEntidad() {
     }
 
-    public BoletoMongoEntidad(String codigoQR, double precio, String estado, EventoResumenMongo evento, AsientoEventoResumenMongo asiento) {
+    public BoletoMongoEntidad(String codigoQR, double precio, String estado, EventoResumenMongo evento, AsientoEventoResumenMongo asiento, String token) {
         this.codigoQR = codigoQR;
         this.precio = precio;
         this.estado = estado;
         this.evento = evento;
         this.asiento = asiento;
+        this.token = token;
     }
 
     public String getCodigoQR() {
@@ -72,15 +72,14 @@ public class BoletoMongoEntidad {
         this.asiento = asiento;
     }
 
-    @Override
-    public String toString() {
-        return "BoletoMongoEntidad{" 
-                + ", codigoQR=" + codigoQR 
-                + ", precio=" + precio 
-                + ", estado=" + estado 
-                + ", evento=" + evento 
-                + ", asiento=" + asiento 
-                + '}';
+    public String getToken() {
+        return token;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    
     
 }

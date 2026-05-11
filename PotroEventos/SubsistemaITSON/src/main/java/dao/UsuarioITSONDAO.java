@@ -19,29 +19,8 @@ public class UsuarioITSONDAO {
     private static UsuarioITSONDAO instance;
     
     private UsuarioITSONDAO(){
-        agregarUsuariosPrueba();
     }
     
-    private static void agregarUsuariosPrueba(){
-        UsuarioITSON u1 = new UsuarioITSON("262775", "asheiji4ever");
-        UsuarioITSON u2 = new UsuarioITSON("262695", "daya");
-        UsuarioITSON u3 = new UsuarioITSON("262788", "aaron");
-        UsuarioITSON u4 = new UsuarioITSON("262741", "brian");
-        EntityManager em = ConexionBD.crearConexion();
-        try{
-            em.getTransaction().begin();
-            em.persist(u1);
-            em.persist(u2);
-            em.persist(u3);
-            em.persist(u4);
-            em.getTransaction().commit();
-            System.out.println("Se agregron los usuarios de prueba.");
-        } catch(Exception e){
-            System.out.println("No se agregron los usuarios de prueba.");
-        } finally {
-            em.close();
-        }
-    }
     
     public static UsuarioITSONDAO getInstance(){
         if(instance == null){

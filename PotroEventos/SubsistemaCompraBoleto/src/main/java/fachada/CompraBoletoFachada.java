@@ -3,6 +3,7 @@ package fachada;
 import control.ControlCompraBoleto;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
+import dtos.BoletoDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
@@ -49,8 +50,8 @@ public class CompraBoletoFachada implements ICompraBoleto {
     }
 
     @Override
-    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento) throws CompraBoletoException {
-        return controlCompra.generarCodigoQR(evento, asiento);
+    public String generarCodigoQR(EventoDTO evento, AsientoEventoDTO asiento, String token) throws CompraBoletoException {
+        return controlCompra.generarCodigoQR(evento, asiento, token);
     }
 
     @Override

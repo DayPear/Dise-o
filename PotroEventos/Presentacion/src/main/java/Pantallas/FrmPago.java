@@ -97,7 +97,7 @@ public class FrmPago extends javax.swing.JFrame {
             .addGroup(jPanelAzulLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(textPotroEventos)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
             .addComponent(jPanelAzulOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelAzulLayout.setVerticalGroup(
@@ -113,7 +113,6 @@ public class FrmPago extends javax.swing.JFrame {
 
         txtNoTarjeta.setBackground(new java.awt.Color(234, 230, 230));
         txtNoTarjeta.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        txtNoTarjeta.setForeground(new java.awt.Color(0, 0, 0));
         txtNoTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNoTarjetaActionPerformed(evt);
@@ -123,19 +122,19 @@ public class FrmPago extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNoTarjetaKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNoTarjetaKeyTyped(evt);
+            }
         });
 
         textCorreo1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        textCorreo1.setForeground(new java.awt.Color(0, 0, 0));
         textCorreo1.setText("No. tarjeta");
 
         textCorreo2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        textCorreo2.setForeground(new java.awt.Color(0, 0, 0));
         textCorreo2.setText("Fecha expiración");
 
         txtFechaExpiracion.setBackground(new java.awt.Color(234, 230, 230));
         txtFechaExpiracion.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        txtFechaExpiracion.setForeground(new java.awt.Color(0, 0, 0));
         txtFechaExpiracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaExpiracionActionPerformed(evt);
@@ -145,15 +144,16 @@ public class FrmPago extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFechaExpiracionKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFechaExpiracionKeyTyped(evt);
+            }
         });
 
         textCorreo3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        textCorreo3.setForeground(new java.awt.Color(0, 0, 0));
         textCorreo3.setText("CVV");
 
         txtCVV.setBackground(new java.awt.Color(234, 230, 230));
         txtCVV.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        txtCVV.setForeground(new java.awt.Color(0, 0, 0));
         txtCVV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCVVActionPerformed(evt);
@@ -162,6 +162,9 @@ public class FrmPago extends javax.swing.JFrame {
         txtCVV.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCVVKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCVVKeyTyped(evt);
             }
         });
 
@@ -362,7 +365,15 @@ public class FrmPago extends javax.swing.JFrame {
             texto = texto.substring(0, 16);
         }
 
-        txtNoTarjeta.setText(texto);
+        StringBuilder formateado = new StringBuilder();
+        for (int i = 0; i < texto.length(); i++) {
+            if (i > 0 && i % 4 == 0) {
+                formateado.append(" ");
+            }
+            formateado.append(texto.charAt(i));
+        }
+
+        txtNoTarjeta.setText(formateado.toString());
     }//GEN-LAST:event_txtNoTarjetaKeyReleased
 
     private void txtFechaExpiracionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaExpiracionKeyReleased
@@ -373,7 +384,7 @@ public class FrmPago extends javax.swing.JFrame {
             texto = texto.substring(0, 4);
         }
 
-        if (texto.length() >= 3) {
+        if (texto.length() > 2) {
             texto = texto.substring(0, 2) + "/" + texto.substring(2);
         }
 
@@ -398,6 +409,24 @@ public class FrmPago extends javax.swing.JFrame {
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
         coordinador.volverAConsultarEvento();
     }//GEN-LAST:event_btnVolverMouseClicked
+
+    private void txtNoTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoTarjetaKeyTyped
+        if (txtNoTarjeta.getText().length() >= 19) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNoTarjetaKeyTyped
+
+    private void txtFechaExpiracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaExpiracionKeyTyped
+        if (txtFechaExpiracion.getText().length() >= 5) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtFechaExpiracionKeyTyped
+
+    private void txtCVVKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCVVKeyTyped
+        if (txtCVV.getText().length() >= 3) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCVVKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
