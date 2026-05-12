@@ -484,11 +484,6 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
                 btnComprarMouseClicked(evt);
             }
         });
-        btnComprar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComprarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -781,18 +776,6 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
         // Ahora sí vas a la pantalla de pago
         coordinador.mostrarPago(reservacionParcial);
     }//GEN-LAST:event_btnComprarMouseClicked
-
-    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-//        reservacionParcial.setFechaHora(LocalDateTime.now());
-//        if(evento.isGratuito()){
-//            reservacionParcial.setTotal(0.0);
-//        } else {
-//            reservacionParcial.setTotal(Double.valueOf(totalCompra.doubleValue())); 
-//        }
-//        reservacionParcial.setEstado(ReservacionEstadoDTO.ACTIVA);
-//        reservacionParcial.setUsuario(coordinador.getUsuarioSesion());
-//        coordinador.venderAsientos(asientosSeleccionados, totalCompra, evento.isGratuito(), reservacionParcial);
-    }//GEN-LAST:event_btnComprarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:

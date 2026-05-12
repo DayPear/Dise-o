@@ -53,20 +53,6 @@ public class UsuarioPersistenciaAdapter {
         return dominio;
     }
     
-    public static List<Usuario> convertirListaADominio(List<UsuarioMongoEntidad> lista) throws PersistenciaException {
-        List<Usuario> usuarios = new ArrayList<>();
-        
-        if(lista == null){
-            return usuarios;
-        }
-        
-        for(UsuarioMongoEntidad mongo : lista){
-            usuarios.add(convertirADominio(mongo));
-        }
-        
-        return usuarios;
-    }
-    
     private static ObjectId convertirStringAObjectId(String id) throws PersistenciaException {
         if (id == null || id.isBlank()) {
             return null;

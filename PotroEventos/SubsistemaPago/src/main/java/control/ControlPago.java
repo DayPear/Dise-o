@@ -1,5 +1,6 @@
 package control;
 
+import adaptadores.BancoAdapter;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
@@ -74,12 +75,7 @@ public class ControlPago {
 
             String token = convertirTarjetaAToken(tarjetaDTO);
 
-            StripeChargeDTO stripeDTO = new StripeChargeDTO(
-                    cobroDTO.getMonto(),
-                    cobroDTO.getMoneda(),
-                    cobroDTO.getDescripcion(),
-                    token
-            );
+            StripeChargeDTO stripeDTO = BancoAdapter.dtoAInfraestructura(cobroDTO, token);
 
             Charge cargo = crearCargo(stripeDTO);
 

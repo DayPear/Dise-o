@@ -16,8 +16,6 @@ import entidadesresumenmongo.EventoResumenMongo;
 import excepciones.PersistenciaException;
 import interfaces.IAsientoEventoDAO;
 import interfaces.IEventoDAO;
-import java.util.ArrayList;
-import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -90,20 +88,6 @@ public class BoletoPersistenciaAdapter {
         }
         
         return dominio;
-    }
-    
-    public static List<Boleto> convertirListaADominio(List<BoletoMongoEntidad> lista) throws PersistenciaException {
-        List<Boleto> boletos = new ArrayList<>();
-        
-        if (lista == null) {
-            return boletos;
-        }
-        
-        for (BoletoMongoEntidad mongo : lista) {
-            boletos.add(convertirADominio(mongo));
-        }
-        
-        return boletos;
     }
     
     private static ObjectId convertirStringAObjectId(String id) throws PersistenciaException {

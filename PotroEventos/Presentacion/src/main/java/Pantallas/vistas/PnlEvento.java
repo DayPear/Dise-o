@@ -8,6 +8,7 @@ import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.EventoDTO;
 import dtos.ReservacionDTO;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Panel;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +39,11 @@ public class PnlEvento extends Panel {
         this.coordinador = coordinador;
 
         initComponents();
+        
+        this.setMinimumSize(new Dimension(100, 188));
+        this.setPreferredSize(null);
+        this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 188));
+        
         cargarEvento();
         configurarModo();
         utilerias.BotonUtileria.estilizarBoton(btnMostrar);
@@ -187,7 +193,7 @@ public class PnlEvento extends Panel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        if (btnMostrar.getText() == "Ver mis boletos") {
+        if ("Ver mis boletos".equals(btnMostrar.getText())) {
             coordinador.mostrarDetalles(reservacion);
         } else {
             coordinador.mostrarInfoEvento(evento);

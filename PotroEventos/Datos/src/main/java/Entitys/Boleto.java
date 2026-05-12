@@ -1,7 +1,6 @@
 package Entitys;
 
 import Entitys.ENUMS.EstadoBoleto;
-import java.time.LocalDate;
 
 /**
  *

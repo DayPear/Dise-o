@@ -12,7 +12,6 @@ import Pantallas.vistas.PnlConsultarEvento;
 import Pantallas.vistas.PnlEventos;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
-import dtos.BoletoDTO;
 import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
@@ -91,13 +90,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla != null) {
             frmPlantilla.setVisible(false);
         }
-    }
-
-    public UsuarioDTO getUsuario() {
-        if (usuario == null) {
-            return null;
-        }
-        return usuario;
     }
 
     @Override
@@ -218,9 +210,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
 
     @Override
     public List<EventoDTO> consultarEventos(CategoriaDTO categoria) throws GestionEventoException {
-
         return controlEvento.consultarEventosPorCategoria(categoria);
-
     }
 
     @Override

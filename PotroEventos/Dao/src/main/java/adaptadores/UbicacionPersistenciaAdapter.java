@@ -50,23 +50,6 @@ public class UbicacionPersistenciaAdapter {
         return dominio;
     }
     
-    /*
-    lo puse pero según yo nunca se usa (?)
-    */
-    public static List<Ubicacion> convertirListaADominio(List<UbicacionMongoEntidad> lista) throws PersistenciaException {
-        List<Ubicacion> ubicaciones = new ArrayList<>();
-        
-        if(lista == null){
-            return ubicaciones;
-        }
-        
-        for(UbicacionMongoEntidad mongo : lista){
-            ubicaciones.add(convertirADominio(mongo));
-        }
-        
-        return ubicaciones;
-    }
-    
     private static ObjectId convertirStringAObjectId(String id) throws PersistenciaException {
         if (id == null || id.isBlank()) {
             return null;

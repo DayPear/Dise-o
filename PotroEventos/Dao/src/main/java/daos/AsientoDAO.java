@@ -22,7 +22,7 @@ public class AsientoDAO implements IAsientoDAO {
 
     private static AsientoDAO instancia;
 
-    public AsientoDAO() {
+    private AsientoDAO() {
         this.coleccionAsientos = ConexionMongo.obtenerColeccionAsientos();
     }
 
