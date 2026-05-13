@@ -25,53 +25,31 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
 
     private ICoordinadorAplicacion coordinador;
 
-    /*
-    modo de inicio/de categorías
-     */
-    private boolean categorias;
-
-    /*
-    modo de consulta de los eventos del usuario
-     */
-    private boolean consultar;
-
-    /*
-    modo para consultar eventos de cierta categoría
-     */
-    private boolean eventos;
-
-    /*
-    modo para mostrar la info de un evento
-     */
-    private boolean mostrarEvento;
-
-    /*
-    modo para pagar
-     */
-    private boolean pago;
-
-    /*
-    modo para mostrar detalles de compra
-     */
-    private boolean detallesCompra;
-    
-    private UsuarioDTO usuario;
-
     /**
      * Creates new form FrmPlantillaSistema
      */
     public FrmPlantillaSistema(ICoordinadorAplicacion coordinador) {
         this.coordinador = coordinador;
-        this.usuario = coordinador.getUsuarioSesion();
         initComponents();
         setLocationRelativeTo(null);
         jpnlContenedor.setLayout(new GridLayout(0, 3, 10, 10));
 
     }
     
-    public void setUsuario(UsuarioDTO usuario){
-        this.usuario = usuario;
+    public void ocultarConsultar(){
+        this.btnConsultar.setVisible(false);
     }
+    
+   public void ocultarInicio(){
+       this.botonInicio1.setVisible(false);
+   }
+   public void mostrarInicio(){
+       this.botonInicio1.setVisible(true);
+   }
+   
+   public void mostrarConsultar(){
+       this.btnConsultar.setVisible(true);
+   }
 
     public void setContenido(JPanel panel) {
         jpnlContenedor.removeAll();

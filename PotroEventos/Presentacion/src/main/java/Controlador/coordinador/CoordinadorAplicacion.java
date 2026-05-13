@@ -144,8 +144,9 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         ocultarTodo();
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
-            frmPlantilla.setUsuario(usuario);
         }
+        frmPlantilla.ocultarInicio();
+        frmPlantilla.mostrarConsultar();
         frmPlantilla.setCategorias();
         frmPlantilla.setVisible(true);
         if (frmInicioSesion != null) {
@@ -159,6 +160,8 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
         }
+        frmPlantilla.ocultarConsultar();
+        frmPlantilla.mostrarInicio();
         frmPlantilla.setContenido(new PnlConsultar(this));
         frmPlantilla.setVisible(true);
     }
@@ -169,6 +172,8 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
         }
+        frmPlantilla.mostrarConsultar();
+        frmPlantilla.mostrarInicio();
         frmPlantilla.setContenido(new PnlConsultarEvento(this, evento));
         frmPlantilla.setVisible(true);
     }
@@ -205,6 +210,8 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         } catch (GestionEventoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+        frmPlantilla.mostrarInicio();
+        frmPlantilla.mostrarConsultar();
         frmPlantilla.setVisible(true);
     }
 
