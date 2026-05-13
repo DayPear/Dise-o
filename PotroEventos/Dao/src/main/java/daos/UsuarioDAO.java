@@ -21,10 +21,9 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     private static UsuarioDAO instance;
 
-    private MongoCollection<UsuarioMongoEntidad> coleccionUsuarios;
+    private MongoCollection<UsuarioMongoEntidad> coleccionUsuarios = ConexionMongo.obtenerColeccionUsuarios();
 
     private UsuarioDAO() {
-        this.coleccionUsuarios = ConexionMongo.obtenerColeccionUsuarios();
     }
 
     public static UsuarioDAO getInstance() {

@@ -16,7 +16,7 @@ public class Reservacion {
     private String idReservacion;
     private Double total;
     private Boleto boleto;
-    private String cobro;
+    private Pago pago;
     private Usuario usuario;
     private LocalDateTime fechaHora;
     private ReservacionEstado estado;
@@ -24,20 +24,20 @@ public class Reservacion {
     public Reservacion() {
     }
 
-    public Reservacion(String idReservacion, Double total, Boleto boleto, String cobro, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
+    public Reservacion(String idReservacion, Double total, Boleto boleto, Pago pago, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
         this.idReservacion = idReservacion;
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaHora = fechaHora;
         this.estado = estado;
     }
 
-    public Reservacion(Double total, Boleto boleto, String cobro, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
+    public Reservacion(Double total, Boleto boleto, Pago pago, Usuario usuario, LocalDateTime fechaHora, ReservacionEstado estado) {
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaHora = fechaHora;
         this.estado = estado;
@@ -67,12 +67,12 @@ public class Reservacion {
         this.boleto = boleto;
     }
 
-    public String getCobro() {
-        return cobro;
+    public Pago getPago() {
+        return pago;
     }
 
-    public void setCobro(String cobro) {
-        this.cobro = cobro;
+    public void setPago(Pago pago) {
+        this.pago = pago;
     }
 
     public Usuario getUsuario() {

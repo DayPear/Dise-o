@@ -16,7 +16,7 @@ public class ReservacionDTO {
     private String idReservacion;
     private Double total;
     private BoletoDTO boleto;
-    private String cobro;
+    private PagoDTO pago;
     private UsuarioDTO usuario;
     private LocalDateTime fechaHora;
     private ReservacionEstadoDTO estado;
@@ -24,20 +24,20 @@ public class ReservacionDTO {
     public ReservacionDTO() {
     }
 
-    public ReservacionDTO(String idReservacion, Double total, BoletoDTO boleto, String cobro, UsuarioDTO usuario, LocalDateTime fechaHora, ReservacionEstadoDTO estado) {
+    public ReservacionDTO(String idReservacion, Double total, BoletoDTO boleto, PagoDTO pago, UsuarioDTO usuario, LocalDateTime fechaHora, ReservacionEstadoDTO estado) {
         this.idReservacion = idReservacion;
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaHora = fechaHora;
         this.estado = estado;
     }
 
-    public ReservacionDTO(Double total, BoletoDTO boleto, String cobro, UsuarioDTO usuario, LocalDateTime fechaHora, ReservacionEstadoDTO estado) {
+    public ReservacionDTO(Double total, BoletoDTO boleto, PagoDTO pago, UsuarioDTO usuario, LocalDateTime fechaHora, ReservacionEstadoDTO estado) {
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaHora = fechaHora;
         this.estado = estado;
@@ -67,12 +67,12 @@ public class ReservacionDTO {
         this.boleto = boleto;
     }
 
-    public String getCobro() {
-        return cobro;
+    public PagoDTO getPago() {
+        return pago;
     }
 
-    public void setCobro(String cobro) {
-        this.cobro = cobro;
+    public void setPago(PagoDTO pago) {
+        this.pago = pago;
     }
 
     public UsuarioDTO getUsuario() {

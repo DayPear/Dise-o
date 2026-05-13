@@ -3,6 +3,7 @@ Entitys\Evento.class
 Entitys\Reservacion.class
 Entitys\Asiento.class
 Entitys\ENUMS\ReservacionEstado.class
+Entitys\Pago.class
 Entitys\Ubicacion.class
 Entitys\ENUMS\EstadoBoleto.class
 Entitys\ENUMS\EstadoEvento.class

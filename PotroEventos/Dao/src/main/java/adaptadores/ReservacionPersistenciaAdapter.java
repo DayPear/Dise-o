@@ -11,6 +11,7 @@ import Entitys.Usuario;
 import daos.ReservacionDAO;
 import daos.UsuarioDAO;
 import entidadesmongo.ReservacionMongoEntidad;
+import entidadesresumenmongo.UsuarioResumenMongo;
 import excepciones.PersistenciaException;
 import interfaces.IReservacionDAO;
 import interfaces.IUsuarioDAO;
@@ -38,8 +39,16 @@ public class ReservacionPersistenciaAdapter {
         mongo.setId(convertirStringAObjectId(dominio.getIdReservacion()));
         mongo.setTotal(dominio.getTotal());
         mongo.setBoleto(BoletoPersistenciaAdapter.convertirAMongo(dominio.getBoleto()));
-        mongo.setCobro(dominio.getCobro());
-        mongo.setUsuario(convertirStringAObjectId(dominio.getUsuario().getIdUsuario()));
+        mongo.setPago(PagoPersistenciaAdapter.convertirAMongo(dominio.getPago()));
+        
+        if(dominio.getUsuario() != null){
+            UsuarioResumenMongo u = new UsuarioResumenMongo(
+                    convertirStringAObjectId(dominio.getUsuario().getIdUsuario()), 
+                    dominio.getUsuario().getNombre(), 
+                    dominio.getUsuario().getApellidoPaterno(), 
+                    dominio.getUsuario().getCorreo());
+            mongo.setUsuario(u);
+        }
         
         if(dominio.getFechaHora() == null){
             mongo.setFechaRegistro(LocalDateTime.now());
@@ -66,9 +75,9 @@ public class ReservacionPersistenciaAdapter {
             dominio.setBoleto(b);
         }
         
-        dominio.setCobro(mongo.getCobro());
+        dominio.setPago(PagoPersistenciaAdapter.convertirADominio(mongo.getPago()));
         
-        Usuario u = usuarioDAO.obtenerPorId(mongo.getUsuarioComoTexto());
+        Usuario u = usuarioDAO.obtenerPorId(mongo.getUsuario().getIdComoTexto());
         if(u != null){
             dominio.setUsuario(u);
         }

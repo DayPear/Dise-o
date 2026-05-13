@@ -1,7 +1,9 @@
 package fachada;
 
+import adaptadores.BancoAdapter;
 import control.ControlPago;
 import dtos.CobroDTO;
+import dtos.PagoDTO;
 import dtos.TarjetaDTO;
 import excepciones.PagoException;
 import interfaz.IPago;
@@ -50,12 +52,12 @@ public class PagoFachada implements IPago {
      * @throws PagoException si ocurre un error durante el proceso
      */
     @Override
-    public String procesarPago(TarjetaDTO tarjetaDTO, CobroDTO cobroDTO) throws PagoException {
+    public PagoDTO procesarPago(TarjetaDTO tarjetaDTO, CobroDTO cobroDTO) throws PagoException {
         try {
-            String cobro = control.realizarPago(tarjetaDTO, cobroDTO);
+            PagoDTO pago = BancoAdapter.infraestructuraADTO(control.realizarPago(tarjetaDTO, cobroDTO));
 
             LOG.log(Level.INFO, "Pago procesado correctamente.");
-            return cobro;
+            return pago;
 
         } catch (PagoException ex) {
             LOG.log(Level.SEVERE, "Error al procesar pago en fachada.", ex);

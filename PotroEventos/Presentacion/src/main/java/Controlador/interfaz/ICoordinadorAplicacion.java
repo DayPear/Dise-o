@@ -6,6 +6,7 @@ import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.LoginDTO;
+import dtos.PagoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -79,7 +80,7 @@ public interface ICoordinadorAplicacion {
 
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion);
 
-    String realizarCompra(TarjetaDTO noTarjeta, CobroDTO cobro);
+    PagoDTO realizarCompra(TarjetaDTO noTarjeta, CobroDTO cobro);
 
     Long getTotalPendiente();
 

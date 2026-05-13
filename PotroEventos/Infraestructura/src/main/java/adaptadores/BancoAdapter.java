@@ -5,6 +5,8 @@
 package adaptadores;
 
 import dtos.CobroDTO;
+import dtos.PagoDTO;
+import dtos.PaymentDTO;
 import dtos.StripeChargeDTO;
 
 /**
@@ -29,4 +31,16 @@ public class BancoAdapter {
                     token
             ); 
     }
+    
+    public static PagoDTO infraestructuraADTO(PaymentDTO payment){
+        if(payment == null){
+            return null;
+        }
+        
+        return new PagoDTO(
+                payment.getPaymentID(), 
+                payment.getOperationDate(), 
+                payment.getCharge(), 
+                payment.getPaymentMethod());
+    } 
 }

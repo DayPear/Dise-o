@@ -28,7 +28,7 @@ public class ReservacionAdapter {
                 reservacion.getIdReservacion(), 
                 reservacion.getTotal(),
                 BoletoAdapter.entidadADTO(reservacion.getBoleto()), 
-                reservacion.getCobro(), 
+                PagoAdapter.convertirADTO(reservacion.getPago()), 
                 UsuarioAdapter.entidadADTO(reservacion.getUsuario()), 
                 reservacion.getFechaHora(), 
                 ReservacionEstadoDTO.valueOf(reservacion.getEstado().name()));
@@ -43,7 +43,7 @@ public class ReservacionAdapter {
                 reservacion.getIdReservacion(),
                 reservacion.getTotal(),
                 BoletoAdapter.dtoAEntidad(reservacion.getBoleto()),
-                reservacion.getCobro(),
+                PagoAdapter.convertirAEntidad(reservacion.getPago()),
                 UsuarioAdapter.dtoAEntidad(reservacion.getUsuario()),
                 reservacion.getFechaHora(),
                 ReservacionEstado.valueOf(reservacion.getEstado().name())

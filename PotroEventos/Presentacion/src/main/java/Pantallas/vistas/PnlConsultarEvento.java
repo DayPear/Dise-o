@@ -688,7 +688,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             BoletoDTO boletoGratis = new BoletoDTO(rutaQR, 0.0, EstadoBoletoDTO.ACTIVO, evento, null, tokenNuevo);
 
             reservacionParcial.setBoleto(boletoGratis);
-            reservacionParcial.setCobro(null);
+            reservacionParcial.setPago(null);
             reservacionParcial.setTotal(0.0);
             reservacionParcial.setEstado(ReservacionEstadoDTO.ACTIVA);
             reservacionParcial.setUsuario(coordinador.getUsuarioSesion());

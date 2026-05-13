@@ -291,9 +291,9 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
      * Realiza el pago de la compra pendiente.
      */
     @Override
-    public String realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException {
+    public PagoDTO realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException {
         try {
-            String pago = controlPago.procesarPago(tarjeta, cobro);
+            PagoDTO pago = controlPago.procesarPago(tarjeta, cobro);
 
             if (pago != null) {
                 for (AsientoEventoDTO asiento : asientosPendientesCompra) {

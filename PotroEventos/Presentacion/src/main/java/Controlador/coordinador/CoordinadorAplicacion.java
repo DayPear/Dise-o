@@ -16,6 +16,7 @@ import dtos.CategoriaDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.LoginDTO;
+import dtos.PagoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -343,7 +344,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public String realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) {
+    public PagoDTO realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) {
         try {
             return controlCompra.realizarCompra(tarjeta, cobro);
         } catch (CompraBoletoException ex) {

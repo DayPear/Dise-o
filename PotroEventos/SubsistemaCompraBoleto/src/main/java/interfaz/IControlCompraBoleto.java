@@ -5,6 +5,7 @@ import dtos.AsientoEventoDTO;
 import dtos.BoletoDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
+import dtos.PagoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -53,7 +54,7 @@ public interface IControlCompraBoleto {
 
     public boolean venderAsientos(List<AsientoEventoDTO> asientosSeleccionados, Long totalCompra, boolean gratuito, ReservacionDTO reservacion) throws CompraBoletoException;
 
-    public String realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException;
+    public PagoDTO realizarCompra(TarjetaDTO tarjeta, CobroDTO cobro) throws CompraBoletoException;
 
     public Long getTotalPendiente();
 

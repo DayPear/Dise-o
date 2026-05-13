@@ -6,6 +6,7 @@ package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
 import dtos.CobroDTO;
+import dtos.PagoDTO;
 import dtos.ReservacionDTO;
 import dtos.TarjetaDTO;
 import excepciones.CoordinadorException;
@@ -333,10 +334,10 @@ public class FrmPago extends javax.swing.JFrame {
 
         TarjetaDTO tarjeta = new TarjetaDTO(txtNoTarjeta.getText(), Integer.parseInt(mes), Integer.parseInt(anio), txtCVV.getText());
         CobroDTO cobro = new CobroDTO(coordinador.getTotalPendiente(), "MXN", "Compra Boleto");
-        String pago = coordinador.realizarCompra(tarjeta, cobro);
+        PagoDTO pago = coordinador.realizarCompra(tarjeta, cobro);
         if (pago != null) {
             JOptionPane.showMessageDialog(null, "Pago realizado exitosamente", "Pago realizado", JOptionPane.INFORMATION_MESSAGE);
-            reservacion.setCobro(pago);
+            reservacion.setPago(pago);
             try {
                 coordinador.agregarReservacion(reservacion);
             } catch (CoordinadorException ex) {

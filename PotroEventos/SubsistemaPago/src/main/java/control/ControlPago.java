@@ -3,11 +3,14 @@ package control;
 import adaptadores.BancoAdapter;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import dtos.CobroDTO;
+import dtos.PaymentDTO;
 import dtos.StripeChargeDTO;
 import dtos.TarjetaDTO;
 import excepciones.PagoException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -69,7 +72,7 @@ public class ControlPago {
      * @return true si fue exitoso
      * @throws PagoException si ocurre error
      */
-    public String realizarPago(TarjetaDTO tarjetaDTO, CobroDTO cobroDTO) throws PagoException {
+    public PaymentDTO realizarPago(TarjetaDTO tarjetaDTO, CobroDTO cobroDTO) throws PagoException {
         try {
             validarDatos(tarjetaDTO, cobroDTO);
 
@@ -78,12 +81,26 @@ public class ControlPago {
             StripeChargeDTO stripeDTO = BancoAdapter.dtoAInfraestructura(cobroDTO, token);
 
             Charge cargo = crearCargo(stripeDTO);
-
+            
+            /*
+            esto es para obtener el método de pago
+            */
+            Object source = cargo.getSource();
+            String tipoPago = "desconocido";
+            if (source instanceof Card) {
+                tipoPago = "tarjeta";
+            } else {
+                tipoPago = "alternativo";
+            }
             if (transaccionExitosa(cargo)) {
                 LOG.log(Level.INFO,
                         "Pago exitoso. ID: {0}, Estado: {1}",
                         new Object[]{cargo.getId(), cargo.getStatus()});
-                return cargo.getId();
+                return new PaymentDTO(
+                        cargo.getId(), 
+                        LocalDateTime.now(), 
+                        cobroDTO.getMonto().doubleValue(), 
+                        tipoPago);
             }
 
             throw new PagoException("La transacción no fue aprobada.");

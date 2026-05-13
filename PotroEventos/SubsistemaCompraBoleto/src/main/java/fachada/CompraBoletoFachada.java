@@ -6,6 +6,7 @@ import dtos.AsientoEventoDTO;
 import dtos.BoletoDTO;
 import dtos.CobroDTO;
 import dtos.EventoDTO;
+import dtos.PagoDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -70,7 +71,7 @@ public class CompraBoletoFachada implements ICompraBoleto {
     }
 
     @Override
-    public String realizarCompra(TarjetaDTO noTarjeta, CobroDTO cobro) throws CompraBoletoException {
+    public PagoDTO realizarCompra(TarjetaDTO noTarjeta, CobroDTO cobro) throws CompraBoletoException {
         return controlCompra.realizarCompra(noTarjeta, cobro);
     }
 

@@ -4,6 +4,7 @@
  */
 package entidadesmongo;
 
+import entidadesresumenmongo.UsuarioResumenMongo;
 import java.time.LocalDateTime;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
@@ -19,28 +20,28 @@ public class ReservacionMongoEntidad {
     
     private double total;
     private BoletoMongoEntidad boleto;
-    private String cobro;
-    private ObjectId usuario;
+    private PagoMongoEntidad pago;
+    private UsuarioResumenMongo usuario;
     private LocalDateTime fechaRegistro;
     private String estado;
 
     public ReservacionMongoEntidad() {
     }
 
-    public ReservacionMongoEntidad(double total, BoletoMongoEntidad boleto, String cobro, ObjectId usuario, LocalDateTime fechaRegistro, String estado) {
+    public ReservacionMongoEntidad(double total, BoletoMongoEntidad boleto, PagoMongoEntidad pago, UsuarioResumenMongo usuario, LocalDateTime fechaRegistro, String estado) {
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
 
-    public ReservacionMongoEntidad(ObjectId id, double total, BoletoMongoEntidad boleto, String cobro, ObjectId usuario, LocalDateTime fechaRegistro, String estado) {
+    public ReservacionMongoEntidad(ObjectId id, double total, BoletoMongoEntidad boleto, PagoMongoEntidad pago, UsuarioResumenMongo usuario, LocalDateTime fechaRegistro, String estado) {
         this.id = id;
         this.total = total;
         this.boleto = boleto;
-        this.cobro = cobro;
+        this.pago = pago;
         this.usuario = usuario;
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
@@ -77,27 +78,20 @@ public class ReservacionMongoEntidad {
         this.boleto = boleto;
     }
 
-    public String getCobro() {
-        return cobro;
+    public PagoMongoEntidad getPago() {
+        return pago;
     }
 
-    public void setCobro(String cobro) {
-        this.cobro = cobro;
+    public void setPago(PagoMongoEntidad pago) {
+        this.pago = pago;
     }
 
-    public ObjectId getUsuario() {
+    public UsuarioResumenMongo getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(ObjectId usuario) {
+    public void setUsuario(UsuarioResumenMongo usuario) {
         this.usuario = usuario;
-    }
-    
-    public String getUsuarioComoTexto(){
-        if(usuario == null){
-            return null;
-        }
-        return usuario.toHexString();
     }
 
     public LocalDateTime getFechaRegistro() {
@@ -122,8 +116,8 @@ public class ReservacionMongoEntidad {
                 + "id=" + getIdComoTexto() 
                 + ", total=" + total 
                 + ", boleto=" + boleto 
-                + ", cobro=" + cobro
-                + ", usuario=" + getUsuarioComoTexto() 
+                + ", cobro=" + pago
+                + ", usuario=" + usuario 
                 + ", fechaRegistro=" + fechaRegistro 
                 + ", estado=" + estado 
                 + '}';

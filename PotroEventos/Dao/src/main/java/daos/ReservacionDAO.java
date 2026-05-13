@@ -83,7 +83,7 @@ public class ReservacionDAO implements IReservacionDAO {
     public List<Reservacion> obtenerReservacionesUsuario(String idUsuario) throws PersistenciaException {
         try {
             List<ReservacionMongoEntidad> reservaciones = coleccionReservaciones
-                    .find(eq("usuario", new ObjectId(idUsuario)))
+                    .find(eq("usuario._id", new ObjectId(idUsuario)))
                     .into(new ArrayList<>());
             return ReservacionPersistenciaAdapter.convertirListaADominio(reservaciones);
         } catch (Exception e) {

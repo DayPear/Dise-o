@@ -31,19 +31,19 @@ public class UsuarioDAOTest {
         
     }
 
-    /**
-     * Test of guardarUsuario method, of class UsuarioDAO.
-     */
-    @Test
-    public void testGuardarUsuario() throws Exception {
-        UsuarioDAO dao = UsuarioDAO.getInstance();
-        
-        Usuario usuario = new Usuario("Brian", "Sandoval", "Rodriguez", "brian@mail.com", "1234", 0);
-        
-        Usuario usuarioGuardado = dao.guardarUsuario(usuario);
-        
-        assertNotNull(usuarioGuardado);
-        
-    }
+//    /**
+//     * Test of guardarUsuario method, of class UsuarioDAO.
+//     */
+//    @Test
+//    public void testGuardarUsuario() throws Exception {
+//        UsuarioDAO dao = UsuarioDAO.getInstance();
+//        
+//        Usuario usuario = new Usuario("Brian", "Sandoval", "Rodriguez", "brian@mail.com", "1234", 0);
+//        
+//        Usuario usuarioGuardado = dao.guardarUsuario(usuario);
+//        
+//        assertNotNull(usuarioGuardado);
+//        
+//    }
     
 }

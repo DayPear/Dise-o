@@ -1,8 +1,10 @@
 package pruebaStripe;
 
+import adaptadores.BancoAdapter;
 import com.stripe.Stripe;
 import control.ControlPago;
 import dtos.CobroDTO;
+import dtos.PagoDTO;
 import dtos.TarjetaDTO;
 import excepciones.PagoException;
 
@@ -53,7 +55,7 @@ public class PruebaStripe {
 
             ControlPago control = ControlPago.getInstance();
 
-            String exito = control.realizarPago(tarjeta, cobro);
+            PagoDTO exito = BancoAdapter.infraestructuraADTO(control.realizarPago(tarjeta, cobro));
 
             if (exito != null) {
                 System.out.println("Pago procesado correctamente.");
