@@ -9,6 +9,7 @@ import Pantallas.FrmDetallesCompra;
 import Pantallas.FrmRegistroItson;
 import Pantallas.vistas.PnlConsultar;
 import Pantallas.vistas.PnlConsultarEvento;
+import Pantallas.vistas.PnlConsultarMenu;
 import Pantallas.vistas.PnlEventos;
 import dtos.AsientoDTO;
 import dtos.AsientoEventoDTO;
@@ -156,14 +157,26 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public void mostrarConsultar() {
+    public void mostrarConsultar(String tipoEvento) {
         ocultarTodo();
         if (frmPlantilla == null) {
             frmPlantilla = new FrmPlantillaSistema(this);
         }
         frmPlantilla.ocultarConsultar();
         frmPlantilla.mostrarInicio();
-        frmPlantilla.setContenido(new PnlConsultar(this));
+        frmPlantilla.setContenido(new PnlConsultar(this, tipoEvento));
+        frmPlantilla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarConsultarMenu() {
+        ocultarTodo();
+        if (frmPlantilla == null) {
+            frmPlantilla = new FrmPlantillaSistema(this);
+        }
+        frmPlantilla.ocultarConsultar();
+        frmPlantilla.mostrarInicio();
+        frmPlantilla.setContenido(new PnlConsultarMenu(this));
         frmPlantilla.setVisible(true);
     }
 

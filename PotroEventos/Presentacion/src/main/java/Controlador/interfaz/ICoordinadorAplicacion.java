@@ -34,7 +34,9 @@ public interface ICoordinadorAplicacion {
 
     public void mostrarInicio();
 
-    public void mostrarConsultar();
+    public void mostrarConsultar(String tipoEvento);
+
+    public void mostrarConsultarMenu();
 
     public void mostrarInfoEvento(EventoDTO evento);
 

@@ -8,7 +8,6 @@ import Controlador.interfaz.ICoordinadorAplicacion;
 import Pantallas.vistas.PnlCategoria;
 import Pantallas.vistas.PnlEventos;
 import dtos.CategoriaDTO;
-import dtos.UsuarioDTO;
 import excepciones.GestionEventoException;
 import java.awt.GridLayout;
 import java.util.List;
@@ -35,21 +34,22 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
         jpnlContenedor.setLayout(new GridLayout(0, 3, 10, 10));
 
     }
-    
-    public void ocultarConsultar(){
+
+    public void ocultarConsultar() {
         this.btnConsultar.setVisible(false);
     }
-    
-   public void ocultarInicio(){
-       this.botonInicio1.setVisible(false);
-   }
-   public void mostrarInicio(){
-       this.botonInicio1.setVisible(true);
-   }
-   
-   public void mostrarConsultar(){
-       this.btnConsultar.setVisible(true);
-   }
+
+    public void ocultarInicio() {
+        this.botonInicio1.setVisible(false);
+    }
+
+    public void mostrarInicio() {
+        this.botonInicio1.setVisible(true);
+    }
+
+    public void mostrarConsultar() {
+        this.btnConsultar.setVisible(true);
+    }
 
     public void setContenido(JPanel panel) {
         jpnlContenedor.removeAll();
@@ -253,7 +253,7 @@ public class FrmPlantillaSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_botonInicio1MouseClicked
 
     private void btnConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarMouseClicked
-        coordinador.mostrarConsultar();
+        coordinador.mostrarConsultarMenu();
     }//GEN-LAST:event_btnConsultarMouseClicked
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed

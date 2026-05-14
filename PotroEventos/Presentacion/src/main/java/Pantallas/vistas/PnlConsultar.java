@@ -9,13 +9,10 @@ import dtos.ENUMS.ReservacionEstadoDTO;
 import dtos.ReservacionDTO;
 import dtos.UsuarioDTO;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -32,67 +29,100 @@ public class PnlConsultar extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlConsultar
+     *
+     * @param coordinador
+     * @param tipoEvento
      */
-    public PnlConsultar(ICoordinadorAplicacion coordinador) {
+    public PnlConsultar(ICoordinadorAplicacion coordinador, String tipoEvento) {
         this.coordinador = coordinador;
         this.usuario = coordinador.getUsuarioSesion();
         initComponents();
-        cargarInfo();
+        utilerias.BotonUtileria.estilizarBoton(btnVolver);
+        pnlEventos.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+        switch (tipoEvento) {
+            case "Proximos" ->
+                mostrarEventosProximos();
+            case "Pasados" ->
+                mostrarEventosPasados();
+            case "Cancelados" ->
+                mostrarEventosCancelados();
+            default ->
+                throw new AssertionError();
+        }
+
     }
 
     public void mostrarDetalles(ReservacionDTO reservacion) {
         coordinador.mostrarDetalles(reservacion);
     }
-    
-    private void cargarInfo(){
-        List<ReservacionDTO> proximos = new ArrayList<>();
-        List<ReservacionDTO> pasados = new ArrayList<>();
+
+    private void mostrarEventosCancelados() {
+
+        lblNombreEventos.setText("Eventos Cancelados");
+
         List<ReservacionDTO> cancelados = new ArrayList<>();
+
         for (ReservacionDTO r : coordinador.consultarReservaciones(usuario.getIdUsuario())) {
             if (r.getEstado() == ReservacionEstadoDTO.CANCELADA) {
                 cancelados.add(r);
-            } else if (r.getEstado() == ReservacionEstadoDTO.ACTIVA && r.getBoleto().getEvento().getFechaHora().isAfter(LocalDateTime.now())) {
-                proximos.add(r);
-            } else {
-                pasados.add(r);
             }
         }
-        pnlProximos.setLayout(new BoxLayout(pnlProximos, BoxLayout.Y_AXIS));
-        pnlPasados.setLayout(new BoxLayout(pnlPasados, BoxLayout.Y_AXIS));
-        pnlCancelados.setLayout(new BoxLayout(pnlCancelados, BoxLayout.Y_AXIS));
-        for (ReservacionDTO proximo : proximos) {
-            PnlEvento panel = PnlEvento.crearParaConsulta(proximo, this, coordinador);
-            panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
-            pnlProximos.add(panel);
-            JSeparator separador = new JSeparator(SwingConstants.HORIZONTAL);
-            separador.setMaximumSize(new Dimension(Integer.MAX_VALUE, 10)); // 10px de alto para el separador
-            pnlProximos.add(separador);
-        }
-        pnlProximos.add(Box.createVerticalGlue());
-        pnlProximos.revalidate();
-        pnlProximos.repaint();
-        for (ReservacionDTO pasado : pasados) {
-            PnlEvento panel = PnlEvento.crearParaConsulta(pasado, this, coordinador);
-            panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
-            pnlPasados.add(panel);
-            JSeparator separador = new JSeparator(SwingConstants.HORIZONTAL);
-            separador.setMaximumSize(new Dimension(Integer.MAX_VALUE, 10));
-            pnlPasados.add(separador);
-        }
-        pnlPasados.add(Box.createVerticalGlue());
-        pnlPasados.revalidate();
-        pnlPasados.repaint();
+
         for (ReservacionDTO cancelado : cancelados) {
             PnlEvento panel = PnlEvento.crearParaConsulta(cancelado, this, coordinador);
             panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
-            pnlCancelados.add(panel);
-            JSeparator separador = new JSeparator(SwingConstants.HORIZONTAL);
-            separador.setMaximumSize(new Dimension(Integer.MAX_VALUE, 10));
-            pnlCancelados.add(separador);
+            pnlEventos.add(panel);
         }
-        pnlCancelados.add(Box.createVerticalGlue());
-        pnlCancelados.revalidate();
-        pnlCancelados.repaint();
+
+        pnlEventos.revalidate();
+        pnlEventos.repaint();
+
+    }
+
+    private void mostrarEventosPasados() {
+        lblNombreEventos.setText("Eventos Pasados");
+
+        List<ReservacionDTO> pasados = new ArrayList<>();
+
+        for (ReservacionDTO r : coordinador.consultarReservaciones(usuario.getIdUsuario())) {
+            if (r.getEstado() == ReservacionEstadoDTO.ACTIVA && r.getBoleto().getEvento().getFechaHora().isBefore(LocalDateTime.now())) {
+                pasados.add(r);
+            }
+        }
+
+        for (ReservacionDTO pasado : pasados) {
+            PnlEvento panel = PnlEvento.crearParaConsulta(pasado, this, coordinador);
+            panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+            pnlEventos.add(panel);
+        }
+
+        pnlEventos.revalidate();
+        pnlEventos.repaint();
+
+    }
+
+    private void mostrarEventosProximos() {
+
+        lblNombreEventos.setText("Eventos Próximos");
+
+        List<ReservacionDTO> proximos = new ArrayList<>();
+
+        for (ReservacionDTO r : coordinador.consultarReservaciones(usuario.getIdUsuario())) {
+            if (r.getEstado() == ReservacionEstadoDTO.ACTIVA && r.getBoleto().getEvento().getFechaHora().isAfter(LocalDateTime.now())) {
+                proximos.add(r);
+            }
+
+        }
+        for (ReservacionDTO proximo : proximos) {
+            PnlEvento panel = PnlEvento.crearParaConsulta(proximo, this, coordinador);
+            panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+            pnlEventos.add(panel);
+        }
+
+        pnlEventos.revalidate();
+        pnlEventos.repaint();
+
     }
 
     /**
@@ -107,15 +137,10 @@ public class PnlConsultar extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jPanel7 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblNombreEventos = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        pnlProximos = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        pnlPasados = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        pnlCancelados = new javax.swing.JPanel();
+        pnlEventos = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -123,69 +148,52 @@ public class PnlConsultar extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Eventos Próximos");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Eventos Pasados");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("Eventos Cancelados");
+        lblNombreEventos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNombreEventos.setText("Eventos Próximos");
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        pnlProximos.setLayout(new javax.swing.BoxLayout(pnlProximos, javax.swing.BoxLayout.LINE_AXIS));
-        jScrollPane2.setViewportView(pnlProximos);
+        pnlEventos.setLayout(new javax.swing.BoxLayout(pnlEventos, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPane2.setViewportView(pnlEventos);
 
-        jScrollPane3.setBorder(null);
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        pnlPasados.setLayout(new javax.swing.BoxLayout(pnlPasados, javax.swing.BoxLayout.LINE_AXIS));
-        jScrollPane3.setViewportView(pnlPasados);
-
-        jScrollPane4.setBorder(null);
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        pnlCancelados.setLayout(new javax.swing.BoxLayout(pnlCancelados, javax.swing.BoxLayout.LINE_AXIS));
-        jScrollPane4.setViewportView(pnlCancelados);
+        btnVolver.setBackground(new java.awt.Color(31, 92, 204));
+        btnVolver.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(lblNombreEventos)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addComponent(lblNombreEventos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jScrollPane2))
-                .addGap(23, 23, 23))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVolver)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -200,19 +208,18 @@ public class PnlConsultar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        coordinador.mostrarConsultarMenu();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVolver;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JPanel pnlCancelados;
-    private javax.swing.JPanel pnlPasados;
-    private javax.swing.JPanel pnlProximos;
+    private javax.swing.JLabel lblNombreEventos;
+    private javax.swing.JPanel pnlEventos;
     // End of variables declaration//GEN-END:variables
 }

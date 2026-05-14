@@ -12,6 +12,7 @@ import daos.UsuarioDAO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IUsuarioDAO;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -41,7 +42,13 @@ public class UsuarioBO implements IUsuarioBO {
             usuario.setCorreo(sesion.getCorreo());
             usuario.setContrasenia(sesion.getContrasenia());
 
-            return UsuarioAdapter.entidadADTO(usuarioDAO.obtenerUsuario(UsuarioAdapter.dtoAEntidad(usuario)));
+            UsuarioDTO usuarioBaseDatos = UsuarioAdapter.entidadADTO(usuarioDAO.obtenerUsuario(UsuarioAdapter.dtoAEntidad(usuario)));
+
+            if (BCrypt.checkpw(sesion.getContrasenia(), usuarioBaseDatos.getContrasenia())) {
+                return usuarioBaseDatos;
+            } else {
+                throw new NegocioException("Contraseña incorrecta.");
+            }
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
         }
@@ -50,6 +57,11 @@ public class UsuarioBO implements IUsuarioBO {
     @Override
     public UsuarioDTO guardarUsuario(UsuarioDTO dto) throws NegocioException {
         try {
+
+            String passwordEncriptada = BCrypt.hashpw(dto.getContrasenia(), BCrypt.gensalt());
+
+            dto.setContrasenia(passwordEncriptada);
+
             return UsuarioAdapter.entidadADTO(usuarioDAO.guardarUsuario(UsuarioAdapter.dtoAEntidad(dto)));
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
