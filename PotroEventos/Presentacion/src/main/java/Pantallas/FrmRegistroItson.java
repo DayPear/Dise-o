@@ -1,7 +1,6 @@
 package Pantallas;
 
 import Controlador.interfaz.ICoordinadorAplicacion;
-import Entitys.Categoria;
 import dtos.CategoriaDTO;
 import dtos.UsuarioInstitucionalDTO;
 import javax.swing.JOptionPane;
@@ -14,8 +13,7 @@ import javax.swing.JOptionPane;
  * @author María Valdez - 262775
  */
 public class FrmRegistroItson extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmRegistroItson.class.getName());
+   
     private ICoordinadorAplicacion coordinador;
     private boolean exitoRegistro = false;
     private final CategoriaDTO categoria;
@@ -263,7 +261,6 @@ public class FrmRegistroItson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se encontró al usuario ITSON, verifique tener la información correcta.");
             return;
         } else {
-            coordinador.setUsuarioITSON(usuario);
             txtID.setText("");
             txtContrasenia.setText("");
             coordinador.volverAConsultarEvento();
@@ -273,8 +270,7 @@ public class FrmRegistroItson extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:   
         coordinador.mostrarEventos(categoria);
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

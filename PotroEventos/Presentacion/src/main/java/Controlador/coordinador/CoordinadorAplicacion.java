@@ -58,8 +58,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     private final IFachadaGestionEvento controlEvento = new GestionEventoFachada();
     private final IGestionUsuariosFachada controlUsuarios = new GestionUsuarioFachada();
 
-    private UsuarioDTO usuario;
-    private UsuarioInstitucionalDTO usuarioITSON;
     private FrmInicioSesion frmInicioSesion;
     private FrmRegistrarse frmRegistrarse;
     private FrmPago frmPago;
@@ -92,19 +90,6 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         if (frmPlantilla != null) {
             frmPlantilla.setVisible(false);
         }
-    }
-
-    @Override
-    public void setUsuarioITSON(UsuarioInstitucionalDTO usuario) {
-        this.usuarioITSON = usuario;
-    }
-
-    @Override
-    public UsuarioInstitucionalDTO getUsuarioITSON() {
-        if (usuarioITSON == null) {
-            return null;
-        }
-        return usuarioITSON;
     }
 
     @Override
@@ -256,19 +241,26 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public void setUsuarioSesion(UsuarioDTO usuario) {
-        this.usuario = usuario;
+    public boolean setUsuarioSesion(UsuarioDTO usuario) {
+        try {
+            return controlUsuarios.asociarUsuario(usuario);
+        } catch (GestionUsuarioException gue) {
+            return false;
+        }
     }
 
     @Override
     public UsuarioDTO getUsuarioSesion() {
-        return usuario;
+        try {
+            return controlUsuarios.obtenerUsuarioActivo();
+        } catch (GestionUsuarioException gue) {
+            return null;
+        }
     }
 
     @Override
     public void cerrarSesion() {
         controlInicioSesion.cerrarSesion();
-        usuario = null;
         this.mostrarInicioSesion();
     }
 
@@ -411,6 +403,11 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
         } catch (InicioSesionException ex) {
             throw new CoordinadorException(ex.getMessage());
         }
+    }
+
+    @Override
+    public boolean isUsuarioITSONRegistrado() {
+        return frmRegistro.registroExitoso();
     }
 
 }

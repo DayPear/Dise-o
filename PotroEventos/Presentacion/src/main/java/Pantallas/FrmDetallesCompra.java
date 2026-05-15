@@ -151,7 +151,7 @@ public class FrmDetallesCompra extends javax.swing.JFrame {
         if (reservacion.getBoleto().getEvento().isGratuito()) {
             txtAsientos.setText("LIBRE");
         } else {
-            txtAsientos.setText(reservacion.getBoleto().getAsiento().getAsiento().getNumero().toString());
+            txtAsientos.setText(reservacion.getBoleto().getAsiento().getAsiento().getFila() + reservacion.getBoleto().getAsiento().getAsiento().getNumero().toString());
         }
         DateTimeFormatter formateadorFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formateadorHora = DateTimeFormatter.ofPattern("HH:mm");
@@ -455,7 +455,7 @@ public class FrmDetallesCompra extends javax.swing.JFrame {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
-        coordinador.mostrarConsultarMenu();
+        coordinador.mostrarInicio();
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked

@@ -246,7 +246,10 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             UsuarioDTO usuario = coordinador.iniciarSesion(login);
             if (usuario != null) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
-                coordinador.setUsuarioSesion(usuario);
+                if(!coordinador.setUsuarioSesion(usuario)){
+                    JOptionPane.showMessageDialog(this, "No se pudo asociar al usuario en la sesión.");
+                    return;
+                }
                 coordinador.mostrarInicio();
                 this.dispose();
             } else {

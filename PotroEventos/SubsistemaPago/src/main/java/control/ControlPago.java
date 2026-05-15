@@ -162,7 +162,7 @@ public class ControlPago {
     private Charge crearCargo(StripeChargeDTO stripeDTO) throws StripeException {
         Map<String, Object> parametros = new HashMap<>();
 
-        parametros.put("amount", stripeDTO.getAmount());
+        parametros.put("amount", stripeDTO.getAmount() * 100);
         parametros.put("currency", stripeDTO.getCurrency());
         parametros.put("description", stripeDTO.getDescription());
         parametros.put("source", stripeDTO.getSource());

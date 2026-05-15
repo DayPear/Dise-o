@@ -29,7 +29,7 @@ public class GestionUsuarioFachada implements IGestionUsuariosFachada {
 
     // --- Método que regresa el usuario con la sesion activa --- 
     @Override
-    public UsuarioDTO obtenerUsuarioActivo() {
+    public UsuarioDTO obtenerUsuarioActivo() throws GestionUsuarioException {
         return control.getUsuarioActivo();
     }
 
@@ -39,7 +39,10 @@ public class GestionUsuarioFachada implements IGestionUsuariosFachada {
     }
 
     @Override
-    public boolean restarCreditos(Integer cantidad, String idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean asociarUsuario(UsuarioDTO usuario) throws GestionUsuarioException {
+        if(control.asociarUsuario(usuario) != null){
+            return true;
+        }
+        throw new GestionUsuarioException("No se pudo asociar el usuario a la sesión.");
     }
 }

@@ -89,7 +89,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
 
     private void validarUsuarioITSON() {
         if (evento.getTipoEvento() == TipoEventoN.ITSON) {
-            if (coordinador.getUsuarioITSON() == null) {
+            if (!coordinador.isUsuarioITSONRegistrado()) {
                 coordinador.mostarRegistroITSON();
             }
         }
@@ -108,7 +108,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             lblAsiento.setText("");
             jLabel14.setText("");
             btnComprar.setText("Adquirir Boleto");
-            PnlEstadio.setVisible(false);
+            PnlEstadio.setVisible(true);
             jSeparator1.setVisible(false);
             jSeparator2.setVisible(false);
             jSeparator3.setVisible(false);
@@ -257,7 +257,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             lblSeccion.setText(seccion.getNombre());
             lblFila.setText(asiento.getFila());
             lblAsiento.setText(String.valueOf(asiento.getNumero()));
-            lblPrecio.setText(String.format("$%.2f", seccion.getPrecioBase() / 100.0));
+            lblPrecio.setText(String.format("$%.2f", (double) seccion.getPrecioBase()));
         } else {
 
             // Caso: múltiples asientos
@@ -275,7 +275,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
                     textoFilas.append(asiento.getFila()).append("<br>");
                     textoAsientos.append(asiento.getNumero()).append("<br>");
                     textoPrecios.append(
-                            String.format("$%.2f", seccion.getPrecioBase() / 100.0)
+                            String.format("$%.2f", (double) seccion.getPrecioBase())
                     ).append("<br>");
                 }
             }
@@ -291,7 +291,7 @@ public class PnlConsultarEvento extends javax.swing.JPanel {
             lblPrecio.setText(textoPrecios.toString());
         }
 
-        txtTotal.setText(String.format("Total: $%.2f", totalCompra / 100.0));
+        txtTotal.setText(String.format("Total: $%.2f", (double) totalCompra));
     }
 
     /**

@@ -4,7 +4,6 @@
  */
 package interfaces;
 
-import dtos.BoletoDTO;
 import dtos.ReservacionDTO;
 import dtos.UsuarioDTO;
 import excepciones.GestionUsuarioException;
@@ -25,9 +24,12 @@ public interface IGestionUsuariosFachada {
     // --- Metodo para deslindar un usuario de una sesion ---
     //public void desvincularUsuario()throws GestionUsuarioException;
     // --- Método que regresa el usuario con la sesion activa --- 
-    public UsuarioDTO obtenerUsuarioActivo();
+    
+    public boolean asociarUsuario(UsuarioDTO usuario) throws GestionUsuarioException;
+    
+    public UsuarioDTO obtenerUsuarioActivo() throws GestionUsuarioException ;
 
-    public boolean restarCreditos(Integer cantidad, String idUsuario);
+    //public boolean restarCreditos(Integer cantidad, String idUsuario);
 
     public List<ReservacionDTO> obtenerReservacionesUsuario(String idUsuario) throws GestionUsuarioException;
 }

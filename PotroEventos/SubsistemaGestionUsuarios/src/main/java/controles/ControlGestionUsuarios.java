@@ -42,13 +42,14 @@ public class ControlGestionUsuarios {
         return this.usuarioActivo;
     }
 
-    public UsuarioDTO getUsuarioActivo() {
-        return usuarioActivo;
+    public UsuarioDTO getUsuarioActivo() throws GestionUsuarioException {
+        try {
+            return usuarioBO.obtenerUsuarioPorId(usuarioActivo.getIdUsuario());
+        } catch (NegocioException ne) {
+            throw new GestionUsuarioException(ne.getMessage());
+        }
     }
 
-//    public boolean restarCreditos(Integer cantidad, String idUsuario) {
-//        return usuarioBO.restarCreditos(cantidad, idUsuario);
-//    }
     public List<ReservacionDTO> obtenerReservacionUsuario(String idUsuario) throws GestionUsuarioException {
         try {
             return reservacionBO.obtenerReservacionesUsuario(idUsuario);

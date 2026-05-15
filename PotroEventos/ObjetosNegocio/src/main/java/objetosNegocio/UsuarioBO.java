@@ -68,4 +68,13 @@ public class UsuarioBO implements IUsuarioBO {
         }
     }
 
+    @Override
+    public UsuarioDTO obtenerUsuarioPorId(String idUsuario) throws NegocioException {
+        try {
+            return UsuarioAdapter.entidadADTO(usuarioDAO.obtenerPorId(idUsuario));
+        } catch (PersistenciaException pe) {
+            throw new NegocioException(pe.getMessage());
+        }
+    }
+
 }

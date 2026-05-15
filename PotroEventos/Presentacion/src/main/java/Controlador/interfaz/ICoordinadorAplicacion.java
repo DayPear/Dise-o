@@ -66,13 +66,9 @@ public interface ICoordinadorAplicacion {
 
     public UsuarioDTO guardarUsuario(UsuarioDTO usuario) throws CoordinadorException;
 
-    public void setUsuarioSesion(UsuarioDTO usuario);
+    public boolean setUsuarioSesion(UsuarioDTO usuario);
 
     public UsuarioDTO getUsuarioSesion();
-
-    public void setUsuarioITSON(UsuarioInstitucionalDTO usuario);
-
-    public UsuarioInstitucionalDTO getUsuarioITSON();
 
     public void cerrarSesion();
 
@@ -89,4 +85,6 @@ public interface ICoordinadorAplicacion {
     String generarQR(EventoDTO evento, AsientoEventoDTO asiento, String token);
 
     boolean validarCredenciales(UsuarioInstitucionalDTO credenciales);
+    
+    boolean isUsuarioITSONRegistrado();
 }

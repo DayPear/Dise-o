@@ -90,6 +90,7 @@ public class PnlCategoria extends javax.swing.JPanel {
             }
         });
 
+        iconCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconCategoriaMouseClicked(evt);
