@@ -11,7 +11,6 @@ import interfaces.IAsientoBO;
 import interfaces.IAsientoEventoBO;
 import interfaces.IReservacionBO;
 import interfaces.ISeccionBO;
-import interfaces.IUsuarioBO;
 import interfaz.IControlCompraBoleto;
 import interfaz.IITSON;
 import interfaz.IPago;
@@ -121,6 +120,7 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
             )).collect(Collectors.toList());
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new CompraBoletoException("Error al cargar el catálogo de asientos: " + ex.getMessage());
         }
     }
@@ -140,22 +140,25 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
             }
             List<SeccionDTO> secciones = evento.getUbicacion().getSecciones();
             List<AsientoEventoDTO> ocupacion = asientoEventoBO.consultarEstadosPorEvento(evento.getIdEvento());
-            //List<AsientoDTO> catalogo = this.obtenerCatalogoAsientos();
+            System.out.println("asientos: " + ocupacion.size());
 
             Map<SeccionDTO, List<AsientoEventoDTO>> mapa = new HashMap<>();
-
+            int num = 0;
             for (SeccionDTO seccion : secciones) {
                 List<AsientoEventoDTO> asientosDeSeccion = ocupacion.stream()
                         .filter(ae -> ae.getAsiento() != null
                         && ae.getAsiento().getSeccion() != null
-                        && ae.getAsiento().getSeccion().getIdSeccion().equals(seccion.getIdSeccion()))
+                        && String.valueOf(ae.getAsiento().getSeccion().getIdSeccion()).equals(seccion.getIdSeccion()))
                         .collect(Collectors.toList());
                 mapa.put(seccion, asientosDeSeccion);
+                num++;
+                System.out.println("Sección: " + seccion.getNombre() + " - Asientos asignados al mapa: " + asientosDeSeccion.size());
             }
-
+            System.out.println("asientos: " + num);
             return mapa;
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new CompraBoletoException("Error al construir mapa de ocupación: " + e.getMessage());
         }
     }
@@ -163,17 +166,15 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
     /**
      * Agrega una reservación al sistema.
      *
-     * @param reservacion datos de la reservación
+     * @param reservacion reservación a guardar.
+     * @return sí se realizó la operación o no.
      * @throws CompraBoletoException si ocurre un error
      */
     @Override
     public boolean agregarReservacion(ReservacionDTO reservacion) throws CompraBoletoException {
         try {
-            if (reservacionBO.agregarReservacion(reservacion) != null) {
-                return true;
-            }
-            return false;
-        } catch (Exception ex) {
+            return reservacionBO.agregarReservacion(reservacion);
+        } catch (NegocioException ex) {
             throw new CompraBoletoException("Error al agregar la reservación: " + ex.getMessage());
         }
     }
@@ -267,16 +268,6 @@ public class ControlCompraBoleto implements IControlCompraBoleto {
                 reservacionBO.agregarReservacion(reservacion);
                 return true;
             }
-
-//            if (reservacion.getCobro() != null) {
-//                System.out.println((int) (totalCompra / 100.0 * 2));
-//                if (usuarioBO.restarCreditos((int) (totalCompra / 100.0 * 2), reservacion.getUsuario().getIdUsuario())) {
-//                    asientoEventoBO.venderAsiento(reservacion.getBoleto().getAsiento().getIdAsientoEvento());
-//                    reservacionBO.agregarReservacion(reservacion);
-//                    return true;
-//                }
-//                return false;
-//            }
             this.asientosPendientesCompra = new ArrayList<>(asientosSeleccionados);
             this.totalPendienteCompra = totalCompra;
 

@@ -5,15 +5,10 @@
 package adaptadores;
 
 import Entitys.Asiento;
-import Entitys.Seccion;
-import Entitys.Ubicacion;
-import daos.UbicacionDAO;
-import entidadesmongo.AsientoMongoEntidad;
 import excepciones.PersistenciaException;
-import interfaces.IUbicacionDAO;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.types.ObjectId;
+import org.bson.Document;
 
 /**
  *
@@ -21,71 +16,42 @@ import org.bson.types.ObjectId;
  */
 public class AsientoPersistenciaAdapter {
     
-    private static IUbicacionDAO ubicacionDAO = UbicacionDAO.getInstance();
-    
-    public static AsientoMongoEntidad convertirAMongo(Asiento dominio) throws PersistenciaException {
-        if(dominio == null){
-            return null;
-        }
-        
-        AsientoMongoEntidad mongo = new AsientoMongoEntidad();
-        
-        mongo.setId(convertirStringAObjectId(dominio.getIdAsiento()));
-        mongo.setFila(dominio.getFila());
-        mongo.setNumero(dominio.getNumero());
-        mongo.setUbicacion(convertirStringAObjectId(dominio.getUbicacion().getIdUbicacion()));
-        mongo.setSeccion(convertirStringAObjectId(dominio.getSeccion().getIdSeccion()));
-        
-        return mongo;
-    }
-    
-    public static Asiento convertirADominio(AsientoMongoEntidad mongo) throws PersistenciaException {
+    public static Asiento convertirADominio(Document mongo) throws PersistenciaException {
         if(mongo == null){
             return null;
         }
         
         Asiento dominio = new Asiento();
         
-        dominio.setIdAsiento(mongo.getIdComoTexto());
-        dominio.setFila(mongo.getFila());
-        dominio.setNumero(mongo.getNumero());
+        dominio.setIdAsiento(mongo.getObjectId("_id").toHexString());
+        dominio.setFila(mongo.getString("fila"));
+        dominio.setNumero(mongo.getInteger("numero"));
         
-        Ubicacion u = ubicacionDAO.consultarPorID(mongo.getUbicacionComoTexto());
-        if(u != null){
-            dominio.setUbicacion(u);
+        Document ubicacion = (Document) mongo.get("ubicacion");
+        if(ubicacion != null){
+            dominio.setUbicacion(UbicacionPersistenciaAdapter.convertirADominio(ubicacion));
         }
         
-        Seccion s = ubicacionDAO.buscarSeccionPorId(mongo.getUbicacionComoTexto(), mongo.getSeccionComoTexto());
-        if(s != null){
-            dominio.setSeccion(s);
+        Document seccion = (Document) mongo.get("seccion");
+        if(seccion != null){
+            dominio.setSeccion(SeccionPersistenciaAdapter.convertirADominio(seccion));
         }
         
         return dominio;
     }
     
-    public static List<Asiento> convertirListaADominio(List<AsientoMongoEntidad> lista) throws PersistenciaException {
+    public static List<Asiento> convertirDocumentosADominio(List<Document> lista) throws PersistenciaException {
         List<Asiento> asientos = new ArrayList<>();
         
         if(lista == null){
             return asientos;
         }
         
-        for(AsientoMongoEntidad mongo : lista){
+        for(Document mongo : lista){
             asientos.add(convertirADominio(mongo));
         }
         
         return asientos;
     }
-    
-    private static ObjectId convertirStringAObjectId(String id) throws PersistenciaException {
-        if (id == null || id.isBlank()) {
-            return null;
-        }
-        if (!ObjectId.isValid(id)) {
-            throw new PersistenciaException(
-                    "El id recibido no tiene formato válido de ObjectId."
-            );
-        }
-        return new ObjectId(id);
-    }
+   
 }

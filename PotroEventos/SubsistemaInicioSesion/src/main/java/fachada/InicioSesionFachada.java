@@ -6,6 +6,7 @@ package fachada;
 
 import controladores.ControlInicioSesion;
 import dtos.LoginDTO;
+import dtos.RegistroUsuarioDTO;
 import dtos.UsuarioDTO;
 import excepciones.InicioSesionException;
 import excepciones.NegocioException;
@@ -50,7 +51,7 @@ public class InicioSesionFachada implements IFachadaInicioSesion {
     }
 
     @Override
-    public UsuarioDTO registrarUsuario(UsuarioDTO usuario) throws InicioSesionException {
+    public UsuarioDTO registrarUsuario(RegistroUsuarioDTO usuario) throws InicioSesionException {
         try {
             return control.registrarUsuario(usuario);
         } catch (NegocioException ex) {

@@ -18,6 +18,7 @@ import dtos.CobroDTO;
 import dtos.EventoDTO;
 import dtos.LoginDTO;
 import dtos.PagoDTO;
+import dtos.RegistroUsuarioDTO;
 import dtos.ReservacionDTO;
 import dtos.SeccionDTO;
 import dtos.TarjetaDTO;
@@ -397,7 +398,7 @@ public class CoordinadorAplicacion implements ICoordinadorAplicacion {
     }
 
     @Override
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuario) throws CoordinadorException {
+    public UsuarioDTO guardarUsuario(RegistroUsuarioDTO usuario) throws CoordinadorException {
         try {
             return controlInicioSesion.registrarUsuario(usuario);
         } catch (InicioSesionException ex) {
